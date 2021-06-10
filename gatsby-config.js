@@ -33,7 +33,7 @@ module.exports = {
     {
       resolve: "gatsby-plugin-google-tagmanager",
       options: {
-        id: "xxxxx",
+        id: "GTM-T6VS48M",
         includeInDevelopment: false,
         defaultDataLayer: { platform: "gatsby" },
         routeChangeEventName: "gatsby-route-change",
