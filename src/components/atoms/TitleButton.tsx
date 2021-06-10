@@ -5,7 +5,7 @@ export const TitleButton = () => {
   return (
     <Button href="/">
       <Typography variant="h1">
-        VTuberスパチャランキング
+        ホロライブ | VTuberスパチャランキング
       </Typography>
     </Button>
   )

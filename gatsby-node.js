@@ -37,12 +37,4 @@ exports.createPages = async ({ graphql, actions: { createPage }}) => {
       site: site.data.site
     }
   })
-
-  createPage({
-    path: `/indivisual`,
-    component: require.resolve("./src/components/templates/IndivisualPage.tsx"),
-    context: {
-      site: site.data.site
-    }
-  })
 }

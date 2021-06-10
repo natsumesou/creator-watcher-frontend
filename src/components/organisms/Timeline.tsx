@@ -1,7 +1,7 @@
 import { useProgressContext } from '@/app';
 import { createStyles, makeStyles, Theme } from '@material-ui/core';
 import React, { useEffect, useState } from 'react'
-import { Stream } from '../../entities/Stream';
+import { Stream } from '../../entities/entity';
 import { CATEGORY, YouTube } from '../../repositories/YouTube';
 import { StreamCard } from '../molecules/StreamCard';
 
@@ -22,8 +22,8 @@ export const Timeline = () => {
     setShowProgress(true);
 
     const fetchData = async () => {
-      const hololive: CATEGORY = "hololive";
-      const streams = await youtube.fetchTimeline(hololive);
+      const category: CATEGORY = "hololive";
+      const streams = await youtube.fetchTimeline(category);
       setShowProgress(false);
       setData(streams);
     }

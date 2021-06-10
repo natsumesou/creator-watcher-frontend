@@ -1,5 +1,5 @@
 import { Card, CardContent, CardMedia, createStyles, makeStyles, Theme, Typography } from '@material-ui/core'
-import {Stream} from '../../entities/entity';
+import {Channel} from '../../entities/entity';
 import React from 'react'
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -34,31 +34,25 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 type Props = {
-  stream: Stream,
+  channel: Channel,
 }
 
-export const StreamCard: React.FC<Props> = ({stream}) => {
+export const ChannelCard: React.FC<Props> = ({channel}) => {
   const classes = useStyles();
 
   return (
-    <a className={classes.link} href={stream.link} target="_blank" rel="noopener">
+    <a className={classes.link} href={channel.link} target="_blank" rel="noopener">
     <Card className={classes.root}>
-      <CardMedia className={classes.cover} image={stream.thumbnail} title={stream.title} />
+      <CardMedia className={classes.cover} image={channel.thumbnail} title={channel.title} />
       <CardContent className={classes.content}>
-        <Typography component="h4" variant="h4">
-          {stream.channelTitle}
-        </Typography>
         <Typography component="h3" variant="h3">
-          {stream.title}
+          {channel.title}
         </Typography>
         <Typography variant="body1">
-          スパチャ金額：{stream.superChatAmount}
+          スパチャ金額：{channel.superChatAmount}
         </Typography>
         <Typography variant="body1">
-            メンバー入会数：{stream.memberCount}
-        </Typography>
-        <Typography variant="body1">
-            チャット数：{stream.chatCount}
+            メンバー入会数：{channel.memberCount}
         </Typography>
       </CardContent>
     </Card>

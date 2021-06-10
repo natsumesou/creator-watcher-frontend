@@ -8,3 +8,12 @@ export type Stream = {
   thumbnail: string,
   link: string,
 }
+
+export type Channel = {
+  title: string,
+  id: string,
+  superChatAmount: string,
+  memberCount: string,
+  thumbnail: string,
+  link: string,
+}

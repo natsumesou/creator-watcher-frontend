@@ -29,7 +29,6 @@ export const Header: React.FC<Props> = ({location}) => {
   const routers = [
     {name: "タイムライン", link: "/"},
     {name: "ランキング", link: "/ranking"},
-    {name: "個別", link: "/indivisual"},
   ]
   return (
     <header>
