@@ -15,13 +15,13 @@ export const ProgressContext = createContext<ContextType>({
 });
 export const useProgressContext = () => useContext(ProgressContext);
 
-const App = ({ children, location }) => {
+const App = ({ children }) => {
   const [showProgress, setShowProgress] = useState<boolean>(false);
   return (
     <ProgressContext.Provider value={{showProgress, setShowProgress}}>
     <MuiThemeProvider theme={theme}>
       <CssBaseline />
-      <Header location={location} showProgress={true} />
+      <Header />
       <main>{children}</main>
       <Footer />
     </MuiThemeProvider>
@@ -29,4 +29,4 @@ const App = ({ children, location }) => {
   )
 }
 
-export const wrapPageElement = ({ element, props }) => <App location={props.location}>{element}</App>
+export const wrapPageElement = ({ element, props }) => <App>{element}</App>

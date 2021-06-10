@@ -8,7 +8,7 @@ const IndivisualPage = ({pageContext }) => {
 
   return (
     <Box>
-      <SEO siteMetadata={site.siteMetadata} />
+      <SEO siteMetadata={site.siteMetadata} subtitle="個別" />
       <Indivisual />
     </Box>
   )

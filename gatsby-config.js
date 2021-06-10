@@ -1,9 +1,10 @@
 module.exports = {
   siteMetadata: {
-    title: 'YouTube スパチャ ランキング',
+    title: 'VTuber スパチャランキング',
     description: 'スーパーチャットのランキングをほぼリアルタイムに表示します',
     author: 'YouTube研究所',
-    siteUrl: 'http://localhost:8000',
+    siteUrl: 'https://vtuber.ytubelab.com',
+    defaultImage: '/images/logo.png',
   },
   plugins: [
     'gatsby-plugin-typescript',

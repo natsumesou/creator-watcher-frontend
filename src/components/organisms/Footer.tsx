@@ -17,7 +17,7 @@ export const Footer = () => {
   return (
     <footer>
       <MainBox className={classes.footer}>
-      © 2021 YouTube研究所
+      © 2021 YouTube草の根研究所
       </MainBox>
     </footer>
   )

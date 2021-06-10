@@ -2,34 +2,43 @@ import React from "react"
 import { Helmet } from "react-helmet"
 import { useLocation } from "@reach/router"
 
-const SEO = ({siteMetadata}) => {
-  const { pathname } = useLocation()
+export type SiteMetadata = {
+  title: string,
+  description: string,
+  siteUrl: string,
+  defaultImage: string,
+}
 
-  const {
-    title,
-    description,
-    siteUrl,
-  } = siteMetadata
+type Props = {
+  siteMetadata: SiteMetadata,
+  subtitle: string,
+}
+
+const SEO: React.FC<Props> = ({siteMetadata, subtitle}) => {
+  const { pathname } = useLocation()
+  const title = subtitle ?
+  subtitle + " - " + siteMetadata.title : siteMetadata.title;
 
   const seo = {
-    title: title,
-    description: description,
-//    image: `${siteUrl}${ogpImage}`,
-    url: `${siteUrl}${pathname}`,
+    title: siteMetadata.title,
+    description: siteMetadata.description,
+    image: `${siteMetadata.siteUrl}${siteMetadata.defaultImage}`,
+    url: `${siteMetadata.siteUrl}${pathname}`,
   }
 
   return (
     <Helmet title={seo.title} htmlAttributes={{lang: 'ja'}}>
+      <title>{title}</title>
       <meta name="description" content={seo.description} />
-{/*      <meta name="image" content={seo.image} /> */}
+      <meta name="image" content={seo.image} />
       <meta property="og:url" content={seo.url} />
       <meta property="og:title" content={seo.title} />
       <meta property="og:description" content={seo.description} />
-{/*      <meta property="og:image" content={seo.image} /> */}
+      <meta property="og:image" content={seo.image} />
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:title" content={seo.title} />
       <meta name="twitter:description" content={seo.description} />
-{/*      <meta name="twitter:image" content={seo.image} /> */}
+      <meta name="twitter:image" content={seo.image} />
     </Helmet>
   )
 }

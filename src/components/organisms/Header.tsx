@@ -4,7 +4,7 @@ import LinearProgress from '@material-ui/core/LinearProgress'
 import React from 'react'
 import { TitleButton } from "../atoms/TitleButton"
 import { HeaderTabs } from '../molecules/HeaderTabs';
-import {WindowLocation} from '@reach/router';
+import {useLocation} from '@reach/router';
 import {useProgressContext} from '../../app/index';
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -18,13 +18,10 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-type Props = {
-  location: WindowLocation,
-  showProgress: boolean,
-}
 
-export const Header: React.FC<Props> = ({location}) => {
+export const Header = () => {
   const { showProgress } = useProgressContext();
+  const { pathname } = useLocation()
   const classes = useStyles();
   const routers = [
     {name: "タイムライン", link: "/"},
@@ -42,7 +39,7 @@ export const Header: React.FC<Props> = ({location}) => {
         <TitleButton />
       </Toolbar>
     </AppBar>
-    <HeaderTabs routers={routers} currentPage={location.pathname} />
+    <HeaderTabs routers={routers} currentPage={pathname} />
     </header>
   )
 }

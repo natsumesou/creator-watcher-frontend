@@ -1,14 +1,14 @@
 import { Box } from '@material-ui/core'
 import React from 'react'
-import SEO from '@/components/SEO';
+import SEO, { SiteMetadata } from '@/components/SEO';
 import { Ranking } from '../organisms/Ranking';
 
-const RankingPage = ({pageContext }) => {
+const RankingPage = ({pageContext}) => {
   const { site } = pageContext;
 
   return (
     <Box>
-      <SEO siteMetadata={site.siteMetadata} />
+      <SEO siteMetadata={site.siteMetadata} subtitle="ランキング" />
       <Ranking />
     </Box>
   )

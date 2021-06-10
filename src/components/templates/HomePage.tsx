@@ -8,7 +8,7 @@ const HomePage = ({ pageContext }) => {
 
   return (
     <Box>
-      <SEO siteMetadata={site.siteMetadata} />
+      <SEO siteMetadata={site.siteMetadata} subtitle="タイムライン" />
       <Timeline />
     </Box>
   )
