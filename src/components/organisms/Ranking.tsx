@@ -38,7 +38,11 @@ const initialChannelData = () => {
   return channels;
 }
 
-export const Ranking = () => {
+type Props = {
+  category: CATEGORY,
+}
+
+export const Ranking: React.FC<Props> = (props) => {
   const { showProgress, setShowProgress } = useProgressContext();
   const classes = useStyles();
   const [data, setData] = useState<Channel[]>(initialChannelData());
@@ -47,7 +51,7 @@ export const Ranking = () => {
     setShowProgress(true);
 
     const fetchData = async () => {
-      const category: CATEGORY = "hololive";
+      const { category } = props;
       const rankings = await youtube.fetchRanking(category);
       setShowProgress(false);
       setData(rankings.weekly);

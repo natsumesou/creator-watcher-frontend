@@ -3,15 +3,15 @@ import React from 'react'
 import SEO from '@/components/SEO';
 import { Timeline } from '../organisms/Timeline';
 
-const HomePage = ({ pageContext }) => {
+const HololivePage = ({ pageContext }) => {
   const { site } = pageContext;
 
   return (
     <Box>
-      <SEO siteMetadata={site.siteMetadata} subtitle="タイムライン" />
-      <Timeline category="all" />
+      <SEO siteMetadata={site.siteMetadata} subtitle="ホロライブ" />
+      <Timeline category="hololive" />
     </Box>
   )
 }
 
-export default HomePage
+export default HololivePage

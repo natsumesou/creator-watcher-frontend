@@ -32,6 +32,8 @@ export const Header = (props) => {
   const a = classes.root;
   const routers = [
     {name: "タイムライン", link: "/"},
+    {name: "ホロライブ", link: "/hololive"},
+    {name: "にじさんじ", link: "/nijisanji"},
     {name: "ランキング", link: "/ranking"},
   ]
   const progressClass = showProgress ? classes.showProgress : classes.hideProgress;
@@ -42,7 +44,7 @@ export const Header = (props) => {
       </div>
       <AppBar position="sticky">
         <Toolbar variant="regular">
-          <TitleButton title={"ホロライブ | VTuberスパチャランキング"} />
+          <TitleButton title={"VTuberスパチャランキング"} />
         </Toolbar>
       </AppBar>
       <HeaderTabs routers={routers} currentPage={pathname} />

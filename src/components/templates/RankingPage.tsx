@@ -9,7 +9,7 @@ const RankingPage = ({pageContext}) => {
   return (
     <Box>
       <SEO siteMetadata={site.siteMetadata} subtitle="ランキング" />
-      <Ranking />
+      <Ranking category="all" />
     </Box>
   )
 }

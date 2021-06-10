@@ -32,6 +32,22 @@ exports.createPages = async ({ graphql, actions: { createPage }}) => {
   })
 
   createPage({
+    path: `/hololive`,
+    component: require.resolve("./src/components/templates/HololivePage.tsx"),
+    context: {
+      site: site.data.site
+    }
+  })
+
+  createPage({
+    path: `/nijisanji`,
+    component: require.resolve("./src/components/templates/NijisanjiPage.tsx"),
+    context: {
+      site: site.data.site
+    }
+  })
+
+  createPage({
     path: `/ranking`,
     component: require.resolve("./src/components/templates/RankingPage.tsx"),
     context: {

@@ -2,6 +2,8 @@ import { Channel, Stream } from "../entities/entity";
 
 const CATEGORY = {
   hololive: 'hololive',
+  nijisanji: 'nijisanji',
+  all: 'all',
 } as const;
 const DATATYPE = {
   timeline: 'timeline',
@@ -11,9 +13,15 @@ export type CATEGORY = typeof CATEGORY[keyof typeof CATEGORY];
 export type DATATYPE = typeof DATATYPE[keyof typeof DATATYPE];
 
 const URL = {
+  all: {
+    timeline: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSZQzlyob3Yd3y6Jc1G85PSn4aJZ9M8AtNILNTGHPUItzam2cEH1MIlxwTjyBXDpokSIiCsISjygZmI/pub?output=tsv',
+    ranking: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vT5_TR6UY9wM9AQU4nhGl3X1mT1mRkqCUm9qUaa3w5xpq5zdZWTfm-1NO2tmotgOVDHAy9E0vtla2if/pub?output=tsv',
+  },
   hololive: {
     timeline: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTRqZ2zoqc4Gg8MoBOQO5CQk0AxB1em6K0adxNCiZA-tXjUJoZUgWCTHejCmSgEWbmF4MLYMWdpohRL/pub?output=tsv',
-    ranking: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRFlCFz9P5V1IKqaKjOmV3CC-ibBsrMfZlRE2qrJfGWQQBqUgEro996s2G84CA4WOH4UuUPULTOltWM/pub?output=tsv',
+  },
+  nijisanji: {
+    timeline: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRdzWTztRUGAqQquklbWR5RpBQNM7-Tx8DOcC7Hf3SnjY1dAOZwAPqR1KFTFX_xPdm_svWwbcuSBSUN/pub?output=tsv',
   }
 }
 

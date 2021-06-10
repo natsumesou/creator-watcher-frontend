@@ -39,7 +39,11 @@ const initialStreamData = () => {
   return streams;
 }
 
-export const Timeline = () => {
+type Props = {
+  category: CATEGORY
+}
+
+export const Timeline: React.FC<Props> = (props) => {
   const { showProgress, setShowProgress } = useProgressContext();
   const classes = useStyles();
   const [data, setData] = useState<Stream[]>(initialStreamData());
@@ -48,7 +52,7 @@ export const Timeline = () => {
     setShowProgress(true);
 
     const fetchData = async () => {
-      const category: CATEGORY = "hololive";
+      const { category } = props;
       const streams = await youtube.fetchTimeline(category);
       setShowProgress(false);
       setData(streams);
