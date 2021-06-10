@@ -1,6 +1,6 @@
 module.exports = {
   siteMetadata: {
-    title: 'VTuber スパチャランキング',
+    title: 'ホロライブ | VTuberスパチャランキング',
     description: 'スーパーチャットのランキングをほぼリアルタイムに表示します',
     author: 'YouTube研究所',
     siteUrl: 'https://vtuber.ytubelab.com',

@@ -15,7 +15,7 @@ export const ProgressContext = createContext<ContextType>({
 });
 export const useProgressContext = () => useContext(ProgressContext);
 
-const App = ({ children }) => {
+const App = ({ children, props }) => {
   const [showProgress, setShowProgress] = useState<boolean>(false);
   return (
     <ProgressContext.Provider value={{showProgress, setShowProgress}}>

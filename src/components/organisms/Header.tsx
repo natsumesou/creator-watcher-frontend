@@ -36,7 +36,7 @@ export const Header = () => {
 
     <AppBar position="sticky">
       <Toolbar variant="regular">
-        <TitleButton />
+        <TitleButton title={"ホロライブ | VTuberスパチャランキング"} />
       </Toolbar>
     </AppBar>
     <HeaderTabs routers={routers} currentPage={pathname} />

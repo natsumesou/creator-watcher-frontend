@@ -1,11 +1,15 @@
 import { Button, Typography } from '@material-ui/core'
 import React from 'react'
 
-export const TitleButton = () => {
+type Props = {
+  title: string,
+}
+
+export const TitleButton: React.FC<Props> = ({title}) => {
   return (
     <Button href="/">
       <Typography variant="h1">
-        ホロライブ | VTuberスパチャランキング
+        {title}
       </Typography>
     </Button>
   )
