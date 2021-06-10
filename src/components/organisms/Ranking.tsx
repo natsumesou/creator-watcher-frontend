@@ -62,7 +62,7 @@ export const Ranking: React.FC<Props> = (props) => {
   return (
     <TabPanel>
       <List dense={true}>
-        <ListItem className={classes.listitem}><ListItemText primary="ランキングは毎週月曜の朝6時あたりに前週分のスパチャ金額・メンバー入会数を集計しています" /></ListItem>
+        <ListItem className={classes.listitem}><ListItemText primary="ランキングは毎週月曜の朝6時あたりに前週分のスパチャ金額・メンバー加入数を集計しています" /></ListItem>
       </List>
       {data.map((channel, i) => (
         <div key={i} className={classes.root} >
