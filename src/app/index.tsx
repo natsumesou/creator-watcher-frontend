@@ -1,8 +1,24 @@
 import React, { createContext, useContext, useState } from 'react'
-import { CssBaseline, MuiThemeProvider } from '@material-ui/core'
+import { createStyles, CssBaseline, makeStyles, MuiThemeProvider, Theme } from '@material-ui/core'
 import { theme } from '@/theme'
 import { Header } from '@/components/organisms/Header'
 import { Footer } from '@/components/organisms/Footer';
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    base: {
+    },
+    main: {
+      [theme.breakpoints.up('sm')]: {
+        width: '800px',
+      },
+      [theme.breakpoints.down('sm')]: {
+        width: '100%',
+      },
+      margin: '0 auto',
+    },
+  }),
+);
 
 type ContextType = {
   showProgress: boolean,
@@ -15,15 +31,17 @@ export const ProgressContext = createContext<ContextType>({
 });
 export const useProgressContext = () => useContext(ProgressContext);
 
-const App = ({ children, props }) => {
+const App = ({ children }) => {
   const [showProgress, setShowProgress] = useState<boolean>(false);
+  const classes = useStyles();
+
   return (
     <ProgressContext.Provider value={{showProgress, setShowProgress}}>
     <MuiThemeProvider theme={theme}>
       <CssBaseline />
-      <Header />
-      <main>{children}</main>
-      <Footer />
+      <Header className={classes.base} />
+      <main className={classes.main}>{children}</main>
+      <Footer className={classes.base} />
     </MuiThemeProvider>
     </ProgressContext.Provider>
   )

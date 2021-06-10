@@ -5,7 +5,7 @@ const { palette, breakpoints } = createMuiTheme({
   palette: {
     primary: {
       main: '#ffffffff',
-      dark: '#078085',
+      dark: 'rgba(0,0,0,0.70)',
       contrastText: '#ffffff',
     },
     error: {
@@ -63,8 +63,8 @@ export const theme = createMuiTheme({
       color: palette.text.primary,
     },
     body2: {
-      fontSize: '1.4rem',
-      lineHeight: '1.8rem',
+      fontSize: '1.2rem',
+      lineHeight: '1.4rem',
       color: palette.text.secondary,
     },
     button: {

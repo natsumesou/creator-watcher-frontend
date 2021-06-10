@@ -1,4 +1,5 @@
 import { Card, CardContent, CardMedia, createStyles, makeStyles, Theme, Typography } from '@material-ui/core'
+import { Skeleton } from '@material-ui/lab';
 import {Stream} from '../../entities/entity';
 import React from 'react'
 
@@ -13,23 +14,21 @@ const useStyles = makeStyles((theme: Theme) =>
     details: {
       display: 'flex',
       flexDirection: 'column',
+      flex: 2,
     },
     content: {
       flex: '1 0 auto',
     },
     cover: {
+      flex: 1,
+      backgroundSize: 'contain',
+      backgroundColor: theme.palette.primary.dark,
+    },
+    skeletonMedia: {
+      height: 151,
       width: 151,
-    },
-    controls: {
-      display: 'flex',
-      alignItems: 'center',
-      paddingLeft: theme.spacing(1),
-      paddingBottom: theme.spacing(1),
-    },
-    playIcon: {
-      height: 38,
-      width: 38,
-    },
+      flex: 1,
+    }
   }),
 );
 
@@ -39,28 +38,45 @@ type Props = {
 
 export const StreamCard: React.FC<Props> = ({stream}) => {
   const classes = useStyles();
+  const loading =
+    stream.title === null;
 
   return (
     <a className={classes.link} href={stream.link} target="_blank" rel="noopener">
     <Card className={classes.root}>
-      <CardMedia className={classes.cover} image={stream.thumbnail} title={stream.title} />
+      {loading ? (
+        <Skeleton animation="wave" variant="rect" className={classes.skeletonMedia} />
+      ) : (
+        <CardMedia className={classes.cover} image={stream.thumbnail} title={stream.title} />
+      )}
+      <div className={classes.details}>
       <CardContent className={classes.content}>
-        <Typography component="h4" variant="h4">
-          {stream.channelTitle}
-        </Typography>
-        <Typography component="h3" variant="h3">
-          {stream.title}
-        </Typography>
-        <Typography variant="body1">
-          スパチャ金額：{stream.superChatAmount}
-        </Typography>
-        <Typography variant="body1">
-            メンバー入会数：{stream.memberCount}
-        </Typography>
-        <Typography variant="body1">
-            チャット数：{stream.chatCount}
-        </Typography>
+        {loading ? (
+          <React.Fragment>
+            <Skeleton animation="wave" height={40} style={{ marginBottom: 3}} />
+            <Skeleton animation="wave" height={40} width="80%" />
+          </React.Fragment>
+        ) : (
+        <React.Fragment>
+          <Typography component="h4" variant="h4">
+            {stream.channelTitle}
+          </Typography>
+          <Typography component="h3" variant="h3">
+            {stream.title}
+          </Typography>
+          <Typography variant="body1">
+            スパチャ金額：{stream.superChatAmount}
+          </Typography>
+          <Typography variant="body1">
+              メンバー入会数：{stream.memberCount}
+          </Typography>
+          <Typography variant="body1">
+              チャット数：{stream.chatCount}
+          </Typography>
+        </React.Fragment>
+        )}
       </CardContent>
+    </div>
     </Card>
     </a>
   )

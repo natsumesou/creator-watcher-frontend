@@ -15,31 +15,37 @@ const useStyles = makeStyles((theme: Theme) =>
         marginTop: theme.spacing(2),
       },
     },
+    showProgress: {
+      visibility: 'visible',
+    },
+    hideProgress: {
+      visibility: 'hidden',
+    }
   }),
 );
 
 
-export const Header = () => {
+export const Header = (props) => {
   const { showProgress } = useProgressContext();
   const { pathname } = useLocation()
   const classes = useStyles();
+  const a = classes.root;
   const routers = [
     {name: "タイムライン", link: "/"},
     {name: "ランキング", link: "/ranking"},
   ]
+  const progressClass = showProgress ? classes.showProgress : classes.hideProgress;
   return (
-    <header>
-      {showProgress ?
-      <div className={classes.root}>
+    <header {...props}>
+      <div className={`${classes.root} ${progressClass}`}>
         <LinearProgress color="secondary" />
-      </div> : ""}
-
-    <AppBar position="sticky">
-      <Toolbar variant="regular">
-        <TitleButton title={"ホロライブ | VTuberスパチャランキング"} />
-      </Toolbar>
-    </AppBar>
-    <HeaderTabs routers={routers} currentPage={pathname} />
+      </div>
+      <AppBar position="sticky">
+        <Toolbar variant="regular">
+          <TitleButton title={"ホロライブ | VTuberスパチャランキング"} />
+        </Toolbar>
+      </AppBar>
+      <HeaderTabs routers={routers} currentPage={pathname} />
     </header>
   )
 }

@@ -33,7 +33,8 @@ const useStyles = makeStyles((theme) => ({
 
 export const HeaderTabs = ({routers = [], currentPage}) => {
   const classes = useStyles();
-  const [index, changeIndex] = useState(routers.findIndex(v => v.link === currentPage));
+  const currentPageWithoutTrailingSlash = currentPage.length === 1 ? currentPage : currentPage.replace(/\/$/, "");
+  const [index, changeIndex] = useState(routers.findIndex(v => v.link === currentPageWithoutTrailingSlash));
 
   const handleChange = (_, value) => {
     changeIndex(value);

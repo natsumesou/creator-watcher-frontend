@@ -41,7 +41,7 @@ export class YouTube {
         memberCount: columns[3],
         channelTitle: columns[4],
         id: columns[5],
-        thumbnail: `https://i.ytimg.com/vi/${columns[5]}/maxresdefault.jpg`,
+        thumbnail: this.thumbnailURL(columns[5]),
         link: `https://www.youtube.com/watch?v=${columns[5]}`,
       } as Stream;
     });
@@ -59,7 +59,7 @@ export class YouTube {
         id: columns[2],
         superChatAmount: columns[3],
         memberCount: columns[4],
-        thumbnail: `https://i.ytimg.com/vi/${columns[5]}/maxresdefault.jpg`,
+        thumbnail: this.thumbnailURL(columns[5]),
         link: `https://www.youtube.com/channel/${columns[2]}`,
       } as Channel;
       if (columns[0] === "weekly") {
@@ -72,6 +72,9 @@ export class YouTube {
       weekly: weekly,
       monthly: monthly,
     };
+  }
+  private thumbnailURL(videoId: string) {
+    return `https://i.ytimg.com/vi/${videoId}/maxresdefault.jpg`;
   }
 
   private freshURL(url: string) {
