@@ -13,6 +13,7 @@ module.exports = {
     'gatsby-plugin-sitemap',
     'gatsby-transformer-remark',
     `gatsby-plugin-react-helmet`,
+    'gatsby-plugin-sitemap',
     {
       resolve: `gatsby-plugin-material-ui`,
       options: {
