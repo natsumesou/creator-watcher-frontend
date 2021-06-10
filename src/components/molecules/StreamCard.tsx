@@ -10,6 +10,12 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     root: {
       display: 'flex',
+      [theme.breakpoints.up('xs')]: {
+        minHeight: 180,
+      },
+      [theme.breakpoints.down('xs')]: {
+        flexDirection: 'column',
+      },
     },
     details: {
       display: 'flex',
@@ -20,9 +26,14 @@ const useStyles = makeStyles((theme: Theme) =>
       flex: '1 0 auto',
     },
     cover: {
-      flex: 1,
       backgroundSize: 'contain',
       backgroundColor: theme.palette.primary.dark,
+      [theme.breakpoints.up('sm')]: {
+        flex: 1,
+      },
+      [theme.breakpoints.down('sm')]: {
+        height: 200,
+      },
     },
     skeletonMedia: {
       height: 151,
@@ -57,26 +68,26 @@ export const StreamCard: React.FC<Props> = ({stream}) => {
             <Skeleton animation="wave" height={40} width="80%" />
           </React.Fragment>
         ) : (
-        <React.Fragment>
-          <Typography component="h4" variant="h4">
-            {stream.channelTitle}
-          </Typography>
-          <Typography component="h3" variant="h3">
-            {stream.title}
-          </Typography>
-          <Typography variant="body1">
-            スパチャ金額：{stream.superChatAmount}
-          </Typography>
-          <Typography variant="body1">
-              メンバー加入数：{stream.memberCount}
-          </Typography>
-          <Typography variant="body1">
-              チャット数：{stream.chatCount}
-          </Typography>
-        </React.Fragment>
+          <React.Fragment>
+            <Typography component="h4" variant="h4">
+              {stream.channelTitle}
+            </Typography>
+            <Typography component="h3" variant="h3">
+              {stream.title}
+            </Typography>
+            <Typography variant="body1">
+              スパチャ金額：{stream.superChatAmount}
+            </Typography>
+            <Typography variant="body1">
+                メンバー加入数：{stream.memberCount}
+            </Typography>
+            <Typography variant="body1">
+                チャット数：{stream.chatCount}
+            </Typography>
+          </React.Fragment>
         )}
       </CardContent>
-    </div>
+      </div>
     </Card>
     </a>
   )

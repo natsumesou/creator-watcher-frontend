@@ -1,7 +1,7 @@
 import { createMuiTheme } from '@material-ui/core/styles'
 import { Shadows } from '@material-ui/core/styles/shadows'
 
-const { palette, breakpoints } = createMuiTheme({
+const { palette } = createMuiTheme({
   palette: {
     primary: {
       main: '#ffffffff',
@@ -24,7 +24,6 @@ const { palette, breakpoints } = createMuiTheme({
 
 export const theme = createMuiTheme({
   palette: palette,
-  breakpoints: breakpoints,
   typography: {
     fontFamily: '"Noto Sans JP", sans-serif',
     h1: {
