@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./",
+    "paths": {
+      "@/*": ["./src/*"]
+    },
+    "typeRoots": ["node_modules/@types", "./src/types"],
+    "outDir": "./dist",
+    "sourceMap": true,
+    "noImplicitAny": false,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "allowJs": true,
+    "module": "commonjs",
+    "target": "esnext",
+    "jsx": "react",
+    "lib": ["dom", "esnext"],
+    "resolveJsonModule": true,
+  },
+  "include": ["./src/**/*"],
+  "typeRoots": ["node_modules/@types"]
+}
