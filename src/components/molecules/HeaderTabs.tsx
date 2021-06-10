@@ -45,7 +45,7 @@ export const HeaderTabs = ({routers = [], currentPage}) => {
     <AppBar position="static">
       <Tabs value={index} onChange={handleChange} aria-label="simple tabs" centered>
         {routers.map((router, i) => (
-          <LinkTab label={router.name} href={router.link} className={classes.tab} {...props(i)} />
+          <LinkTab key={router.link} label={router.name} href={router.link} className={classes.tab} {...props(i)} />
         ))}
       </Tabs>
     </AppBar>

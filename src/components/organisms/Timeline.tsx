@@ -1,40 +1,42 @@
+import { useProgressContext } from '@/app';
+import { createStyles, makeStyles, Theme } from '@material-ui/core';
 import React, { useEffect, useState } from 'react'
+import { Stream } from '../../entities/Stream';
+import { CATEGORY, YouTube } from '../../repositories/YouTube';
+import { StreamCard } from '../molecules/StreamCard';
 
-interface Stream {
-  title: string,
-  chatCount: number,
-  superChatCount: number,
-  superChatAmount: number,
-  memberCount: number,
-  channelTitle: string,
-  thumbnail: string,
-}
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    root: {
+      margin: '0 0 1em',
+    },
+  }),
+);
 
 export const Timeline = () => {
+  const { showProgress, setShowProgress } = useProgressContext();
+  const classes = useStyles();
   const [data, setData] = useState<Stream[]>([]);
+  const youtube = new YouTube();
   useEffect(() => {
+    setShowProgress(true);
+
     const fetchData = async () => {
-      const response = await fetch(`https://docs.google.com/spreadsheets/d/e/2PACX-1vTRqZ2zoqc4Gg8MoBOQO5CQk0AxB1em6K0adxNCiZA-tXjUJoZUgWCTHejCmSgEWbmF4MLYMWdpohRL/pub?output=tsv`);
-      const str = await response.text();
-      const lines = str.split("\r\n");
-      const streams = lines.map((line) => {
-        const columns = line.split("\t");
-        return {
-          title: columns[0],
-          chatCount: parseInt(columns[1]),
-          superChatCount: parseInt(columns[2]),
-          superChatAmount: parseFloat(columns[3]),
-          memberCount: parseInt(columns[4]),
-          channelTitle: columns[5],
-          thumbnail: columns[6],
-        } ;
-      });
+      const hololive: CATEGORY = "hololive";
+      const streams = await youtube.fetchTimeline(hololive);
+      setShowProgress(false);
       setData(streams);
     }
     fetchData();
   }, [])
 
   return (
-    <div>{JSON.stringify(data)}</div>
+    <div>
+      {data.map(stream => (
+        <div key={stream.id} className={classes.root} >
+          <StreamCard stream={stream} />
+        </div>
+      ))}
+    </div>
   )
 }
