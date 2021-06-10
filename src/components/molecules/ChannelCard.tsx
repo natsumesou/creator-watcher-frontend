@@ -65,7 +65,7 @@ export const ChannelCard: React.FC<Props> = ({channel}) => {
               スパチャ金額：{channel.superChatAmount}
             </Typography>
             <Typography variant="body1">
-                メンバー入会数：{channel.memberCount}
+                メンバー加入数：{channel.memberCount}
             </Typography>
           </React.Fragment>
         )}

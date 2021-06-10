@@ -68,7 +68,7 @@ export const StreamCard: React.FC<Props> = ({stream}) => {
             スパチャ金額：{stream.superChatAmount}
           </Typography>
           <Typography variant="body1">
-              メンバー入会数：{stream.memberCount}
+              メンバー加入数：{stream.memberCount}
           </Typography>
           <Typography variant="body1">
               チャット数：{stream.chatCount}
