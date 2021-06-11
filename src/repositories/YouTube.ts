@@ -39,7 +39,7 @@ export class YouTube {
   async fetchRanking(category: CATEGORY) {
     const url = this.freshURL(URL[category]["ranking"]);
     const response = await fetch(url);
-    if (response.status >- 400) {
+    if (response.status >= 400) {
       throw new Error(`HTTPリクエストエラー / ${category}-ranking / [${response.status}]: ${url}`);
     }
     const text = await response.text();
