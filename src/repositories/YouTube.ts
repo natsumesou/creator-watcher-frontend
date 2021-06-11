@@ -49,8 +49,6 @@ export class YouTube {
         memberCount: columns[3],
         channelTitle: columns[4],
         id: columns[5],
-        thumbnail: this.thumbnailURL(columns[5]),
-        link: `https://www.youtube.com/watch?v=${columns[5]}`,
       } as Stream;
     });
     return streams;
@@ -67,8 +65,7 @@ export class YouTube {
         id: columns[2],
         superChatAmount: columns[3],
         memberCount: columns[4],
-        thumbnail: this.thumbnailURL(columns[5]),
-        link: `https://www.youtube.com/channel/${columns[2]}`,
+        videoId: columns[5],
       } as Channel;
       if (columns[0] === "weekly") {
         weekly.push(channel);
@@ -80,9 +77,6 @@ export class YouTube {
       weekly: weekly,
       monthly: monthly,
     };
-  }
-  private thumbnailURL(videoId: string) {
-    return `https://i.ytimg.com/vi/${videoId}/maxresdefault.jpg`;
   }
 
   private freshURL(url: string) {

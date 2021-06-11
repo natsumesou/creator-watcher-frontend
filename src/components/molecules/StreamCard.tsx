@@ -3,6 +3,7 @@ import { Skeleton } from '@material-ui/lab';
 import {Stream} from '../../entities/entity';
 import React from 'react'
 import { CardMediaWithLazyLoad } from '../atoms/CardMediaWithLazyLoad';
+import { useBreakpoint } from 'gatsby-plugin-breakpoints';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -47,17 +48,22 @@ type Props = {
 }
 
 export const StreamCard: React.FC<Props> = ({stream}) => {
+  const breakpoints = useBreakpoint();
   const classes = useStyles();
   const loading =
     stream.title === null;
 
+  console.log(breakpoints.sm);
+  const thumbnail = breakpoints.sm ?
+    `https://i.ytimg.com/vi/${stream.id}/sddefault.jpg` :
+    `https://i.ytimg.com/vi/${stream.id}/maxresdefault.jpg`;
   return (
-    <a className={classes.link} href={stream.link} target="_blank" rel="noopener">
+    <a className={classes.link} href={`https://www.youtube.com/watch?v=${stream.id}`} target="_blank" rel="noopener">
     <Card className={classes.root}>
       {loading ? (
         <Skeleton animation="wave" variant="rect" className={classes.skeletonMedia} />
       ) : (
-        <CardMediaWithLazyLoad className={classes.cover} image={stream.thumbnail} title={stream.title} />
+        <CardMediaWithLazyLoad className={classes.cover} image={thumbnail} title={stream.title} />
       )}
       <div className={classes.details}>
       <CardContent className={classes.content}>

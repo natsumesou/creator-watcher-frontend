@@ -6,7 +6,6 @@ export type Stream = {
   channelTitle: string,
   id: string,
   thumbnail: string,
-  link: string,
 }
 
 export type Channel = {
@@ -14,6 +13,5 @@ export type Channel = {
   id: string,
   superChatAmount: string,
   memberCount: string,
-  thumbnail: string,
-  link: string,
+  videoId: string,
 }

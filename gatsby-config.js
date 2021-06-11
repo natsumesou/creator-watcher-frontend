@@ -1,3 +1,7 @@
+const myCustomQueries = {
+  sm: '(max-width: 600px)',
+};
+
 module.exports = {
   siteMetadata: {
     title: 'VTuberスパチャランキング',
@@ -14,6 +18,12 @@ module.exports = {
     'gatsby-transformer-remark',
     `gatsby-plugin-react-helmet`,
     'gatsby-plugin-sitemap',
+    {
+      resolve: `gatsby-plugin-breakpoints`,
+      options: {
+        queries: myCustomQueries,
+      },
+    },
     {
       resolve: `gatsby-plugin-material-ui`,
       options: {
