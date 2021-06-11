@@ -53,7 +53,6 @@ export const StreamCard: React.FC<Props> = ({stream}) => {
   const loading =
     stream.title === null;
 
-  console.log(breakpoints.sm);
   const thumbnail = breakpoints.sm ?
     `https://i.ytimg.com/vi/${stream.id}/sddefault.jpg` :
     `https://i.ytimg.com/vi/${stream.id}/maxresdefault.jpg`;

@@ -1,6 +1,7 @@
 import { AppBar, makeStyles, Tab, Tabs } from '@material-ui/core'
 import React, { useState } from 'react'
 import {navigate} from 'gatsby';
+import {useLocation} from '@reach/router';
 
 const props = (index) => {
   return {
@@ -31,10 +32,17 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export const HeaderTabs = ({routers = [], currentPage}) => {
+export const HeaderTabs = ({routers = []}) => {
+  const { pathname } = useLocation()
   const classes = useStyles();
-  const currentPageWithoutTrailingSlash = currentPage.length === 1 ? currentPage : currentPage.replace(/\/$/, "");
-  const [index, changeIndex] = useState(routers.findIndex(v => v.link === currentPageWithoutTrailingSlash));
+  const [index, changeIndex] = useState(routers.findIndex(v => {
+    const match = pathname.match(/^(\/[^/]*)/);
+    if (match) {
+      return v.link === match[1];
+    } else {
+      return false;
+    }
+  }));
 
   const handleChange = (_, value) => {
     changeIndex(value);

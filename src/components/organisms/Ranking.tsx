@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react'
 import { Channel } from '../../entities/entity';
 import { CATEGORY, YouTube } from '../../repositories/YouTube';
 import { ChannelCard } from '../molecules/ChannelCard';
+import { RankingNavigation } from '../molecules/RankingNavigation';
 import { TabPanel } from './TabPane';
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -14,7 +15,11 @@ const useStyles = makeStyles((theme: Theme) =>
     listitem: {
       paddingTop: 0,
       paddingBottom: 0,
-    }
+    },
+    navigation: {
+      display: 'flex',
+      justifyContent: 'flex-end',
+    },
   }),
 );
 
@@ -36,8 +41,23 @@ const initialChannelData = () => {
   return channels;
 }
 
+const RANGE = {
+  daily: 'daily',
+  weekly: 'weekly',
+  monthly: 'monthly',
+} as const;
+export type RANGE = typeof RANGE[keyof typeof RANGE];
+
+export const RankingRouters = [
+  {name: "デイリー", link: "/ranking/daily"},
+  {name: "ウィークリー", link: "/ranking/weekly"},
+]
+
+
 type Props = {
   category: CATEGORY,
+  range: RANGE,
+  notices?: string[],
 }
 
 export const Ranking: React.FC<Props> = (props) => {
@@ -45,22 +65,26 @@ export const Ranking: React.FC<Props> = (props) => {
   const classes = useStyles();
   const [data, setData] = useState<Channel[]>(initialChannelData());
   const youtube = new YouTube();
+  const { category, range, notices} = props;
   useEffect(() => {
     setShowProgress(true);
 
     const fetchData = async () => {
-      const { category } = props;
       const rankings = await youtube.fetchRanking(category);
       setShowProgress(false);
-      setData(rankings.weekly);
+      setData(rankings[range]);
     }
     fetchData();
   }, [])
 
   return (
     <TabPanel>
+      <RankingNavigation routers={RankingRouters} className={classes.navigation} />
       <List dense={true}>
-        <ListItem className={classes.listitem}><ListItemText primary="ランキングは毎週月曜の朝6時あたりに前週分のスパチャ金額・メンバー加入数を集計しています" /></ListItem>
+        {notices ?
+          notices.map((notice, i) => (
+            <ListItem key={i} className={classes.listitem}><ListItemText primary={notice} /></ListItem>
+          )) : ""}
       </List>
       {data.map((channel, i) => (
         <div key={i} className={classes.root} >

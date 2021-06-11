@@ -18,11 +18,12 @@ const SEO: React.FC<Props> = ({siteMetadata, subtitle}) => {
   const { pathname } = useLocation()
   const title = subtitle ?
   subtitle + " - " + siteMetadata.title : siteMetadata.title;
+  const nocache = new Date().getTime();
 
   const seo = {
     title: siteMetadata.title,
     description: siteMetadata.description,
-    image: `${siteMetadata.siteUrl}${siteMetadata.defaultImage}`,
+    image: siteMetadata.defaultImage + "&_=" + nocache,
     url: `${siteMetadata.siteUrl}${pathname}`,
   }
 

@@ -56,6 +56,7 @@ export class YouTube {
 
   private parseRanking(text: string) {
     const lines = text.split("\r\n");
+    const daily = [];
     const weekly = [];
     const monthly = [];
     const streams = lines.forEach((line) => {
@@ -67,13 +68,16 @@ export class YouTube {
         memberCount: columns[4],
         videoId: columns[5],
       } as Channel;
-      if (columns[0] === "weekly") {
+      if (columns[0] === "daily") {
+        daily.push(channel);
+      } else if (columns[0] === "weekly") {
         weekly.push(channel);
-      } else {
+      } else if (columns[0] === "monthly"){
         monthly.push(channel);
       }
     });
     return {
+      daily: daily,
       weekly: weekly,
       monthly: monthly,
     };

@@ -4,7 +4,6 @@ import LinearProgress from '@material-ui/core/LinearProgress'
 import React from 'react'
 import { TitleButton } from "../atoms/TitleButton"
 import { HeaderTabs } from '../molecules/HeaderTabs';
-import {useLocation} from '@reach/router';
 import {useProgressContext} from '../../app/index';
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -27,7 +26,6 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export const Header = (props) => {
   const { showProgress } = useProgressContext();
-  const { pathname } = useLocation()
   const classes = useStyles();
   const a = classes.root;
   const routers = [
@@ -47,7 +45,7 @@ export const Header = (props) => {
           <TitleButton title={"VTuberスパチャランキング"} />
         </Toolbar>
       </AppBar>
-      <HeaderTabs routers={routers} currentPage={pathname} />
+      <HeaderTabs routers={routers} />
     </header>
   )
 }
