@@ -10,7 +10,6 @@ const RankingWeeklyPage = ({pageContext}) => {
   ]
   const weeklyOGPLink = "https://drive.google.com/uc?id=1ormi4L--eUs90Zop0cjAe4gW0KnDJw9M";
   site.siteMetadata.defaultImage = weeklyOGPLink;
-  console.log(site.siteMetadata);
 
   return (
     <Box>
