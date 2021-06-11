@@ -2,7 +2,8 @@ import { useProgressContext } from '@/app';
 import { createStyles, List, ListItem, ListItemText, makeStyles, Theme, Typography } from '@material-ui/core';
 import React, { useEffect, useState } from 'react'
 import { Channel } from '../../entities/entity';
-import { CATEGORY, YouTube } from '../../repositories/YouTube';
+import { CATEGORY, HttpError, YouTube } from '../../repositories/YouTube';
+import { ErrorSnackBar } from '../atoms/ErrorSnackBar';
 import { ChannelCard } from '../molecules/ChannelCard';
 import { RankingNavigation } from '../molecules/RankingNavigation';
 import { TabPanel } from './TabPane';
@@ -66,16 +67,24 @@ export const Ranking: React.FC<Props> = (props) => {
   const [data, setData] = useState<Channel[]>(initialChannelData());
   const youtube = new YouTube();
   const { category, range, notices} = props;
+  const [error, setError] = useState<Error>(null);
+
   useEffect(() => {
     setShowProgress(true);
 
     const fetchData = async () => {
-      const rankings = await youtube.fetchRanking(category);
-      setShowProgress(false);
-      setData(rankings[range]);
+      try {
+        const rankings = await youtube.fetchRanking(category);
+        setShowProgress(false);
+        setData(rankings[range]);
+      }catch(err) {
+        console.error(err);
+        setShowProgress(false);
+        setError(err);
+      }
     }
     fetchData();
-  }, [])
+  }, []);
 
   return (
     <TabPanel>
@@ -91,6 +100,7 @@ export const Ranking: React.FC<Props> = (props) => {
           <ChannelCard channel={channel} />
         </div>
       ))}
+      {error ? (<ErrorSnackBar text="データ読み込みエラー" />) : ""}
     </TabPanel>
   )
 }

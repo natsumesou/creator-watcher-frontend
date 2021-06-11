@@ -27,18 +27,20 @@ const URL = {
 
 export class YouTube {
   async fetchTimeline(category: CATEGORY) {
-    const response = await fetch(this.freshURL(URL[category]["timeline"]));
+    const url = this.freshURL(URL[category]["timeline"]);
+    const response = await fetch(url);
     if (response.status >= 300) {
-      return [];
+      throw new Error(`不明なエラー / ${category}-timeline / [${response.status}]: ${url}`);
     }
     const text = await response.text();
     return this.parseTimeline(text);
   }
 
   async fetchRanking(category: CATEGORY) {
-    const response = await fetch(this.freshURL(URL[category]["ranking"]));
+    const url = this.freshURL(URL[category]["ranking"]);
+    const response = await fetch(url);
     if (response.status >- 300) {
-      return [];
+      throw new Error(`不明なエラー / ${category}-ranking / [${response.status}]: ${url}`);
     }
     const text = await response.text();
     return this.parseRanking(text);

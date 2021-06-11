@@ -3,6 +3,7 @@ import { createStyles, List, ListItem, ListItemText, makeStyles, Theme, Typograp
 import React, { useEffect, useState } from 'react'
 import { Stream } from '../../entities/entity';
 import { CATEGORY, YouTube } from '../../repositories/YouTube';
+import { ErrorSnackBar } from '../atoms/ErrorSnackBar';
 import { StreamCard } from '../molecules/StreamCard';
 import { TabPanel } from './TabPane';
 
@@ -50,13 +51,21 @@ export const Timeline: React.FC<Props> = (props) => {
   const [data, setData] = useState<Stream[]>(initialStreamData());
   const youtube = new YouTube();
   const { category, notices } = props;
+  const [error, setError] = useState<Error>(null);
+
   useEffect(() => {
     setShowProgress(true);
 
     const fetchData = async () => {
+      try {
       const streams = await youtube.fetchTimeline(category);
       setShowProgress(false);
       setData(streams);
+      } catch (err) {
+        console.error(err);
+        setShowProgress(false);
+        setError(err);
+      }
     }
     fetchData();
   }, [])
@@ -81,6 +90,7 @@ export const Timeline: React.FC<Props> = (props) => {
           <StreamCard stream={stream} />
         </div>
       ))}
+      {error ? (<ErrorSnackBar text="データ読み込みエラー" />) : ""}
     </TabPanel>
   )
 }
