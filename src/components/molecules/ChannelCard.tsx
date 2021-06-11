@@ -39,8 +39,10 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     skeletonMedia: {
       height: 151,
-      width: 151,
-      flex: 1,
+      [theme.breakpoints.up('sm')]: {
+        width: 151,
+        flex: 1,
+      },
     },
   }),
 );
