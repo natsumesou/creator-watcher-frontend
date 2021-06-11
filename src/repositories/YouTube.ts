@@ -28,12 +28,18 @@ const URL = {
 export class YouTube {
   async fetchTimeline(category: CATEGORY) {
     const response = await fetch(this.freshURL(URL[category]["timeline"]));
+    if (response.status >= 300) {
+      return [];
+    }
     const text = await response.text();
     return this.parseTimeline(text);
   }
 
   async fetchRanking(category: CATEGORY) {
     const response = await fetch(this.freshURL(URL[category]["ranking"]));
+    if (response.status >- 300) {
+      return [];
+    }
     const text = await response.text();
     return this.parseRanking(text);
   }
