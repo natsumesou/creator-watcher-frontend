@@ -26,8 +26,6 @@ const initialChannelData = () => {
     id: null,
     superChatAmount: null,
     memberCount: null,
-    thumbnail: null,
-    link: null,
   } as Channel;
 
   for (let i = 0; i < size; i++) {
