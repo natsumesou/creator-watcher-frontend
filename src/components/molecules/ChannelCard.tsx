@@ -1,7 +1,8 @@
-import { Card, CardContent, CardMedia, createStyles, makeStyles, Theme, Typography } from '@material-ui/core'
+import { Card, CardContent, createStyles, makeStyles, Theme, Typography } from '@material-ui/core'
 import { Skeleton } from '@material-ui/lab';
 import {Channel} from '../../entities/entity';
 import React from 'react'
+import { CardMediaWithLazyLoad } from '../atoms/CardMediaWithLazyLoad';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -58,7 +59,7 @@ export const ChannelCard: React.FC<Props> = ({channel}) => {
       {loading ? (
         <Skeleton animation="wave" variant="rect" className={classes.skeletonMedia} />
       ) : (
-        <CardMedia className={classes.cover} image={channel.thumbnail} title={channel.title} />
+        <CardMediaWithLazyLoad className={classes.cover} image={channel.thumbnail} title={channel.title} />
       )}
       <div className={classes.details}>
       <CardContent className={classes.content}>

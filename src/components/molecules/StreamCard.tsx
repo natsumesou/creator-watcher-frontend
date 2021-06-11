@@ -1,7 +1,8 @@
-import { Card, CardContent, CardMedia, createStyles, makeStyles, Theme, Typography } from '@material-ui/core'
+import { Card, CardContent, createStyles, makeStyles, Theme, Typography } from '@material-ui/core'
 import { Skeleton } from '@material-ui/lab';
 import {Stream} from '../../entities/entity';
 import React from 'react'
+import { CardMediaWithLazyLoad } from '../atoms/CardMediaWithLazyLoad';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -26,8 +27,6 @@ const useStyles = makeStyles((theme: Theme) =>
       flex: '1 0 auto',
     },
     cover: {
-      backgroundSize: 'contain',
-      backgroundColor: theme.palette.primary.dark,
       [theme.breakpoints.up('sm')]: {
         flex: 1,
       },
@@ -58,7 +57,7 @@ export const StreamCard: React.FC<Props> = ({stream}) => {
       {loading ? (
         <Skeleton animation="wave" variant="rect" className={classes.skeletonMedia} />
       ) : (
-        <CardMedia className={classes.cover} image={stream.thumbnail} title={stream.title} />
+        <CardMediaWithLazyLoad className={classes.cover} image={stream.thumbnail} title={stream.title} />
       )}
       <div className={classes.details}>
       <CardContent className={classes.content}>
