@@ -22,7 +22,7 @@ export const RankingNavigation = ({routers = [], ...props}) => {
   const { pathname } = useLocation()
   const classes = useStyles();
 
-  const [index, changeIndex] = useState(routers.findIndex(v => v.link === pathname));
+  const [index, changeIndex] = useState(routers.findIndex(v => v.link === pathname.replace(/\/$/, "")));
 
   // /ranking のときはデイリーがデフォルトのため
   if (index < 0) {
@@ -32,7 +32,7 @@ export const RankingNavigation = ({routers = [], ...props}) => {
   return (
     <Breadcrumbs aria-label="breadcrumb" {...props}>
       {routers.map((router, i) => (
-        <Link key={i} color={index === i ? "textPrimary" : "inherit"} href={router.link} className={classes.link}>
+        <Link key={i} color={index === i ? "secondary" : "inherit"} href={router.link} className={classes.link}>
           <TodayIcon className={classes.icon} />
           {router.name}
         </Link>
