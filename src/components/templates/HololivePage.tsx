@@ -6,7 +6,7 @@ import { Timeline } from '../organisms/Timeline';
 const HololivePage = ({ pageContext }) => {
   const { site } = pageContext;
   const notices = [
-    "ホロライブ(JP)のメンバーのみ取得しています"
+    "ホロライブ(JP)のチャンネルのみ取得しています"
   ]
   return (
     <Box>

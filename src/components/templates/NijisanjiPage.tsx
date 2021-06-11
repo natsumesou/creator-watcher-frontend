@@ -6,7 +6,7 @@ import { Timeline } from '../organisms/Timeline';
 const NijisanjiPage = ({ pageContext }) => {
   const { site } = pageContext;
   const notices = [
-    "にじさんじの一部メンバーのみ取得しています",
+    "にじさんじの一部チャンネルのみ取得しています",
   ];
   
   return (
