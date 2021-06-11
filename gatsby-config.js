@@ -19,6 +19,13 @@ module.exports = {
     `gatsby-plugin-react-helmet`,
     'gatsby-plugin-sitemap',
     {
+      resolve: 'gatsby-plugin-robots-txt',
+      options: {
+        sitemap: 'https://vtuber.ytubelab.com/sitemap.xml',
+        policy: [{ userAgent: '*', allow: '/' }]
+      }
+    },
+    {
       resolve: `gatsby-plugin-breakpoints`,
       options: {
         queries: myCustomQueries,
