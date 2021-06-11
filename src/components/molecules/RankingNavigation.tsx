@@ -1,7 +1,6 @@
-import { Breadcrumbs, Card, CardContent, createStyles, Link, makeStyles, Theme, Typography } from '@material-ui/core'
+import { Breadcrumbs, createStyles, Link, makeStyles, Theme } from '@material-ui/core'
 import React, { useState } from 'react'
 import { useBreakpoint } from 'gatsby-plugin-breakpoints';
-import {navigate} from 'gatsby';
 import {useLocation} from '@reach/router';
 import TodayIcon from '@material-ui/icons/Today';
 
@@ -21,15 +20,14 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export const RankingNavigation = ({routers = [], ...props}) => {
   const { pathname } = useLocation()
-  const breakpoints = useBreakpoint();
   const classes = useStyles();
 
   const [index, changeIndex] = useState(routers.findIndex(v => v.link === pathname));
 
-  const handleChange = (_, value) => {
-    changeIndex(value);
-    navigate(routers[value].link);
-  };
+  // /ranking のときはデイリーがデフォルトのため
+  if (index < 0) {
+    changeIndex(0);
+  }
 
   return (
     <Breadcrumbs aria-label="breadcrumb" {...props}>
