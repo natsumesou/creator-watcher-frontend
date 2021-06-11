@@ -2,7 +2,7 @@ import { useProgressContext } from '@/app';
 import { createStyles, List, ListItem, ListItemText, makeStyles, Theme, Typography } from '@material-ui/core';
 import React, { useEffect, useState } from 'react'
 import { Channel } from '../../entities/entity';
-import { CATEGORY, HttpError, YouTube } from '../../repositories/YouTube';
+import { CATEGORY, YouTube } from '../../repositories/YouTube';
 import { ErrorSnackBar } from '../atoms/ErrorSnackBar';
 import { ChannelCard } from '../molecules/ChannelCard';
 import { RankingNavigation } from '../molecules/RankingNavigation';
