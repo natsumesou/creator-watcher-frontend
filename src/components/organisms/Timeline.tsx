@@ -40,7 +40,8 @@ const initialStreamData = () => {
 }
 
 type Props = {
-  category: CATEGORY
+  category: CATEGORY,
+  notices?: string[],
 }
 
 export const Timeline: React.FC<Props> = (props) => {
@@ -48,11 +49,11 @@ export const Timeline: React.FC<Props> = (props) => {
   const classes = useStyles();
   const [data, setData] = useState<Stream[]>(initialStreamData());
   const youtube = new YouTube();
+  const { category, notices } = props;
   useEffect(() => {
     setShowProgress(true);
 
     const fetchData = async () => {
-      const { category } = props;
       const streams = await youtube.fetchTimeline(category);
       setShowProgress(false);
       setData(streams);
@@ -60,16 +61,18 @@ export const Timeline: React.FC<Props> = (props) => {
     fetchData();
   }, [])
 
-  const notices = [
+  const defaultNotices = [
     "配信が終了したアーカイブでチャット欄が取得可能なものを取得できた順に表示しています",
     "アーカイブで取得できないスパチャやメンバー加入はカウントされません",
     "金額は為替レートの影響を受けて前後する可能性があります",
   ];
 
+  const mergedNotices = notices ? defaultNotices.concat(notices) : defaultNotices;
+
   return (
     <TabPanel>
       <List dense={true}>
-        {notices.map((notice, i) => (
+        {mergedNotices.map((notice, i) => (
           <ListItem key={i} className={classes.listitem}><ListItemText primary={notice} /></ListItem>
         ))}
       </List>

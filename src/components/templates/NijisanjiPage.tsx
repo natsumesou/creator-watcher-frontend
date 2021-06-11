@@ -5,11 +5,14 @@ import { Timeline } from '../organisms/Timeline';
 
 const NijisanjiPage = ({ pageContext }) => {
   const { site } = pageContext;
-
+  const notices = [
+    "にじさんじの一部メンバーのみ取得しています",
+  ];
+  
   return (
     <Box>
       <SEO siteMetadata={site.siteMetadata} subtitle="にじさんじ" />
-      <Timeline category="nijisanji" />
+      <Timeline category="nijisanji" notices={notices} />
     </Box>
   )
 }

@@ -5,11 +5,13 @@ import { Timeline } from '../organisms/Timeline';
 
 const HololivePage = ({ pageContext }) => {
   const { site } = pageContext;
-
+  const notices = [
+    "ホロライブ(JP)のメンバーのみ取得しています"
+  ]
   return (
     <Box>
       <SEO siteMetadata={site.siteMetadata} subtitle="ホロライブ" />
-      <Timeline category="hololive" />
+      <Timeline category="hololive" notices={notices} />
     </Box>
   )
 }
