@@ -84,7 +84,7 @@ export const Ranking: React.FC<Props> = (props) => {
           )) : ""}
       </List>
       {data.map((channel, i) => (
-        <div key={i} className={classes.root} >
+        <div key={i} id={`rank${i+1}`} className={classes.root} >
           <ChannelCard channel={channel} />
         </div>
       ))}
