@@ -1,6 +1,6 @@
 [
     {
-      "origin": ["http://localhost:8000", "http://vtuber.ytubelab.com/"],
+      "origin": ["http://localhost:8000", "https://vtuber.ytubelab.com/"],
       "method": ["GET", "HEAD"],
       "responseHeader": ["Content-Type"],
       "maxAgeSeconds": 3600
