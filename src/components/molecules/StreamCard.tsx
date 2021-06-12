@@ -4,6 +4,8 @@ import {Stream} from '../../entities/entity';
 import React from 'react'
 import { CardMediaWithLazyLoad } from '../atoms/CardMediaWithLazyLoad';
 import { useBreakpoint } from 'gatsby-plugin-breakpoints';
+import DirectionsRunIcon from '@material-ui/icons/DirectionsRun';
+import ReportProblemIcon from '@material-ui/icons/ReportProblem';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -49,6 +51,12 @@ const useStyles = makeStyles((theme: Theme) =>
         width: 151,
         flex: 1,
       },
+    },
+    icon : {
+      marginRight: theme.spacing(0.5),
+      width: 25,
+      height: 25,
+      verticalAlign: 'middle',
     }
   }),
 );
@@ -103,9 +111,15 @@ export const StreamCard: React.FC<Props> = ({stream}) => {
               </Box>
               ) : (
               <Box className={classes.mainText}>
-              <Typography variant="body1">
-                {stream.status === "process" ? "集計中" : "チャットがオフになっています"}
-              </Typography>
+                {stream.status === "process" ?
+                  <Typography variant="body1">
+                    <DirectionsRunIcon className={classes.icon} />集計中
+                  </Typography>
+                :
+                  <Typography variant="body1">
+                    <ReportProblemIcon className={classes.icon}/>集計出来ませんでした
+                  </Typography>
+                }
               </Box>
             )}
           </React.Fragment>
