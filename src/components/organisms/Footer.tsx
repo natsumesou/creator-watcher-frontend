@@ -11,11 +11,11 @@ const useStyles = makeStyles(
   })
 )
 
-export const Footer = (props) => {
+export const Footer = () => {
   const classes = useStyles();
 
   return (
-    <footer {...props}>
+    <footer>
       <MainBox className={classes.footer}>
       © 2021 YouTube研究所
       </MainBox>

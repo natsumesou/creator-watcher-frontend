@@ -6,8 +6,6 @@ import { Footer } from '@/components/organisms/Footer';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    base: {
-    },
     main: {
       [theme.breakpoints.up('sm')]: {
         width: '800px',
@@ -39,9 +37,9 @@ const App = ({ children }) => {
     <ProgressContext.Provider value={{showProgress, setShowProgress}}>
     <MuiThemeProvider theme={theme}>
       <CssBaseline />
-      <Header className={classes.base} />
+      <Header />
       <main className={classes.main}>{children}</main>
-      <Footer className={classes.base} />
+      <Footer />
     </MuiThemeProvider>
     </ProgressContext.Provider>
   )
