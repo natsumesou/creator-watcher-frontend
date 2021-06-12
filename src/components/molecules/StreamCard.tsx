@@ -30,12 +30,18 @@ const useStyles = makeStyles((theme: Theme) =>
       flex: '1 0 auto',
       display: 'flex',
       flexDirection: 'column',
+      [theme.breakpoints.down('xs')]: {
+        paddingBottom: '0 !important',
+      },
     },
     mainText: {
       flex: 2,
       justifyContent: 'center',
       display: 'flex',
       flexDirection: 'column',
+    },
+    noDetail: {
+      minHeight: '60px',
     },
     cover: {
       [theme.breakpoints.up('sm')]: {
@@ -110,7 +116,7 @@ export const StreamCard: React.FC<Props> = ({stream}) => {
                 </Typography>
               </Box>
               ) : (
-              <Box className={classes.mainText}>
+              <Box className={`${classes.mainText} ${classes.noDetail}`}>
                 {stream.status === "process" ?
                   <Typography variant="body1">
                     <DirectionsRunIcon className={classes.icon} />集計中
