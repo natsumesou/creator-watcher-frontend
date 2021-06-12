@@ -8,6 +8,9 @@ import {useProgressContext} from '../../app/index';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
+    header: {
+      top: '-65px',
+    },
     root: {
       width: '100%',
       '& > * + *': {
@@ -24,7 +27,7 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 
-export const Header = (props) => {
+export const Header = () => {
   const { showProgress } = useProgressContext();
   const classes = useStyles();
   const a = classes.root;
@@ -36,16 +39,14 @@ export const Header = (props) => {
   ]
   const progressClass = showProgress ? classes.showProgress : classes.hideProgress;
   return (
-    <header {...props}>
+    <AppBar position="sticky" className={classes.header}>
       <div className={`${classes.root} ${progressClass}`}>
         <LinearProgress color="secondary" />
       </div>
-      <AppBar position="sticky">
         <Toolbar variant="regular">
           <TitleButton title={"VTuberスパチャ💲ランキング"} />
         </Toolbar>
-      </AppBar>
       <HeaderTabs routers={routers} />
-    </header>
+    </AppBar>
   )
 }

@@ -1,14 +1,7 @@
-import { AppBar, makeStyles, Tab, Tabs } from '@material-ui/core'
+import { makeStyles, Tab, Tabs } from '@material-ui/core'
 import React, { useState } from 'react'
 import {navigate} from 'gatsby';
 import {useLocation} from '@reach/router';
-
-const props = (index) => {
-  return {
-    id: `simple-tab-${index}`,
-    'aria-controls': `simple-tabpanel-${index}`,
-  };
-}
 
 const LinkTab = (props) => {
   return (
@@ -26,6 +19,7 @@ const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
     backgroundColor: theme.palette.background.default,
+    position: 'sticky',
   },
   tab: {
     color: theme.palette.text.primary,
@@ -51,13 +45,11 @@ export const HeaderTabs = ({routers = []}) => {
 
   return (
     <div className={classes.root}>
-    <AppBar position="static">
       <Tabs value={index} onChange={handleChange} aria-label="simple tabs" centered>
         {routers.map((router, i) => (
-          <LinkTab key={router.link} label={router.name} href={router.link} className={classes.tab} {...props(i)} />
+          <LinkTab key={router.link} label={router.name} href={router.link} className={classes.tab} />
         ))}
       </Tabs>
-    </AppBar>
     </div>
   )
 }
