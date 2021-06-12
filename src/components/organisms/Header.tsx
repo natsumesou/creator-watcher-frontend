@@ -44,7 +44,7 @@ export const Header = () => {
         <LinearProgress color="secondary" />
       </div>
         <Toolbar variant="regular">
-          <TitleButton title={"VTuberスパチャ💲ランキング"} />
+          <TitleButton title={"VTuberスパチャ🥇ランキング"} />
         </Toolbar>
       <HeaderTabs routers={routers} />
     </AppBar>
