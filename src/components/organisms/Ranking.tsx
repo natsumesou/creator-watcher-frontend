@@ -2,7 +2,7 @@ import { useProgressContext } from '@/app';
 import { createStyles, List, ListItem, ListItemText, makeStyles, Theme, Typography } from '@material-ui/core';
 import React, { useEffect, useState } from 'react'
 import { Channel } from '../../entities/entity';
-import { CATEGORY, YouTube } from '../../repositories/YouTube';
+import { CATEGORY, RANGE, YouTube } from '../../repositories/YouTube';
 import { ErrorSnackBar } from '../atoms/ErrorSnackBar';
 import { ChannelCard } from '../molecules/ChannelCard';
 import { RankingNavigation } from '../molecules/RankingNavigation';
@@ -42,13 +42,6 @@ const initialChannelData = () => {
   return channels;
 }
 
-const RANGE = {
-  daily: 'daily',
-  weekly: 'weekly',
-  monthly: 'monthly',
-} as const;
-export type RANGE = typeof RANGE[keyof typeof RANGE];
-
 export const RankingRouters = [
   {name: "デイリー", link: "/ranking/daily"},
   {name: "ウィークリー", link: "/ranking/weekly"},
@@ -74,9 +67,9 @@ export const Ranking: React.FC<Props> = (props) => {
 
     const fetchData = async () => {
       try {
-        const rankings = await youtube.fetchRanking(category);
+        const ranking = await youtube.fetchRanking(category, range);
         setShowProgress(false);
-        setData(rankings[range]);
+        setData(ranking);
       }catch(err) {
         console.error(err);
         setShowProgress(false);

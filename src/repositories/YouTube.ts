@@ -5,23 +5,31 @@ const CATEGORY = {
   nijisanji: 'nijisanji',
   all: 'all',
 } as const;
+export type CATEGORY = typeof CATEGORY[keyof typeof CATEGORY];
 const DATATYPE = {
   timeline: 'timeline',
   ranking: 'ranking',
 } as const;
-export type CATEGORY = typeof CATEGORY[keyof typeof CATEGORY];
 export type DATATYPE = typeof DATATYPE[keyof typeof DATATYPE];
+const RANGE = {
+  daily: 'daily',
+  weekly: 'weekly',
+} as const;
+export type RANGE = typeof RANGE[keyof typeof RANGE];
 
 const URL = {
   all: {
-    timeline: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSZQzlyob3Yd3y6Jc1G85PSn4aJZ9M8AtNILNTGHPUItzam2cEH1MIlxwTjyBXDpokSIiCsISjygZmI/pub?output=tsv',
-    ranking: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vT5_TR6UY9wM9AQU4nhGl3X1mT1mRkqCUm9qUaa3w5xpq5zdZWTfm-1NO2tmotgOVDHAy9E0vtla2if/pub?output=tsv',
+    timeline: 'https://storage.googleapis.com/vtuber.ytubelab.com/all-timeline.tsv',
+    ranking: {
+      daily: 'https://storage.googleapis.com/vtuber.ytubelab.com/daily-ranking.tsv',
+      weekly: 'https://storage.googleapis.com/vtuber.ytubelab.com/weekly-ranking.tsv',
+    }
   },
   hololive: {
-    timeline: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTRqZ2zoqc4Gg8MoBOQO5CQk0AxB1em6K0adxNCiZA-tXjUJoZUgWCTHejCmSgEWbmF4MLYMWdpohRL/pub?output=tsv',
+    timeline: 'https://storage.googleapis.com/vtuber.ytubelab.com/hololive-timeline.tsv',
   },
   nijisanji: {
-    timeline: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRdzWTztRUGAqQquklbWR5RpBQNM7-Tx8DOcC7Hf3SnjY1dAOZwAPqR1KFTFX_xPdm_svWwbcuSBSUN/pub?output=tsv',
+    timeline: 'https://storage.googleapis.com/vtuber.ytubelab.com/nijisanji-timeline.tsv',
   }
 }
 
@@ -36,8 +44,8 @@ export class YouTube {
     return this.parseTimeline(text);
   }
 
-  async fetchRanking(category: CATEGORY) {
-    const url = this.freshURL(URL[category]["ranking"]);
+  async fetchRanking(category: CATEGORY, range: RANGE) {
+    const url = this.freshURL(URL[category]["ranking"][range]);
     const response = await fetch(url);
     if (response.status >= 400) {
       throw new Error(`HTTPリクエストエラー / ${category}-ranking / [${response.status}]: ${url}`);
@@ -64,34 +72,24 @@ export class YouTube {
 
   private parseRanking(text: string) {
     const lines = text.split("\r\n");
-    const daily = [];
-    const weekly = [];
-    const monthly = [];
-    const streams = lines.forEach((line) => {
+    const streams = lines.map((line) => {
       const columns = line.split("\t");
-      const channel = {
+      return {
         title: columns[1],
         id: columns[2],
         superChatAmount: columns[3],
         memberCount: columns[4],
         videoId: columns[5],
       } as Channel;
-      if (columns[0] === "daily") {
-        daily.push(channel);
-      } else if (columns[0] === "weekly") {
-        weekly.push(channel);
-      } else if (columns[0] === "monthly"){
-        monthly.push(channel);
-      }
     });
-    return {
-      daily: daily,
-      weekly: weekly,
-      monthly: monthly,
-    };
+    return streams;
   }
 
   private freshURL(url: string) {
-    return url + "&_=" + new Date().getTime();
+    if (url.includes("?")) {
+      return url + "&_=" + new Date().getTime();
+    } else {
+      return url + "?_=" + new Date().getTime();
+    }
   }
 }
