@@ -1,4 +1,4 @@
-import { Card, CardContent, createStyles, makeStyles, Theme, Typography } from '@material-ui/core'
+import { Card, CardContent, createStyles, makeStyles, Theme, Typography, Box } from '@material-ui/core'
 import { Skeleton } from '@material-ui/lab';
 import {Stream} from '../../entities/entity';
 import React from 'react'
@@ -26,6 +26,14 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     content: {
       flex: '1 0 auto',
+      display: 'flex',
+      flexDirection: 'column',
+    },
+    mainText: {
+      flex: 2,
+      justifyContent: 'center',
+      display: 'flex',
+      flexDirection: 'column',
     },
     cover: {
       [theme.breakpoints.up('sm')]: {
@@ -81,15 +89,25 @@ export const StreamCard: React.FC<Props> = ({stream}) => {
             <Typography component="h3" variant="h3">
               {stream.title}
             </Typography>
-            <Typography variant="body1">
-              スパチャ金額：{stream.superChatAmount}
-            </Typography>
-            <Typography variant="body1">
-                メンバー加入数：{stream.memberCount}
-            </Typography>
-            <Typography variant="body1">
-                チャット数：{stream.chatCount}
-            </Typography>
+            {stream.status === "done" ? (
+              <Box className={classes.mainText}>
+                <Typography variant="body1">
+                  スパチャ金額：{stream.superChatAmount}
+                </Typography>
+                <Typography variant="body1">
+                    メンバー加入数：{stream.memberCount}
+                </Typography>
+                <Typography variant="body1">
+                    チャット数：{stream.chatCount}
+                </Typography>
+              </Box>
+              ) : (
+              <Box className={classes.mainText}>
+              <Typography variant="body1">
+                {stream.status === "process" ? "集計中" : "チャットがオフになっています"}
+              </Typography>
+              </Box>
+            )}
           </React.Fragment>
         )}
       </CardContent>

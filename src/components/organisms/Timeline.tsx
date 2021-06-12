@@ -30,6 +30,7 @@ const initialStreamData = () => {
     id: null,
     thumbnail: null,
     link: null,
+    status: "process",
   } as Stream;
 
   for (let i = 0; i < size; i++) {
@@ -71,7 +72,7 @@ export const Timeline: React.FC<Props> = (props) => {
   }, [])
 
   const defaultNotices = [
-    "配信が終了したアーカイブでチャット欄が取得可能なものを取得できた順に表示しています",
+    "配信が終了したアーカイブでチャット欄が取得可能なものを順次表示しています",
     "アーカイブで取得できないスパチャやメンバー加入はカウントされません",
     "金額は為替レートの影響を受けて前後する可能性があります",
   ];

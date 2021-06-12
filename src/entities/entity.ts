@@ -1,3 +1,10 @@
+const STATUS = {
+  done: 'done',
+  process: 'process',
+  off: 'off',
+} as const;
+export type STATUS = typeof STATUS[keyof typeof STATUS];
+
 export type Stream = {
   title: string,
   chatCount: string,
@@ -6,6 +13,7 @@ export type Stream = {
   channelTitle: string,
   id: string,
   thumbnail: string,
+  status: STATUS,
 }
 
 export type Channel = {

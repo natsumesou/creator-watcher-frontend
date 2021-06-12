@@ -65,6 +65,7 @@ export class YouTube {
         memberCount: columns[3],
         channelTitle: columns[4],
         id: columns[5],
+        status: columns[6],
       } as Stream;
     });
     return streams;
