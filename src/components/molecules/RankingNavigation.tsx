@@ -1,8 +1,8 @@
 import { Breadcrumbs, createStyles, Link, makeStyles, Theme } from '@material-ui/core'
 import React, { useState } from 'react'
-import { useBreakpoint } from 'gatsby-plugin-breakpoints';
 import {useLocation} from '@reach/router';
 import TodayIcon from '@material-ui/icons/Today';
+import {navigate} from 'gatsby';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -29,10 +29,16 @@ export const RankingNavigation = ({routers = [], ...props}) => {
     changeIndex(0);
   }
 
+  const handleClick = (e) => {
+    const link = e.target.getAttribute('href');
+    navigate(link);
+    e.preventDefault();
+  };
+
   return (
     <Breadcrumbs aria-label="breadcrumb" {...props}>
       {routers.map((router, i) => (
-        <Link key={i} color={index === i ? "secondary" : "inherit"} href={router.link} className={classes.link}>
+        <Link key={i} color={index === i ? "secondary" : "inherit"} href={router.link} onClick={handleClick} className={classes.link}>
           <TodayIcon className={classes.icon} />
           {router.name}
         </Link>
