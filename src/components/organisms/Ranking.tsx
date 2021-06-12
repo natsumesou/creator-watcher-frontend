@@ -42,12 +42,6 @@ const initialChannelData = () => {
   return channels;
 }
 
-export const RankingRouters = [
-  {name: "デイリー", link: "/ranking/daily"},
-  {name: "ウィークリー", link: "/ranking/weekly"},
-]
-
-
 type Props = {
   category: CATEGORY,
   range: RANGE,
@@ -63,6 +57,7 @@ export const Ranking: React.FC<Props> = (props) => {
   const [error, setError] = useState<Error>(null);
 
   useEffect(() => {
+    setData(initialChannelData());
     setShowProgress(true);
 
     const fetchData = async () => {
@@ -77,11 +72,11 @@ export const Ranking: React.FC<Props> = (props) => {
       }
     }
     fetchData();
-  }, []);
+  }, [range]);
 
   return (
     <TabPanel>
-      <RankingNavigation routers={RankingRouters} className={classes.navigation} />
+      <RankingNavigation className={classes.navigation} />
       <List dense={true}>
         {notices ?
           notices.map((notice, i) => (

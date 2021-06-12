@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import {useLocation} from '@reach/router';
 import TodayIcon from '@material-ui/icons/Today';
 import {navigate} from 'gatsby';
+import { RankingRouters, useRangeContext } from '../templates/RankingDailyPage';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -18,29 +19,27 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-export const RankingNavigation = ({routers = [], ...props}) => {
+export const RankingNavigation = (props) => {
+  const { range, setRange } = useRangeContext();
   const { pathname } = useLocation()
   const classes = useStyles();
 
-  const [index, changeIndex] = useState(routers.findIndex(v => v.link === pathname.replace(/\/$/, "")));
-
-  // /ranking のときはデイリーがデフォルトのため
-  if (index < 0) {
-    changeIndex(0);
+  const buildQuery = (range) => {
+    return `?range=${range}`;
   }
 
-  const handleClick = (e) => {
-    const link = e.target.getAttribute('href');
-    navigate(link);
-    e.preventDefault();
+  const handleClick = (range, event) => {
+    navigate(buildQuery(range));
+    setRange(range);
+    event.preventDefault();
   };
 
   return (
     <Breadcrumbs aria-label="breadcrumb" {...props}>
-      {routers.map((router, i) => (
-        <Link key={i} color={index === i ? "secondary" : "inherit"} href={router.link} onClick={handleClick} className={classes.link}>
+      {Object.keys(RankingRouters).map((iteratorRange) => (
+        <Link key={iteratorRange} color={range === iteratorRange ? "secondary" : "inherit"} href={`${pathname}${buildQuery(iteratorRange)}`} onClick={(e) => handleClick(iteratorRange, e)} className={classes.link}>
           <TodayIcon className={classes.icon} />
-          {router.name}
+          {RankingRouters[iteratorRange].name}
         </Link>
       ))}
     </Breadcrumbs>

@@ -2,6 +2,7 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core'
 import React from 'react'
 import 'lazysizes'
 import 'lazysizes/plugins/unveilhooks/ls.unveilhooks'
+import 'lazysizes/plugins/attrchange/ls.attrchange';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

@@ -11,7 +11,7 @@ const DATATYPE = {
   ranking: 'ranking',
 } as const;
 export type DATATYPE = typeof DATATYPE[keyof typeof DATATYPE];
-const RANGE = {
+export const RANGE = {
   daily: 'daily',
   weekly: 'weekly',
 } as const;
