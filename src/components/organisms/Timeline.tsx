@@ -31,6 +31,7 @@ const initialStreamData = () => {
     thumbnail: null,
     link: null,
     status: "process",
+    publishedAt: new Date(),
   } as Stream;
 
   for (let i = 0; i < size; i++) {

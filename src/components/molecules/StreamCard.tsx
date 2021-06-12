@@ -77,6 +77,14 @@ export const StreamCard: React.FC<Props> = ({stream}) => {
   const loading =
     stream.title === null;
 
+  const twoDigit = (num: number) => {
+    return ("0" + num).slice(-2);
+  }
+
+  const formatDate = (date: Date) => {
+    return `${date.getFullYear()}年${twoDigit(date.getMonth() + 1)}月${twoDigit(date.getDate())}日 ${twoDigit(date.getHours())}:${twoDigit(date.getMinutes())}`;
+  }
+
   const thumbnail = breakpoints.sm ?
     `https://i.ytimg.com/vi/${stream.id}/sddefault.jpg` :
     `https://i.ytimg.com/vi/${stream.id}/maxresdefault.jpg`;
@@ -113,6 +121,9 @@ export const StreamCard: React.FC<Props> = ({stream}) => {
                 </Typography>
                 <Typography variant="body1">
                     チャット数：{stream.chatCount}
+                </Typography>
+                <Typography variant="body1">
+                    配信終了：{formatDate(stream.publishedAt)}
                 </Typography>
               </Box>
               ) : (

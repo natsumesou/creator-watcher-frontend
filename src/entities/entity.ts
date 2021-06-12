@@ -14,6 +14,7 @@ export type Stream = {
   id: string,
   thumbnail: string,
   status: STATUS,
+  publishedAt: Date,
 }
 
 export type Channel = {
