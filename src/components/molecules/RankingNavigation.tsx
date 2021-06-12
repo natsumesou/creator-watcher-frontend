@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import {useLocation} from '@reach/router';
 import TodayIcon from '@material-ui/icons/Today';
 import {navigate} from 'gatsby';
-import { RankingRouters, useRangeContext } from '../templates/RankingDailyPage';
+import { RankingRouters, useRangeContext } from '../templates/RankingPage';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

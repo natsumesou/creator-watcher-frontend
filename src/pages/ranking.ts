@@ -1,1 +1,1 @@
-export { default } from '@/components/templates/RankingDailyPage'
+export { default } from '@/components/templates/RankingPage'
