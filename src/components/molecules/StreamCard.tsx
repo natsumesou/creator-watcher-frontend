@@ -123,7 +123,7 @@ export const StreamCard: React.FC<Props> = ({stream}) => {
                     チャット数：{stream.chatCount}
                 </Typography>
                 <Typography variant="body1">
-                    配信終了：{formatDate(stream.publishedAt)}
+                    配信終了日時：<time dateTime={stream.publishedAt.toISOString()}>{formatDate(stream.publishedAt)}</time>
                 </Typography>
               </Box>
               ) : (
