@@ -5,7 +5,6 @@ import React from 'react'
 import { CardMediaWithLazyLoad } from '../atoms/CardMediaWithLazyLoad';
 import { useBreakpoint } from 'gatsby-plugin-breakpoints';
 import DirectionsRunIcon from '@material-ui/icons/DirectionsRun';
-import ReportProblemIcon from '@material-ui/icons/ReportProblem';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -134,7 +133,7 @@ export const StreamCard: React.FC<Props> = ({stream}) => {
                   </Typography>
                 :
                   <Typography variant="body1">
-                    <ReportProblemIcon className={classes.icon}/>集計出来ませんでした
+                    集計出来ませんでした💦
                   </Typography>
                 }
               </Box>

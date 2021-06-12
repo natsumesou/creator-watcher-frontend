@@ -42,7 +42,7 @@ export const Header = (props) => {
       </div>
       <AppBar position="sticky">
         <Toolbar variant="regular">
-          <TitleButton title={"VTuberスパチャランキング"} />
+          <TitleButton title={"VTuberスパチャ💲ランキング"} />
         </Toolbar>
       </AppBar>
       <HeaderTabs routers={routers} />
