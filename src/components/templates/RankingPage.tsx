@@ -104,7 +104,7 @@ const RankingPage = ({pageContext}) => {
     monthly: "https://drive.google.com/uc?id=1dwtjcAoB41u5qLX6Xz4xaVABaArIYCbV",
   }
   site.siteMetadata.defaultImage = ogpImage[initialQuery.range]; // OGP画像は初回アクセス時の初期化値しか見られないので固定値を設定
-  const subtitle = RankingRouters[query.range].name + "ランキング";
+  const subtitle = article ? article.headline : RankingRouters[query.range].name + "ランキング";
 
   return (
     <ArticleContext.Provider value={{article, setArticle}}>
