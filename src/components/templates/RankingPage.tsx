@@ -8,9 +8,9 @@ import { parse } from "query-string"
 import { CustomDate } from '@/entities/Date';
 
 export const RankingRouters = {
-  daily: {name: "デイリー"},
-  weekly: {name: "ウィークリー"},
-  monthly: {name: "マンスリー"},
+  daily: {name: "デイリー", link: "/ranking/daily"},
+  weekly: {name: "ウィークリー", link: "/ranking/weekly"},
+  monthly: {name: "マンスリー", link: "/ranking/monthly"},
 }
 
 type Query = {
@@ -34,13 +34,16 @@ const RankingPage = ({pageContext}) => {
   const location = useLocation();
   const queryFromLocationSearch = (location: Location) => {
     const params = parse(location.search);
+    const match = location.pathname.match(/^\/ranking\/([^/]+)/);
     try {
       // 正常に変換出来る場合はtを考慮した処理をすすめる
-      CustomDate.fromDatestring(params.t as string);
-      const rangeFromQuery = {range: params.range, t: params.t} as Query;
+      if (params.t) {
+        CustomDate.fromDatestring(params.t as string);
+      }
+      const rangeFromQuery = {range: match[1], t: params.t} as Query;
       return Object.keys(RANGE).includes(rangeFromQuery.range) ? rangeFromQuery : {range: "daily"} as Query;
     } catch (err) {
-      const rangeFromQuery = {range: params.range} as Query;
+      const rangeFromQuery = {range: "daily"} as Query;
       return Object.keys(RANGE).includes(rangeFromQuery.range) ? rangeFromQuery : {range: "daily"} as Query;
     }
   }

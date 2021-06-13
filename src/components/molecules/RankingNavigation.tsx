@@ -24,12 +24,8 @@ export const RankingNavigation = (props) => {
   const { pathname } = useLocation()
   const classes = useStyles();
 
-  const buildQuery = (range) => {
-    return `?range=${range}`;
-  }
-
   const handleClick = (range, event) => {
-    navigate(buildQuery(range));
+    navigate(event.currentTarget.getAttribute('href'));
     setQuery({range: range});
     event.preventDefault();
   };
@@ -38,7 +34,7 @@ export const RankingNavigation = (props) => {
     <Breadcrumbs aria-label="breadcrumb" {...props}>
       {Object.keys(RankingRouters).map((iteratorRange) => (
         iteratorRange === "monthly" ? "" : // マンスリーはまだ表出ししない
-        <Link key={iteratorRange} color={query.range === iteratorRange ? "secondary" : "inherit"} href={`${pathname}${buildQuery(iteratorRange)}`} onClick={(e) => handleClick(iteratorRange, e)} className={classes.link}>
+        <Link key={iteratorRange} color={query.range === iteratorRange ? "secondary" : "inherit"} href={RankingRouters[iteratorRange].link} onClick={(e) => handleClick(iteratorRange, e)} className={classes.link}>
           <TodayIcon className={classes.icon} />
           {RankingRouters[iteratorRange].name}
         </Link>

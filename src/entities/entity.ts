@@ -1,4 +1,4 @@
-import { StreamDate } from "./Date";
+import { CustomDate } from "./Date";
 
 const STATUS = {
   done: 'done',
@@ -16,7 +16,7 @@ export type Stream = {
   id: string,
   thumbnail: string,
   status: STATUS,
-  publishedAt: StreamDate,
+  publishedAt: CustomDate,
 }
 
 export type Channel = {

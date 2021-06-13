@@ -60,7 +60,7 @@ export const ArchiveList: React.FC<Props> = ({archive}) => {
       ) : (
         <List component="nav" aria-label="secondary" className={classes.list}>
           {archive.daily.map(index => (
-          <ListItemLink key={index} href={`/ranking?range=daily&t=${index}`}>
+          <ListItemLink key={index} href={`/ranking/daily?t=${index}`}>
             <ListItemText primary={CustomDate.fromDatestring(index).getDisplayDate()} />
           </ListItemLink>
           ))}
@@ -82,7 +82,7 @@ export const ArchiveList: React.FC<Props> = ({archive}) => {
       ) : (
         <List component="nav" aria-label="secondary" className={classes.list}>
           {archive.weekly.map(index => (
-          <ListItemLink key={index} href={`/ranking?range=weekly&t=${index}`}>
+          <ListItemLink key={index} href={`/ranking/weekly?t=${index}`}>
             <ListItemText primary={CustomDate.fromDatestring(index).getDisplayDate()} />
           </ListItemLink>
           ))}
@@ -104,7 +104,7 @@ export const ArchiveList: React.FC<Props> = ({archive}) => {
       ) : (
         <List component="nav" aria-label="secondary" className={classes.list}>
           {archive.monthly.map(index => (
-          <ListItemLink key={index} href={`/ranking?range=monthly&t=${index}`}>
+          <ListItemLink key={index} href={`/ranking/monthly?t=${index}`}>
             <ListItemText primary={CustomDate.fromDatestring(index).getDisplayMonth()} />
           </ListItemLink>
           ))}
