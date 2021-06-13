@@ -62,7 +62,7 @@ export const ChannelCard: React.FC<Props> = ({channel}) => {
     `https://i.ytimg.com/vi/${channel.videoId}/maxresdefault.jpg`;
 
   return (
-    <a className={classes.link} href={`https://www.youtube.com/channel/${channel.id}`} target="_blank" rel="noopener">
+    <a className={classes.link} href={loading ? "" : `https://www.youtube.com/channel/${channel.id}`} target="_blank" rel="noopener">
     <Card className={classes.root}>
       {loading ? (
         <Skeleton animation="wave" variant="rect" className={classes.skeletonMedia} />
