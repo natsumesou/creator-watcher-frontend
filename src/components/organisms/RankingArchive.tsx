@@ -25,13 +25,11 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 const initialArchiveData = () => {
-  const size = 10;
-  const archive = {
+  return {
     daily: [],
     weekly: [],
     monthly: [],
   } as Archive;
-  return archive;
 }
 
 type Props = {

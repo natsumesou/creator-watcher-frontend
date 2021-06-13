@@ -26,21 +26,15 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 const initialChannelData = () => {
-  const size = 10;
-  const channels = [];
-  const channel = {
-    title: null,
-    id: null,
-    superChatAmount: null,
-    memberCount: null,
-  } as Channel;
-
-  for (let i = 0; i < size; i++) {
-    const copyChannel = Object.assign(channel) as Channel;
-    copyChannel.id = i.toString();
-    channels.push(copyChannel);
-  }
-  return channels;
+  const channels = Array(10).fill(null);
+  return channels.map((_,i) => {
+    return {
+      title: null,
+      id: i.toString(),
+      superChatAmount: null,
+      memberCount: null,
+    } as Channel
+  });
 }
 
 type Props = {

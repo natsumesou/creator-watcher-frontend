@@ -20,27 +20,21 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 const initialStreamData = () => {
-  const size = 10;
-  const streams = [];
-  const stream = {
-    title: null,
-    chatCount: null,
-    superChatAmount: null,
-    memberCount: null,
-    channelTitle: null,
-    id: null,
-    thumbnail: null,
-    link: null,
-    status: "process",
-    publishedAt: new CustomDate(),
-  } as Stream;
-
-  for (let i = 0; i < size; i++) {
-    const copyStream = Object.assign(stream) as Stream;
-    copyStream.id = i.toString();
-    streams.push(copyStream);
-  }
-  return streams;
+  const streams = Array(10).fill(null);
+  return streams.map((_, i) => {
+    return {
+      title: null,
+      chatCount: null,
+      superChatAmount: null,
+      memberCount: null,
+      channelTitle: null,
+      id: null,
+      thumbnail: null,
+      link: null,
+      status: "process",
+      publishedAt: new CustomDate(),
+    } as Stream;
+  });
 }
 
 type Props = {
