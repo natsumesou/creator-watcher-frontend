@@ -72,6 +72,8 @@ const RankingPage = ({pageContext}) => {
     console.error(CustomDate.getDisplayMonth);
     console.error(date.getDisplayDate);
     console.error(date.getDisplayMonth);
+    console.error(CustomDate.getDisplayMonth(date));
+    console.error('-----------');
 
     const displayDate =
       query.range === "daily" ?
@@ -79,6 +81,8 @@ const RankingPage = ({pageContext}) => {
       query.range === "weekly" ?
       CustomDate.getDisplayDate(date) :
       CustomDate.getDisplayMonth(date);
+      
+    console.error('-----------');
 
     return {
       headline: `${displayDate} ${RankingRouters[query.range].name}ランキング`,
