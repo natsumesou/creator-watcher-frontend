@@ -64,6 +64,7 @@ const RankingPage = ({pageContext}) => {
       return null;
     }
     const date = CustomDate.fromDatestring(query.t);
+    date.setHours(date.getHours() + 13); // queryのtimeから13時間足すとちょうど集計時間の朝5時になる
 
     const displayDate =
       query.range === "daily" ?
