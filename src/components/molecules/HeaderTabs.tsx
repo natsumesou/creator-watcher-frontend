@@ -1,7 +1,7 @@
 import { makeStyles, Tab, Tabs } from '@material-ui/core'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {navigate} from 'gatsby';
-import {useLocation} from '@reach/router';
+import {useLocation, globalHistory} from '@reach/router';
 
 const LinkTab = (props) => {
   return (
@@ -29,14 +29,25 @@ const useStyles = makeStyles((theme) => ({
 export const HeaderTabs = ({routers = []}) => {
   const { pathname } = useLocation()
   const classes = useStyles();
-  const [index, changeIndex] = useState(routers.findIndex(v => {
+
+  const findPathIndex = (router: any, pathname: string) => {
     const match = pathname.match(/^(\/[^/]*)/);
     if (match) {
-      return v.link === match[1];
+      return router.link === match[1];
     } else {
       return false;
     }
-  }));
+  }
+  const [index, changeIndex] = useState(routers.findIndex(v => findPathIndex(v,pathname)));
+
+  useEffect(() => {
+    // ブラウザバックでindexが更新されない問題に対応
+    return globalHistory .listen(({ location }) => {
+      const pathname = location.pathname;
+      const index = routers.findIndex((router) => findPathIndex(router, pathname));
+      changeIndex(index);
+    });
+  }, []);
 
   const handleChange = (_, value) => {
     changeIndex(value);

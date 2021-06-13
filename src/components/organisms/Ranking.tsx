@@ -1,5 +1,5 @@
 import { useProgressContext } from '@/app';
-import { createStyles, List, ListItem, ListItemText, makeStyles, Theme, Typography } from '@material-ui/core';
+import { createStyles, List, ListItem, ListItemText, makeStyles, Theme } from '@material-ui/core';
 import React, { useEffect, useState } from 'react'
 import { Channel } from '../../entities/entity';
 import { CATEGORY, RANGE, YouTube } from '../../repositories/YouTube';
@@ -67,7 +67,7 @@ export const Ranking: React.FC<Props> = (props) => {
         const ranking = await youtube.fetchRanking(category, range, time);
         setShowProgress(false);
         setData(ranking);
-      }catch(err) {
+      } catch(err) {
         console.error(err);
         setShowProgress(false);
         setError(err);
