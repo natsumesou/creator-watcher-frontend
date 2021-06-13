@@ -28,26 +28,23 @@ export const QueryContext = createContext<ContextType>({
 export const useQueryContext = () => useContext(QueryContext);
 
 const RankingPage = ({pageContext}) => {
-  const { search } = useLocation();
-  const params = parse(search);
-  const rangeFromQuery = {range: params.range, t: params.t} as Query;
-  const initialQuery = Object.keys(RANGE).includes(rangeFromQuery.range) ? rangeFromQuery : {range: "daily"} as Query;
   const { site } = pageContext;
+  const location = useLocation();
+  const queryFromLocationSearch = (location: Location) => {
+    const params = parse(location.search);
+    const rangeFromQuery = {range: params.range, t: params.t} as Query;
+    return Object.keys(RANGE).includes(rangeFromQuery.range) ? rangeFromQuery : {range: "daily"} as Query;
+  }
+  const initialQuery = queryFromLocationSearch(location);
   const [query, setQuery] = useState<Query>(initialQuery);
 
   useEffect(() => {
     // ナビゲーションタブのランキングをクリックしたときにstateをリセットさせる
     // useContextだと上のレイヤーにイベントが伝播しないため苦肉の策
     return globalHistory.listen(({ action, location }) => {
-      const params = parse(location.search);
-      const rangeFromQuery = {range: params.range, t: params.t} as Query;
-
-      if (action === 'PUSH') {
-        if (rangeFromQuery.range === undefined && rangeFromQuery.t === undefined) {
-          setQuery({range: "daily"});
-        }
-      }
-    })
+      const rangeFromQuery = queryFromLocationSearch(location);
+      setQuery(rangeFromQuery);
+    });
   }, []);
 
   const notices = {
