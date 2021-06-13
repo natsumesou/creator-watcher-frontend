@@ -1,5 +1,4 @@
 import { useProgressContext } from '@/app';
-import { CustomDate } from '@/entities/Date';
 import { createStyles, List, ListItem, ListItemText, makeStyles, Theme } from '@material-ui/core';
 import React, { useEffect, useState } from 'react'
 import { Channel } from '../../entities/entity';
@@ -9,7 +8,7 @@ import { RankingTime } from '../atoms/RankingTime';
 import { ChannelCard, getThumbnail } from '../molecules/ChannelCard';
 import { RankingNavigation } from '../molecules/RankingNavigation';
 import { Article } from '../SEO';
-import { RankingRouters, useArticleContext } from '../templates/RankingPage';
+import { useArticleContext } from '../templates/RankingPage';
 import { TabPanel } from './TabPane';
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -57,18 +56,11 @@ export const Ranking: React.FC<Props> = (props) => {
   const [error, setError] = useState<Error>(null);
 
   const createArticle = (ranking: Channel[]) => {
-    try {
-      const date = CustomDate.fromDatestring(time);
-      const displayDate = range === "daily" ? date.getDisplayDate() : range === "weekly" ? date.getDisplayDate() : date.getDisplayMonth();
-      const headline = `${displayDate} ${RankingRouters[range].name}ランキング`
-      return {
-        headline: headline,
-        image: getThumbnail(ranking[0].videoId),
-        publishedAt: date.toISOString(),
-      } as Article;
-    } catch (err) {
-      return null;
-    }
+    return {
+      headline: article.headline,
+      image: getThumbnail(ranking[0].videoId),
+      publishedAt: article.publishedAt,
+    } as Article;
   }
 
   useEffect(() => {
@@ -78,9 +70,8 @@ export const Ranking: React.FC<Props> = (props) => {
     const fetchData = async () => {
       try {
         const ranking = await youtube.fetchRanking(category, range, time);
-        const article = createArticle(ranking);
         if (article) {
-          setArticle(article);
+          setArticle(createArticle(ranking));
         }
         setShowProgress(false);
         setData(ranking);

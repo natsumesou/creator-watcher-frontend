@@ -1,11 +1,13 @@
 import React from "react"
 import { Helmet } from "react-helmet"
 import { useLocation } from "@reach/router"
+import { CustomDate } from "@/entities/Date"
 
 export type SiteMetadata = {
   title: string,
   description: string,
   siteUrl: string,
+  siteLogo: string,
   defaultImage: string,
   author: string,
 }
@@ -13,7 +15,7 @@ export type SiteMetadata = {
 export type Article = {
   headline: string,
   image: string,
-  publishedAt: string,
+  publishedAt: CustomDate,
 }
 
 type Props = {
@@ -49,8 +51,8 @@ const SEO: React.FC<Props> = ({siteMetadata, subtitle, article}) => {
           "image": [
             article.image,
           ],
-          "datePublished": article.publishedAt,
-          "dateModified": article.publishedAt,
+          "datePublished": article.publishedAt.toISOString(),
+          "dateModified": article.publishedAt.toISOString(),
           "author": {
             "@type": "Person",
             "name": siteMetadata.author
@@ -60,12 +62,12 @@ const SEO: React.FC<Props> = ({siteMetadata, subtitle, article}) => {
             "name": siteMetadata.author,
             "logo": {
               "@type": "ImageObject",
-              "url": `${siteMetadata.siteUrl}/images/logo.png`
+              "url": siteMetadata.siteLogo
             }
           }
         }),
       }
-    ] : ""}
+    ] : []}
     title={seo.title} htmlAttributes={{lang: 'ja'}}>
       <title>{title}</title>
       <meta name="description" content={seo.description} />

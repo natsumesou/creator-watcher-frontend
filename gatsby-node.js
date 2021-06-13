@@ -31,6 +31,7 @@ exports.createPages = async ({ graphql, actions: { createPage }}) => {
           title: title
           description: description
           siteUrl: siteUrl
+          siteLogo: siteLogo
           defaultImage: defaultImage
           author: author
         }

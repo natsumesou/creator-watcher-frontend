@@ -59,9 +59,29 @@ const RankingPage = ({pageContext}) => {
       return Object.keys(RANGE).includes(rangeFromQuery.range) ? rangeFromQuery : {range: "daily"} as Query;
     }
   }
+  const articleFromQuery = (query: Query) => {
+    if (!query.t) {
+      return null;
+    }
+    const date = CustomDate.fromDatestring(query.t);
+    const displayDate =
+      query.range === "daily" ?
+      date.getDisplayDate() :
+      query.range === "weekly" ?
+      date.getDisplayDate() :
+      date.getDisplayMonth();
+
+    return {
+      headline: `${displayDate} ${RankingRouters[query.range].name}ランキング`,
+      image: site.siteMetadata.siteLogo,
+      publishedAt: date,
+    } as Article;
+  }
   const initialQuery = queryFromLocationSearch(location);
+  const initialArticle = articleFromQuery(initialQuery);
+
   const [query, setQuery] = useState<Query>(initialQuery);
-  const [article, setArticle] = useState<Article>({} as Article);
+  const [article, setArticle] = useState<Article>(initialArticle);
 
   useEffect(() => {
     // ナビゲーションタブのランキングをクリックしたときにstateをリセットさせる
