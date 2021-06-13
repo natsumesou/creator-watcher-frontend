@@ -32,6 +32,7 @@ exports.createPages = async ({ graphql, actions: { createPage }}) => {
           description: description
           siteUrl: siteUrl
           defaultImage: defaultImage
+          author: author
         }
       }
     }

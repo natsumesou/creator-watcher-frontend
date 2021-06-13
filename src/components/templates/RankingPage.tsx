@@ -1,6 +1,6 @@
 import { Box } from '@material-ui/core'
 import React, { createContext, useContext, useEffect, useState } from 'react'
-import SEO from '@/components/SEO';
+import SEO, { Article } from '@/components/SEO';
 import { Ranking } from '../organisms/Ranking';
 import { RANGE } from '@/repositories/YouTube';
 import { useLocation, globalHistory } from "@reach/router"
@@ -29,6 +29,18 @@ export const QueryContext = createContext<ContextType>({
 });
 export const useQueryContext = () => useContext(QueryContext);
 
+type ArticleContextType = {
+  article: Article,
+  setArticle:(article: Article) => void
+};
+
+export const ArticleContext = createContext<ArticleContextType>({
+  article: {} as Article,
+  setArticle: () => {},
+});
+export const useArticleContext = () => useContext(ArticleContext);
+
+
 const RankingPage = ({pageContext}) => {
   const { site } = pageContext;
   const location = useLocation();
@@ -49,6 +61,7 @@ const RankingPage = ({pageContext}) => {
   }
   const initialQuery = queryFromLocationSearch(location);
   const [query, setQuery] = useState<Query>(initialQuery);
+  const [article, setArticle] = useState<Article>({} as Article);
 
   useEffect(() => {
     // ナビゲーションタブのランキングをクリックしたときにstateをリセットさせる
@@ -70,14 +83,17 @@ const RankingPage = ({pageContext}) => {
     monthly: "https://drive.google.com/uc?id=1dwtjcAoB41u5qLX6Xz4xaVABaArIYCbV",
   }
   site.siteMetadata.defaultImage = ogpImage[initialQuery.range]; // OGP画像は初回アクセス時の初期化値しか見られないので固定値を設定
+  const subtitle = RankingRouters[query.range].name + "ランキング";
 
   return (
+    <ArticleContext.Provider value={{article, setArticle}}>
     <QueryContext.Provider value={{query, setQuery}}>
     <Box>
-      <SEO siteMetadata={site.siteMetadata} subtitle={RankingRouters[query.range].name + "ランキング"} />
+      <SEO siteMetadata={site.siteMetadata} subtitle={subtitle} article={article} />
       <Ranking category="all" range={query.range} time={query.t} notices={notices[query.range]} />
     </Box>
     </QueryContext.Provider>
+    </ArticleContext.Provider>
   )
 }
 

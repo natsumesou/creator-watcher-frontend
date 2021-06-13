@@ -47,6 +47,13 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
+
+export const getThumbnail = (videoId: string, sd?: boolean) => {
+  return sd ?
+  `https://i.ytimg.com/vi/${videoId}/sddefault.jpg` :
+  `https://i.ytimg.com/vi/${videoId}/maxresdefault.jpg`;
+}
+
 type Props = {
   channel: Channel,
 }
@@ -57,9 +64,7 @@ export const ChannelCard: React.FC<Props> = ({channel}) => {
   const loading =
     channel.title === null;
 
-  const thumbnail = breakpoints.sm ?
-    `https://i.ytimg.com/vi/${channel.videoId}/sddefault.jpg` :
-    `https://i.ytimg.com/vi/${channel.videoId}/maxresdefault.jpg`;
+  const thumbnail = getThumbnail(channel.videoId, breakpoints.sm);
 
   return (
     <a className={classes.link} href={loading ? "" : `https://www.youtube.com/channel/${channel.id}`} target="_blank" rel="noopener">

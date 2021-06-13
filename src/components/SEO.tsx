@@ -7,14 +7,22 @@ export type SiteMetadata = {
   description: string,
   siteUrl: string,
   defaultImage: string,
+  author: string,
+}
+
+export type Article = {
+  headline: string,
+  image: string,
+  publishedAt: string,
 }
 
 type Props = {
   siteMetadata: SiteMetadata,
   subtitle: string,
+  article?: Article,
 }
 
-const SEO: React.FC<Props> = ({siteMetadata, subtitle}) => {
+const SEO: React.FC<Props> = ({siteMetadata, subtitle, article}) => {
   const { href } = useLocation()
   const title = subtitle ?
   subtitle + " - " + siteMetadata.title : siteMetadata.title;
@@ -27,7 +35,38 @@ const SEO: React.FC<Props> = ({siteMetadata, subtitle}) => {
   }
 
   return (
-    <Helmet title={seo.title} htmlAttributes={{lang: 'ja'}}>
+    <Helmet script={article ? [
+      {
+        type: 'application/ld+json',
+        innerHTML: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "NewsArticle",
+          "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": href
+          },
+          "headline": article.headline,
+          "image": [
+            article.image,
+          ],
+          "datePublished": article.publishedAt,
+          "dateModified": article.publishedAt,
+          "author": {
+            "@type": "Person",
+            "name": siteMetadata.author
+          },
+          "publisher": {
+            "@type": "Organization",
+            "name": siteMetadata.author,
+            "logo": {
+              "@type": "ImageObject",
+              "url": `${siteMetadata.siteUrl}/images/logo.png`
+            }
+          }
+        }),
+      }
+    ] : ""}
+    title={seo.title} htmlAttributes={{lang: 'ja'}}>
       <title>{title}</title>
       <meta name="description" content={seo.description} />
       <meta name="image" content={seo.image} />
