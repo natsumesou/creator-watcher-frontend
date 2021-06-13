@@ -15,16 +15,15 @@ type Props = {
 }
 
 const SEO: React.FC<Props> = ({siteMetadata, subtitle}) => {
-  const { href } = useLocation()
+  const { pathname, search } = useLocation()
   const title = subtitle ?
   subtitle + " - " + siteMetadata.title : siteMetadata.title;
   const nocache = new Date().getTime();
-
   const seo = {
     title: title,
     description: siteMetadata.description,
     image: siteMetadata.defaultImage + "&_=" + nocache,
-    url: href,
+    url: `${siteMetadata.siteUrl}${pathname}${search}`,
   }
 
   return (
