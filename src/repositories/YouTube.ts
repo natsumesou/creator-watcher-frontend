@@ -1,4 +1,5 @@
-import { Channel, Stream } from "../entities/entity";
+import { CustomDate } from "@/entities/Date";
+import { Archive, Channel, Stream } from "../entities/entity";
 
 const CATEGORY = {
   hololive: 'hololive',
@@ -14,10 +15,12 @@ export type DATATYPE = typeof DATATYPE[keyof typeof DATATYPE];
 export const RANGE = {
   daily: 'daily',
   weekly: 'weekly',
+  monthly: 'monthly',
 } as const;
 export type RANGE = typeof RANGE[keyof typeof RANGE];
 
 const URL = {
+  archive: "https://storage.googleapis.com/vtuber.ytubelab.com/ranking/index.tsv",
   all: {
     timeline: 'https://storage.googleapis.com/vtuber.ytubelab.com/all-timeline.tsv',
     ranking: {
@@ -29,6 +32,10 @@ const URL = {
         default: 'https://storage.googleapis.com/vtuber.ytubelab.com/weekly-ranking.tsv',
         time: 'https://storage.googleapis.com/vtuber.ytubelab.com/ranking/weekly/',
       },
+      monthly: {
+        default: 'https://storage.googleapis.com/vtuber.ytubelab.com/monthly-ranking.tsv',
+        time: 'https://storage.googleapis.com/vtuber.ytubelab.com/ranking/monthly/',
+      }
     }
   },
   hololive: {
@@ -61,6 +68,16 @@ export class YouTube {
     return this.parseRanking(text);
   }
 
+  async fetchRankingIndex() {
+    const urlWithNoCache = this.freshURL(URL.archive);
+    const response = await fetch(urlWithNoCache);
+    if (response.status >= 400) {
+      throw new Error(`HTTPリクエストエラー / ${urlWithNoCache}`);
+    }
+    const text = await response.text();
+    return this.parseRankingIndex(text);
+  }
+
   private parseTimeline(text: string): Stream[] {
     const lines = text.split("\r\n");
     const streams = lines.map((line) => {
@@ -73,7 +90,7 @@ export class YouTube {
         channelTitle: columns[4],
         id: columns[5],
         status: columns[6],
-        publishedAt: new Date(parseInt(columns[7]+"000")),
+        publishedAt: new CustomDate(parseInt(columns[7]+"000")),
       } as Stream;
     });
     return streams;
@@ -92,6 +109,26 @@ export class YouTube {
       } as Channel;
     });
     return streams;
+  }
+
+  private parseRankingIndex(text: string) {
+    const lines = text.split("\r\n");
+    const index = lines.reduce((archive, line, i) => {
+      const indexes = line.split("\t");
+      switch(i) {
+        case 0:
+          archive.daily = indexes.filter(i => i !== "");
+          break;
+        case 1:
+          archive.weekly = indexes.filter(i => i !== "");
+          break;
+        case 2:
+          archive.monthly = indexes.filter(i => i !== "");
+          break;
+      }
+      return archive;
+    }, {} as Archive);
+    return index;
   }
 
   private freshURL(url: string) {

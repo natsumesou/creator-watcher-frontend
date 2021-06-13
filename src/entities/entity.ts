@@ -1,3 +1,5 @@
+import { StreamDate } from "./Date";
+
 const STATUS = {
   done: 'done',
   process: 'process',
@@ -14,7 +16,7 @@ export type Stream = {
   id: string,
   thumbnail: string,
   status: STATUS,
-  publishedAt: Date,
+  publishedAt: StreamDate,
 }
 
 export type Channel = {
@@ -23,4 +25,10 @@ export type Channel = {
   superChatAmount: string,
   memberCount: string,
   videoId: string,
+}
+
+export type Archive = {
+  daily: string[],
+  weekly: string[],
+  monthly: string[],
 }

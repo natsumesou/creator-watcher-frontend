@@ -9,6 +9,7 @@ import { parse } from "query-string"
 export const RankingRouters = {
   daily: {name: "デイリー"},
   weekly: {name: "ウィークリー"},
+  monthly: {name: "マンスリー"},
 }
 
 type Query = {
@@ -50,10 +51,12 @@ const RankingPage = ({pageContext}) => {
   const notices = {
     daily: ["デイリーランキングは毎日朝5時過ぎに前日の朝5時〜当日の朝5時前後の枠のスパチャ金額・メンバー加入数を集計しています"],
     weekly: ["ウィークリーランキングは毎週月曜の朝5時過ぎに前週分のスパチャ金額・メンバー加入数を集計しています"],
+    monthly: ["マンスリーランキングは毎月１日の朝5時過ぎに前月分のスパチャ金額・メンバー加入数を集計しています"],
   }
   const ogpImage = {
     daily: "https://drive.google.com/uc?id=1gtcIIVuktGOKjmqSwgU5hu0PkX6eTXK9",
     weekly: "https://drive.google.com/uc?id=1ormi4L--eUs90Zop0cjAe4gW0KnDJw9M",
+    monthly: "https://drive.google.com/uc?id=1dwtjcAoB41u5qLX6Xz4xaVABaArIYCbV",
   }
   site.siteMetadata.defaultImage = ogpImage[query.range];
   return (

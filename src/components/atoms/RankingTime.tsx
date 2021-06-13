@@ -1,3 +1,4 @@
+import { CustomDate } from '@/entities/Date';
 import { RANGE } from '@/repositories/YouTube';
 import { Box, createStyles, makeStyles, Theme, Typography } from '@material-ui/core'
 import React from 'react'
@@ -16,18 +17,18 @@ const twoDigit = (num: number) => {
 }
 
 const getDisplayTime = (range: RANGE, time: string) => {
-  const year = parseInt(time.substr(0,4));
-  const month = parseInt(time.substr(4,2));
-  const day = parseInt(time.substr(6,2));
   switch(range) {
     case RANGE.daily:
-      const dailyDate = new Date(year, month, day);
-      return `${dailyDate.getFullYear()}年${twoDigit(dailyDate.getMonth() + 1)}月${twoDigit(dailyDate.getDate())}日`;
+      const dailyDate = CustomDate.fromDatestring(time);
+      return dailyDate.getDisplayDate();
     case RANGE.weekly:
-      const startdate = new Date(year, month, day);
-      const enddate = new Date(year, month, day + 6);
-      return `${startdate.getFullYear()}年${twoDigit(startdate.getMonth() + 1)}月${twoDigit(startdate.getDate())}日`
-            + `〜${enddate.getFullYear()}年${twoDigit(enddate.getMonth() + 1)}月${twoDigit(enddate.getDate())}日`;
+      const startdate = CustomDate.fromDatestring(time);
+      const enddate = new CustomDate(startdate.getTime());
+      enddate.setDate(enddate.getDate() + 6);
+      return startdate.getDisplayDate() + "〜" + enddate.getDisplayDate();
+    case RANGE.monthly:
+      const monthlyDate = CustomDate.fromDatestring(time);
+      return monthlyDate.getDisplayMonth();
   }
 }
 

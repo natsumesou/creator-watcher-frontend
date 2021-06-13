@@ -37,6 +37,7 @@ export const RankingNavigation = (props) => {
   return (
     <Breadcrumbs aria-label="breadcrumb" {...props}>
       {Object.keys(RankingRouters).map((iteratorRange) => (
+        iteratorRange === "monthly" ? "" : // マンスリーはまだ表出ししない
         <Link key={iteratorRange} color={query.range === iteratorRange ? "secondary" : "inherit"} href={`${pathname}${buildQuery(iteratorRange)}`} onClick={(e) => handleClick(iteratorRange, e)} className={classes.link}>
           <TodayIcon className={classes.icon} />
           {RankingRouters[iteratorRange].name}

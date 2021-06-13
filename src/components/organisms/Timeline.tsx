@@ -1,4 +1,5 @@
 import { useProgressContext } from '@/app';
+import { CustomDate } from '@/entities/Date';
 import { createStyles, List, ListItem, ListItemText, makeStyles, Theme, Typography } from '@material-ui/core';
 import React, { useEffect, useState } from 'react'
 import { Stream } from '../../entities/entity';
@@ -31,7 +32,7 @@ const initialStreamData = () => {
     thumbnail: null,
     link: null,
     status: "process",
-    publishedAt: new Date(),
+    publishedAt: new CustomDate(),
   } as Stream;
 
   for (let i = 0; i < size; i++) {
