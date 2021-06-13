@@ -58,7 +58,8 @@ const RankingPage = ({pageContext}) => {
     weekly: "https://drive.google.com/uc?id=1ormi4L--eUs90Zop0cjAe4gW0KnDJw9M",
     monthly: "https://drive.google.com/uc?id=1dwtjcAoB41u5qLX6Xz4xaVABaArIYCbV",
   }
-  site.siteMetadata.defaultImage = ogpImage[query.range];
+  site.siteMetadata.defaultImage = ogpImage[initialQuery.range]; // OGP画像は初回アクセス時の初期化値しか見られないので固定値を設定
+
   return (
     <QueryContext.Provider value={{query, setQuery}}>
     <Box>
