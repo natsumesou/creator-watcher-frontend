@@ -1,3 +1,4 @@
+import { CustomDate } from '@/entities/Date';
 import { Box } from '@material-ui/core'
 import React, { createContext, useContext, useEffect, useState } from 'react'
 import SEO, { Article } from '@/components/SEO';
@@ -5,7 +6,6 @@ import { Ranking } from '../organisms/Ranking';
 import { RANGE } from '@/repositories/YouTube';
 import { useLocation, globalHistory } from "@reach/router"
 import { parse } from "query-string"
-import { CustomDate } from '@/entities/Date';
 
 export const RankingRouters = {
   daily: {name: "デイリー", link: "/ranking/daily"},
