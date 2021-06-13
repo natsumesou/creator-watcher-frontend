@@ -44,7 +44,7 @@ export const RankingTime: React.FC<Props> = ({range, time}) => {
 
   return (
     <Box className={classes.root}>
-      ランキング集計期間：
+      ランキング対象期間：
       <time dateTime={time}>{displayTime}</time>
     </Box>
   )
