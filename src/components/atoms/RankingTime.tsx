@@ -20,15 +20,15 @@ const getDisplayTime = (range: RANGE, time: string) => {
   switch(range) {
     case RANGE.daily:
       const dailyDate = CustomDate.fromDatestring(time);
-      return dailyDate.getDisplayDate();
+      return CustomDate.getDisplayDate(dailyDate);
     case RANGE.weekly:
       const startdate = CustomDate.fromDatestring(time);
       const enddate = new CustomDate(startdate.getTime());
       enddate.setDate(enddate.getDate() + 6);
-      return startdate.getDisplayDate() + "〜" + enddate.getDisplayDate();
+      return CustomDate.getDisplayDate(startdate) + "〜" + CustomDate.getDisplayDate(enddate);
     case RANGE.monthly:
       const monthlyDate = CustomDate.fromDatestring(time);
-      return monthlyDate.getDisplayMonth();
+      return CustomDate.getDisplayMonth(monthlyDate);
   }
 }
 

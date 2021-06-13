@@ -5,6 +5,7 @@ import React from 'react'
 import { CardMediaWithLazyLoad } from '../atoms/CardMediaWithLazyLoad';
 import { useBreakpoint } from 'gatsby-plugin-breakpoints';
 import DirectionsRunIcon from '@material-ui/icons/DirectionsRun';
+import { CustomDate } from '@/entities/Date';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -114,7 +115,7 @@ export const StreamCard: React.FC<Props> = ({stream}) => {
                     チャット数：{stream.chatCount}
                 </Typography>
                 <Typography variant="body1">
-                    配信終了日時：<time dateTime={stream.publishedAt.toISOString()}>{stream.publishedAt.getDisplayDateTime()}</time>
+                    配信終了日時：<time dateTime={stream.publishedAt.toISOString()}>{CustomDate.getDisplayDateTime(stream.publishedAt)}</time>
                 </Typography>
               </Box>
               ) : (

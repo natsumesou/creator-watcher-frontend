@@ -5,16 +5,17 @@ class DateBase extends Date {
 }
 
 export class CustomDate extends DateBase {
-  getDisplayDateTime(): string {
-    return `${this.getFullYear()}年${CustomDate.twoDigit(this.getMonth() + 1)}月${CustomDate.twoDigit(this.getDate())}日 ${CustomDate.twoDigit(this.getHours())}:${CustomDate.twoDigit(this.getMinutes())}`;
+  // Googlebotのクロールで何故かインスタンスメソッドがundefinedになるのでstaticで定義する
+  static getDisplayDateTime(date: Date): string {
+    return `${date.getFullYear()}年${this.twoDigit(date.getMonth() + 1)}月${this.twoDigit(date.getDate())}日 ${this.twoDigit(date.getHours())}:${this.twoDigit(date.getMinutes())}`;
   }
 
-  getDisplayDate(): string {
-    return CustomDate.getDisplayDate(this);
+  static getDisplayDate(date: Date): string {
+    return `${date.getFullYear()}年${this.twoDigit(date.getMonth() + 1)}月${this.twoDigit(date.getDate())}日`;
   }
 
-  getDisplayMonth(): string {
-    return CustomDate.getDisplayMonth(this);
+  static getDisplayMonth(date: Date): string {
+    return `${date.getFullYear()}年${this.twoDigit(date.getMonth() + 1)}月`;
   }
 
   static fromDatestring(time: string): CustomDate {
@@ -30,14 +31,5 @@ export class CustomDate extends DateBase {
     } else {
       throw new Error("unknown date format: " + time);
     }
-  }
-
-  // Googleの構造化データの取得で何故かインスタンスメソッドがundefinedになるのでstaticで定義する
-  static getDisplayDate(date: Date): string {
-    return `${date.getFullYear()}年${this.twoDigit(date.getMonth() + 1)}月${this.twoDigit(date.getDate())}日`;
-  }
-
-  static getDisplayMonth(date: Date): string {
-    return `${date.getFullYear()}年${this.twoDigit(date.getMonth() + 1)}月`;
   }
 }
