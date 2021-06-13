@@ -1,20 +1,20 @@
 class DateBase extends Date {
-  protected twoDigit(num: number): string {
+  protected static twoDigit(num: number): string {
     return ("0" + num).slice(-2);
   }
 }
 
 export class CustomDate extends DateBase {
   getDisplayDateTime(): string {
-    return `${this.getFullYear()}年${this.twoDigit(this.getMonth() + 1)}月${this.twoDigit(this.getDate())}日 ${this.twoDigit(this.getHours())}:${this.twoDigit(this.getMinutes())}`;
+    return `${this.getFullYear()}年${CustomDate.twoDigit(this.getMonth() + 1)}月${CustomDate.twoDigit(this.getDate())}日 ${CustomDate.twoDigit(this.getHours())}:${CustomDate.twoDigit(this.getMinutes())}`;
   }
 
   getDisplayDate(): string {
-    return `${this.getFullYear()}年${this.twoDigit(this.getMonth() + 1)}月${this.twoDigit(this.getDate())}日`;
+    return CustomDate.getDisplayDate(this);
   }
 
   getDisplayMonth(): string {
-    return `${this.getFullYear()}年${this.twoDigit(this.getMonth() + 1)}月`;
+    return CustomDate.getDisplayMonth(this);
   }
 
   static fromDatestring(time: string): CustomDate {
@@ -30,5 +30,14 @@ export class CustomDate extends DateBase {
     } else {
       throw new Error("unknown date format: " + time);
     }
+  }
+
+  // Googleの構造化データの取得で何故かインスタンスメソッドがundefinedになるのでstaticで定義する
+  static getDisplayDate(date: Date): string {
+    return `${date.getFullYear()}年${this.twoDigit(date.getMonth() + 1)}月${this.twoDigit(date.getDate())}日`;
+  }
+
+  static getDisplayMonth(date: Date): string {
+    return `${date.getFullYear()}年${this.twoDigit(date.getMonth() + 1)}月`;
   }
 }

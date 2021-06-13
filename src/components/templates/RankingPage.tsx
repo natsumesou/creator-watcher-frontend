@@ -64,25 +64,13 @@ const RankingPage = ({pageContext}) => {
       return null;
     }
     const date = CustomDate.fromDatestring(query.t);
-    console.error(typeof date);
-    console.error("--------------");
-    console.error(date);
-    console.error("--------------");
-    console.error(date.getDisplayDate);
-    console.error("--------------");
-    console.error(CustomDate.fromDatestring);
-    console.error("--------------");
-    const a = new CustomDate();
-    console.error(a.getDisplayDate);
-    console.error(a.getDisplayDateTime);
-    console.error(a.getDisplayMonth);
 
     const displayDate =
       query.range === "daily" ?
-      date.getDisplayDate() :
+      CustomDate.getDisplayDate(date) :
       query.range === "weekly" ?
-      date.getDisplayDate() :
-      date.getDisplayMonth();
+      CustomDate.getDisplayDate(date) :
+      CustomDate.getDisplayMonth(date);
 
     return {
       headline: `${displayDate} ${RankingRouters[query.range].name}ランキング`,
