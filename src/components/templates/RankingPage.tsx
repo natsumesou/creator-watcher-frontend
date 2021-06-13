@@ -5,6 +5,7 @@ import { Ranking } from '../organisms/Ranking';
 import { RANGE } from '@/repositories/YouTube';
 import { useLocation, globalHistory } from "@reach/router"
 import { parse } from "query-string"
+import { CustomDate } from '@/entities/Date';
 
 export const RankingRouters = {
   daily: {name: "デイリー"},
@@ -33,8 +34,15 @@ const RankingPage = ({pageContext}) => {
   const location = useLocation();
   const queryFromLocationSearch = (location: Location) => {
     const params = parse(location.search);
-    const rangeFromQuery = {range: params.range, t: params.t} as Query;
-    return Object.keys(RANGE).includes(rangeFromQuery.range) ? rangeFromQuery : {range: "daily"} as Query;
+    try {
+      // 正常に変換出来る場合はtを考慮した処理をすすめる
+      CustomDate.fromDatestring(params.t as string);
+      const rangeFromQuery = {range: params.range, t: params.t} as Query;
+      return Object.keys(RANGE).includes(rangeFromQuery.range) ? rangeFromQuery : {range: "daily"} as Query;
+    } catch (err) {
+      const rangeFromQuery = {range: params.range} as Query;
+      return Object.keys(RANGE).includes(rangeFromQuery.range) ? rangeFromQuery : {range: "daily"} as Query;
+    }
   }
   const initialQuery = queryFromLocationSearch(location);
   const [query, setQuery] = useState<Query>(initialQuery);
