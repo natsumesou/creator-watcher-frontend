@@ -1,6 +1,5 @@
-import { Box, createStyles, makeStyles, Typography } from '@material-ui/core'
+import { Box, createStyles, makeStyles } from '@material-ui/core'
 import React from 'react'
-import { MainBox } from '../molecules/MainBox'
 
 const useStyles = makeStyles(
   createStyles({

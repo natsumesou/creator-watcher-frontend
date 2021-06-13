@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react'
 import { Channel } from '../../entities/entity';
 import { CATEGORY, RANGE, YouTube } from '../../repositories/YouTube';
 import { ErrorSnackBar } from '../atoms/ErrorSnackBar';
+import { RankingTime } from '../atoms/RankingTime';
 import { ChannelCard } from '../molecules/ChannelCard';
 import { RankingNavigation } from '../molecules/RankingNavigation';
 import { TabPanel } from './TabPane';
@@ -45,6 +46,7 @@ const initialChannelData = () => {
 type Props = {
   category: CATEGORY,
   range: RANGE,
+  time?: string,
   notices?: string[],
 }
 
@@ -53,7 +55,7 @@ export const Ranking: React.FC<Props> = (props) => {
   const classes = useStyles();
   const [data, setData] = useState<Channel[]>(initialChannelData());
   const youtube = new YouTube();
-  const { category, range, notices} = props;
+  const { category, range, time, notices } = props;
   const [error, setError] = useState<Error>(null);
 
   useEffect(() => {
@@ -62,7 +64,7 @@ export const Ranking: React.FC<Props> = (props) => {
 
     const fetchData = async () => {
       try {
-        const ranking = await youtube.fetchRanking(category, range);
+        const ranking = await youtube.fetchRanking(category, range, time);
         setShowProgress(false);
         setData(ranking);
       }catch(err) {
@@ -72,11 +74,11 @@ export const Ranking: React.FC<Props> = (props) => {
       }
     }
     fetchData();
-  }, [range]);
+  }, [range, time]);
 
   return (
     <TabPanel>
-      <RankingNavigation className={classes.navigation} />
+      { time ? (<RankingTime range={range} time={time} />) : (<RankingNavigation className={classes.navigation} />)}
       <List dense={true}>
         {notices ?
           notices.map((notice, i) => (

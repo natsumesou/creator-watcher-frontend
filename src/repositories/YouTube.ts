@@ -21,8 +21,14 @@ const URL = {
   all: {
     timeline: 'https://storage.googleapis.com/vtuber.ytubelab.com/all-timeline.tsv',
     ranking: {
-      daily: 'https://storage.googleapis.com/vtuber.ytubelab.com/daily-ranking.tsv',
-      weekly: 'https://storage.googleapis.com/vtuber.ytubelab.com/weekly-ranking.tsv',
+      daily: {
+        default: 'https://storage.googleapis.com/vtuber.ytubelab.com/daily-ranking.tsv',
+        time: 'https://storage.googleapis.com/vtuber.ytubelab.com/ranking/daily/',
+      },
+      weekly: {
+        default: 'https://storage.googleapis.com/vtuber.ytubelab.com/weekly-ranking.tsv',
+        time: 'https://storage.googleapis.com/vtuber.ytubelab.com/ranking/weekly/',
+      },
     }
   },
   hololive: {
@@ -44,9 +50,10 @@ export class YouTube {
     return this.parseTimeline(text);
   }
 
-  async fetchRanking(category: CATEGORY, range: RANGE) {
-    const url = this.freshURL(URL[category]["ranking"][range]);
-    const response = await fetch(url);
+  async fetchRanking(category: CATEGORY, range: RANGE, time?: string) {
+    const url = time ? URL[category]["ranking"][range].time + time + ".tsv" : URL[category]["ranking"][range].default;
+    const urlWithNoCache = this.freshURL(url);
+    const response = await fetch(urlWithNoCache);
     if (response.status >= 400) {
       throw new Error(`HTTPリクエストエラー / ${category}-ranking / [${response.status}]: ${url}`);
     }

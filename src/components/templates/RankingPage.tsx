@@ -1,9 +1,9 @@
 import { Box } from '@material-ui/core'
-import React, { createContext, useContext, useState } from 'react'
+import React, { createContext, useContext, useEffect, useState } from 'react'
 import SEO from '@/components/SEO';
 import { Ranking } from '../organisms/Ranking';
 import { RANGE } from '@/repositories/YouTube';
-import { useLocation } from "@reach/router"
+import { useLocation, globalHistory } from "@reach/router"
 import { parse } from "query-string"
 
 export const RankingRouters = {
@@ -11,24 +11,44 @@ export const RankingRouters = {
   weekly: {name: "ウィークリー"},
 }
 
-type ContextType = {
+type Query = {
   range: RANGE,
-  setRange:(range: RANGE) => void
+  t?: string,
+}
+
+type ContextType = {
+  query: Query,
+  setQuery:(query: Query) => void
 };
 
-export const RangeContext = createContext<ContextType>({
-  range: "daily",
-  setRange: () => {},
+export const QueryContext = createContext<ContextType>({
+  query: {range: "daily"},
+  setQuery: () => {},
 });
-export const useRangeContext = () => useContext(RangeContext);
+export const useQueryContext = () => useContext(QueryContext);
 
 const RankingPage = ({pageContext}) => {
   const { search } = useLocation();
   const params = parse(search);
-  const rangeFromQuery = params.range;
-  const initialRange = (typeof rangeFromQuery === "string") && Object.keys(RANGE).includes(rangeFromQuery) ? rangeFromQuery as RANGE : "daily";
+  const rangeFromQuery = {range: params.range, t: params.t} as Query;
+  const initialQuery = Object.keys(RANGE).includes(rangeFromQuery.range) ? rangeFromQuery : {range: "daily"} as Query;
   const { site } = pageContext;
-  const [range, setRange] = useState<RANGE>(initialRange);
+  const [query, setQuery] = useState<Query>(initialQuery);
+
+  useEffect(() => {
+    // ナビゲーションタブのランキングをクリックしたときにstateをリセットさせる
+    // useContextだと上のレイヤーにイベントが伝播しないため苦肉の策
+    return globalHistory.listen(({ action, location }) => {
+      const params = parse(location.search);
+      const rangeFromQuery = {range: params.range, t: params.t} as Query;
+
+      if (action === 'PUSH') {
+        if (rangeFromQuery.range === undefined && rangeFromQuery.t === undefined) {
+          setQuery({range: "daily"});
+        }
+      }
+    })
+  }, []);
 
   const notices = {
     daily: ["デイリーランキングは毎日朝5時過ぎに前日の朝5時〜当日の朝5時前後の枠のスパチャ金額・メンバー加入数を集計しています"],
@@ -38,15 +58,14 @@ const RankingPage = ({pageContext}) => {
     daily: "https://drive.google.com/uc?id=1gtcIIVuktGOKjmqSwgU5hu0PkX6eTXK9",
     weekly: "https://drive.google.com/uc?id=1ormi4L--eUs90Zop0cjAe4gW0KnDJw9M",
   }
-  site.siteMetadata.defaultImage = ogpImage[range];
-
+  site.siteMetadata.defaultImage = ogpImage[query.range];
   return (
-    <RangeContext.Provider value={{range, setRange}}>
+    <QueryContext.Provider value={{query, setQuery}}>
     <Box>
-      <SEO siteMetadata={site.siteMetadata} subtitle={RankingRouters[range].name + "ランキング"} />
-      <Ranking category="all" range={range} notices={notices[range]} />
+      <SEO siteMetadata={site.siteMetadata} subtitle={RankingRouters[query.range].name + "ランキング"} />
+      <Ranking category="all" range={query.range} time={query.t} notices={notices[query.range]} />
     </Box>
-    </RangeContext.Provider>
+    </QueryContext.Provider>
   )
 }
 
