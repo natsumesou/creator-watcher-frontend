@@ -2,7 +2,6 @@ import { createStyles, makeStyles, Theme, List, ListItem, ListItemText, Divider,
 import { Skeleton } from '@material-ui/lab';
 import {Archive} from '../../entities/entity';
 import React from 'react'
-import { useBreakpoint } from 'gatsby-plugin-breakpoints';
 import { ListItemProps } from '@material-ui/core';
 import { CustomDate } from '@/entities/Date';
 import { navigate } from 'gatsby';
@@ -30,7 +29,6 @@ type Props = {
 }
 
 export const ArchiveList: React.FC<Props> = ({archive}) => {
-  const breakpoints = useBreakpoint();
   const classes = useStyles();
   const loading =
     archive.daily.length === 0;
@@ -54,13 +52,20 @@ export const ArchiveList: React.FC<Props> = ({archive}) => {
         </ListItem>
       </List>
       <Divider />
-      <List component="nav" aria-label="secondary" className={classes.list}>
-        {archive.daily.map(index => (
-        <ListItemLink key={index} href={`/ranking?range=daily&t=${index}`}>
-          <ListItemText primary={CustomDate.fromDatestring(index).getDisplayDate()} />
-        </ListItemLink>
-        ))}
-      </List>
+      {loading ? (
+        <React.Fragment>
+          <Skeleton animation="wave" height={40} width="80%" style={{ marginBottom: 3}} />
+          <Skeleton animation="wave" height={40} width="70%" />
+        </React.Fragment>
+      ) : (
+        <List component="nav" aria-label="secondary" className={classes.list}>
+          {archive.daily.map(index => (
+          <ListItemLink key={index} href={`/ranking?range=daily&t=${index}`}>
+            <ListItemText primary={CustomDate.fromDatestring(index).getDisplayDate()} />
+          </ListItemLink>
+          ))}
+        </List>
+      )}
       </Box>
       <Box>
       <List component="nav" aria-label="main" className={classes.list}>
@@ -69,13 +74,20 @@ export const ArchiveList: React.FC<Props> = ({archive}) => {
         </ListItem>
       </List>
       <Divider />
-      <List component="nav" aria-label="secondary" className={classes.list}>
-        {archive.weekly.map(index => (
-        <ListItemLink key={index} href={`/ranking?range=weekly&t=${index}`}>
-          <ListItemText primary={CustomDate.fromDatestring(index).getDisplayDate()} />
-        </ListItemLink>
-        ))}
-      </List>
+      {loading ? (
+        <React.Fragment>
+          <Skeleton animation="wave" height={40} width="80%" style={{ marginBottom: 3}} />
+          <Skeleton animation="wave" height={40} width="70%" />
+        </React.Fragment>
+      ) : (
+        <List component="nav" aria-label="secondary" className={classes.list}>
+          {archive.weekly.map(index => (
+          <ListItemLink key={index} href={`/ranking?range=weekly&t=${index}`}>
+            <ListItemText primary={CustomDate.fromDatestring(index).getDisplayDate()} />
+          </ListItemLink>
+          ))}
+        </List>
+      )}
       </Box>
       <Box>
       <List component="nav" aria-label="main" className={classes.list}>
@@ -84,13 +96,20 @@ export const ArchiveList: React.FC<Props> = ({archive}) => {
         </ListItem>
       </List>
       <Divider />
-      <List component="nav" aria-label="secondary" className={classes.list}>
-        {archive.monthly.map(index => (
-        <ListItemLink key={index} href={`/ranking?range=monthly&t=${index}`}>
-          <ListItemText primary={CustomDate.fromDatestring(index).getDisplayMonth()} />
-        </ListItemLink>
-        ))}
-      </List>
+      {loading ? (
+        <React.Fragment>
+          <Skeleton animation="wave" height={40} width="80%" style={{ marginBottom: 3}} />
+          <Skeleton animation="wave" height={40} width="70%" />
+        </React.Fragment>
+      ) : (
+        <List component="nav" aria-label="secondary" className={classes.list}>
+          {archive.monthly.map(index => (
+          <ListItemLink key={index} href={`/ranking?range=monthly&t=${index}`}>
+            <ListItemText primary={CustomDate.fromDatestring(index).getDisplayMonth()} />
+          </ListItemLink>
+          ))}
+        </List>
+      )}
       </Box>
     </div>
   )
