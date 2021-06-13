@@ -12,9 +12,15 @@ const useStyles = makeStyles((theme: Theme) =>
     root: {
       display: 'flex',
       justifyContent: 'center',
+      [theme.breakpoints.down('xs')]: {
+        flexDirection: 'column',
+      },
     },
     list: {
       minWidth: '250px',
+      [theme.breakpoints.down('sm')]: {
+        minWidth: '200px',
+      },
     },
   }),
 );
