@@ -21,7 +21,7 @@ const SEO: React.FC<Props> = ({siteMetadata, subtitle}) => {
   const nocache = new Date().getTime();
 
   const seo = {
-    title: siteMetadata.title,
+    title: title,
     description: siteMetadata.description,
     image: siteMetadata.defaultImage + "&_=" + nocache,
     url: `${siteMetadata.siteUrl}${pathname}`,
