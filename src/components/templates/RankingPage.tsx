@@ -69,6 +69,14 @@ const RankingPage = ({pageContext}) => {
     console.error(date);
     console.error("--------------");
     console.error(date.getDisplayDate);
+    console.error("--------------");
+    console.error(CustomDate.fromDatestring);
+    console.error("--------------");
+    const a = new CustomDate();
+    console.error(a.getDisplayDate);
+    console.error(a.getDisplayDateTime);
+    console.error(a.getDisplayMonth);
+
     const displayDate =
       query.range === "daily" ?
       date.getDisplayDate() :
