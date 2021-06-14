@@ -12,10 +12,10 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       margin: '1em 0 1em',
+      display: 'block',
     },
     listitem: {
-      paddingTop: 0,
-      paddingBottom: 0,
+      padding: 0,
     }
   }),
 );
@@ -82,11 +82,13 @@ export const Timeline: React.FC<Props> = (props) => {
           <ListItem key={i} className={classes.listitem}><ListItemText primary={notice} /></ListItem>
         ))}
       </List>
+      <List>
       {data.map((stream, i) => (
-        <div key={i} className={classes.root} >
+        <ListItem key={i} className={`${classes.root} ${classes.listitem}`} >
           <StreamCard stream={stream} />
-        </div>
+        </ListItem>
       ))}
+      </List>
       {error ? (<ErrorSnackBar text="データ読み込みエラー" />) : ""}
     </TabPanel>
   )
