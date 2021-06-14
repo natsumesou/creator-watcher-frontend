@@ -26,6 +26,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     ads: {
       minHeight: '250px',
+      display: 'block',
     }
   }),
 );
