@@ -84,7 +84,7 @@ export const Timeline: React.FC<Props> = (props) => {
       </List>
       <List>
       {data.map((stream, i) => (
-        <ListItem key={i} className={`${classes.root} ${classes.listitem}`} >
+        <ListItem key={i} className={`${classes.root} ${classes.listitem} item-${i}`} >
           <StreamCard stream={stream} />
         </ListItem>
       ))}

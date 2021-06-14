@@ -8,7 +8,7 @@ const NijisanjiPage = ({ pageContext }) => {
   const notices = [
     "にじさんじの一部チャンネルのみ取得しています",
   ];
-  
+
   return (
     <Box>
       <SEO siteMetadata={site.siteMetadata} subtitle="にじさんじ" />
