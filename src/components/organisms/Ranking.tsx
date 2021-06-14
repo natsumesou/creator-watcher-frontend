@@ -93,7 +93,7 @@ export const Ranking: React.FC<Props> = (props) => {
             <ListItem key={i} className={classes.listitem}><ListItemText primary={notice} /></ListItem>
           )) : ""}
       </List>
-      <List>
+      <List className="ranking-main">
       {data.map((channel, i) => (
         <ListItem key={i} id={`rank${i+1}`} className={`${classes.root} ${classes.listitem}`} >
           <ChannelCard channel={channel} />

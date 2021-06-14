@@ -82,9 +82,9 @@ export const Timeline: React.FC<Props> = (props) => {
           <ListItem key={i} className={classes.listitem}><ListItemText primary={notice} /></ListItem>
         ))}
       </List>
-      <List>
+      <List className="timeline-main">
       {data.map((stream, i) => (
-        <ListItem key={i} className={`${classes.root} ${classes.listitem} item-${i}`} >
+        <ListItem key={i} className={`${classes.root} ${classes.listitem}`} >
           <StreamCard stream={stream} />
         </ListItem>
       ))}
