@@ -81,7 +81,7 @@ export const StreamCard: React.FC<Props> = ({stream}) => {
     `https://i.ytimg.com/vi/${stream.id}/sddefault.jpg` :
     `https://i.ytimg.com/vi/${stream.id}/maxresdefault.jpg`;
   return (
-    <a className={classes.link} href={loading ? "" : `https://www.youtube.com/watch?v=${stream.id}`} target="_blank" rel="noopener">
+    <a id={stream.id} className={classes.link} href={loading ? "" : `https://www.youtube.com/watch?v=${stream.id}`} target="_blank" rel="noopener">
     <Card className={classes.root}>
       {loading ? (
         <Skeleton animation="wave" variant="rect" className={classes.skeletonMedia} />
