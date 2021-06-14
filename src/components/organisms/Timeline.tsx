@@ -93,7 +93,7 @@ export const Timeline: React.FC<Props> = (props) => {
           <ListItem className={`${classes.root} ${classes.listitem}`} >
             <StreamCard stream={stream} />
           </ListItem>
-          {/* 広告枠用 */}
+          {/* 広告枠用 item-area のクラス名必須 display: block 必須 */}
           {( i !== 0 && i % 10 === 0) ? (<ListItem className={`${classes.listitem} ${classes.ads} item-area`}></ListItem>) : ("")}
         </React.Fragment>
       ))}
