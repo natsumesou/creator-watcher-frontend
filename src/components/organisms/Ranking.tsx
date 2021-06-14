@@ -10,6 +10,7 @@ import { RankingNavigation } from '../molecules/RankingNavigation';
 import { Article } from '../SEO';
 import { useArticleContext } from '../templates/RankingPage';
 import { TabPanel } from './TabPane';
+import { InfeedAds } from '../atoms/ads/InfeedAds';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -104,7 +105,11 @@ export const Ranking: React.FC<Props> = (props) => {
             <ChannelCard channel={channel} />
           </ListItem>
           {/* 広告枠用 item-area のクラス名必須 display: block 必須 */}
-           {( i !== 0 && i % 10 === 0) ? (<ListItem className={`${classes.listitem} ${classes.ads} item-area`}></ListItem>) : ("")}
+          {((i !== 0 && i % 10 === 0)) ? (
+          <ListItem className={`${classes.listitem} ${classes.ads} item-area`}>
+            <InfeedAds />
+          </ListItem>
+          ) : ("")}
         </React.Fragment>
       ))}
       </List>

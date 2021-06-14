@@ -2,6 +2,7 @@ import { Box, createStyles, makeStyles, Theme } from '@material-ui/core'
 import React from 'react'
 import SEO from '@/components/SEO';
 import { RankingArchive } from '../organisms/RankingArchive';
+import { DisplayAds } from '../atoms/ads/DisplayAds';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -20,7 +21,7 @@ const ArchivePage = ({ pageContext }) => {
       <SEO siteMetadata={site.siteMetadata} subtitle="ランキングアーカイブ" />
       <RankingArchive />
       {/* 広告枠用 */}
-      <Box id="free-area-of-archive" className={classes.area}></Box>
+      <Box id="free-area-of-archive" className={classes.area}><DisplayAds /></Box>
     </Box>
   )
 }

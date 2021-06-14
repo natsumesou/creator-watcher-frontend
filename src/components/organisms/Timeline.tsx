@@ -5,6 +5,7 @@ import React, { useEffect, useState } from 'react'
 import { Stream } from '../../entities/entity';
 import { CATEGORY, YouTube } from '../../repositories/YouTube';
 import { ErrorSnackBar } from '../atoms/ErrorSnackBar';
+import { InfeedAds } from '../atoms/ads/InfeedAds';
 import { StreamCard } from '../molecules/StreamCard';
 import { TabPanel } from './TabPane';
 
@@ -94,7 +95,11 @@ export const Timeline: React.FC<Props> = (props) => {
             <StreamCard stream={stream} />
           </ListItem>
           {/* 広告枠用 item-area のクラス名必須 display: block 必須 */}
-          {( i !== 0 && i % 10 === 0) ? (<ListItem className={`${classes.listitem} ${classes.ads} item-area`}></ListItem>) : ("")}
+          {((i !== 0 && i % 10 === 0)) ? (
+          <ListItem className={`${classes.listitem} ${classes.ads} item-area`}>
+            <InfeedAds />
+          </ListItem>
+          ) : ("")}
         </React.Fragment>
       ))}
       </List>
