@@ -84,9 +84,13 @@ export const Timeline: React.FC<Props> = (props) => {
       </List>
       <List className="timeline-main">
       {data.map((stream, i) => (
-        <ListItem key={i} className={`${classes.root} ${classes.listitem}`} >
-          <StreamCard stream={stream} />
-        </ListItem>
+        <React.Fragment>
+          <ListItem key={i} className={`${classes.root} ${classes.listitem}`} >
+            <StreamCard stream={stream} />
+          </ListItem>
+          {/* 広告枠用 */}
+          <ListItem key={`${i}.5`} className={`${classes.listitem} item-${i}`}></ListItem>
+        </React.Fragment>
       ))}
       </List>
       {error ? (<ErrorSnackBar text="データ読み込みエラー" />) : ""}

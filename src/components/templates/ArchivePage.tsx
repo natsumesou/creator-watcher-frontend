@@ -12,6 +12,7 @@ const ArchivePage = ({ pageContext }) => {
     <Box>
       <SEO siteMetadata={site.siteMetadata} subtitle="ランキングアーカイブ" />
       <RankingArchive />
+      {/* 広告枠用 */}
       <Box id="free-area-of-archive">hoge</Box>
     </Box>
   )

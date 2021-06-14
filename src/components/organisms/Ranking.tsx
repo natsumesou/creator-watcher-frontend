@@ -95,9 +95,13 @@ export const Ranking: React.FC<Props> = (props) => {
       </List>
       <List className="ranking-main">
       {data.map((channel, i) => (
-        <ListItem key={i} id={`rank${i+1}`} className={`${classes.root} ${classes.listitem}`} >
-          <ChannelCard channel={channel} />
-        </ListItem>
+        <React.Fragment>
+          <ListItem key={i} id={`rank${i+1}`} className={`${classes.root} ${classes.listitem}`} >
+            <ChannelCard channel={channel} />
+          </ListItem>
+           {/* 広告枠用 */}
+          <ListItem key={`${i}.5`} className={`${classes.listitem} item-${i}`}></ListItem>
+        </React.Fragment>
       ))}
       </List>
       {error ? (<ErrorSnackBar text="データ読み込みエラー" />) : ""}
