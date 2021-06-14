@@ -24,6 +24,9 @@ const useStyles = makeStyles((theme: Theme) =>
       display: 'flex',
       justifyContent: 'flex-end',
     },
+    ads: {
+      minHeight: '250px',
+    }
   }),
 );
 
@@ -95,12 +98,12 @@ export const Ranking: React.FC<Props> = (props) => {
       </List>
       <List className="ranking-main">
       {data.map((channel, i) => (
-        <React.Fragment>
+        <React.Fragment key={i}>
           <ListItem key={i} id={`rank${i+1}`} className={`${classes.root} ${classes.listitem}`} >
             <ChannelCard channel={channel} />
           </ListItem>
            {/* 広告枠用 */}
-          <ListItem key={`${i}.5`} className={`${classes.listitem} item-${i}`}></ListItem>
+           {( i !== 0 && i % 10 === 0) ? (<ListItem className={`${classes.listitem} ${classes.ads} item-area`}></ListItem>) : ("")}
         </React.Fragment>
       ))}
       </List>

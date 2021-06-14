@@ -16,9 +16,13 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     listitem: {
       padding: 0,
+    },
+    ads: {
+      minHeight: '250px',
     }
   }),
 );
+
 const initialStreamData = () => {
   const streams = Array(10).fill(null);
   return streams.map((_, i) => {
@@ -84,12 +88,12 @@ export const Timeline: React.FC<Props> = (props) => {
       </List>
       <List className="timeline-main">
       {data.map((stream, i) => (
-        <React.Fragment>
-          <ListItem key={i} className={`${classes.root} ${classes.listitem}`} >
+        <React.Fragment key={i}>
+          <ListItem className={`${classes.root} ${classes.listitem}`} >
             <StreamCard stream={stream} />
           </ListItem>
           {/* 広告枠用 */}
-          <ListItem key={`${i}.5`} className={`${classes.listitem} item-${i}`}></ListItem>
+          {( i !== 0 && i % 10 === 0) ? (<ListItem className={`${classes.listitem} ${classes.ads} item-area`}></ListItem>) : ("")}
         </React.Fragment>
       ))}
       </List>
