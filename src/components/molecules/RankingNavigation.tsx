@@ -1,4 +1,4 @@
-import { Breadcrumbs, createStyles, Link, makeStyles, Theme } from '@material-ui/core'
+import { Breadcrumbs, createStyles, Link, makeStyles, Theme, Box } from '@material-ui/core'
 import React from 'react'
 import {useLocation} from '@reach/router';
 import TodayIcon from '@material-ui/icons/Today';
@@ -7,6 +7,13 @@ import { RankingRouters, useQueryContext } from '../templates/RankingPage';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
+    root: {
+      textAlign: 'right',
+    },
+    navigation: {
+      display: 'flex',
+      justifyContent: 'flex-end',
+    },
     link: {
       fontSize: theme.typography.body2.fontSize,
     },
@@ -24,21 +31,25 @@ export const RankingNavigation = (props) => {
   const { pathname } = useLocation()
   const classes = useStyles();
 
-  const handleClick = (range, event) => {
+  const handleClick = (event, range) => {
     navigate(event.currentTarget.getAttribute('href'));
-    setQuery({range: range});
+    if (range) {
+      setQuery({range: range});
+    }
     event.preventDefault();
   };
 
   return (
-    <Breadcrumbs aria-label="breadcrumb" {...props}>
+    <Box className={classes.root}>
+    <Breadcrumbs aria-label="breadcrumb" className={classes.navigation} {...props}>
       {Object.keys(RankingRouters).map((iteratorRange) => (
         iteratorRange === "monthly" ? "" : // マンスリーはまだ表出ししない
-        <Link key={iteratorRange} color={query.range === iteratorRange ? "secondary" : "inherit"} href={RankingRouters[iteratorRange].link} onClick={(e) => handleClick(iteratorRange, e)} className={classes.link}>
+        <Link key={iteratorRange} color={query.range === iteratorRange ? "secondary" : "inherit"} href={RankingRouters[iteratorRange].link} onClick={(e) => handleClick(e, iteratorRange)} className={classes.link}>
           <TodayIcon className={classes.icon} />
           {RankingRouters[iteratorRange].name}
         </Link>
       ))}
     </Breadcrumbs>
+  </Box>
   )
 }

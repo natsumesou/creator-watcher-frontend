@@ -11,19 +11,27 @@ import { Article } from '../SEO';
 import { useArticleContext } from '../templates/RankingPage';
 import { TabPanel } from './TabPane';
 import { InfeedAds } from '../atoms/ads/InfeedAds';
+import { Link } from '@material-ui/core';
+import AccountBalanceIcon from '@material-ui/icons/AccountBalance';
+import { navigate } from 'gatsby';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    root: {
+    listroot: {
       margin: '0 0 1em',
       display: 'block',
     },
     listitem: {
       padding: 0,
     },
-    navigation: {
-      display: 'flex',
-      justifyContent: 'flex-end',
+    link: {
+      fontSize: theme.typography.body2.fontSize,
+    },
+    icon: {
+      marginRight: theme.spacing(0.5),
+      width: 20,
+      height: 20,
+      verticalAlign: 'middle',
     },
     ads: {
       minHeight: '250px',
@@ -68,6 +76,11 @@ export const Ranking: React.FC<Props> = (props) => {
     } as Article;
   }
 
+  const handleClick = (event) => {
+    navigate(event.currentTarget.getAttribute('href'));
+    event.preventDefault();
+  };
+
   useEffect(() => {
     setData(initialChannelData());
     setShowProgress(true);
@@ -91,7 +104,7 @@ export const Ranking: React.FC<Props> = (props) => {
 
   return (
     <TabPanel>
-      { time ? (<RankingTime range={range} time={time} />) : (<RankingNavigation className={classes.navigation} />)}
+      { time ? (<RankingTime range={range} time={time} />) : (<RankingNavigation />)}
       <List dense={true}>
         {notices ?
           notices.map((notice, i) => (
@@ -101,7 +114,7 @@ export const Ranking: React.FC<Props> = (props) => {
       <List className="ranking-main">
       {data.map((channel, i) => (
         <React.Fragment key={i}>
-          <ListItem key={i} id={`rank${i+1}`} className={`${classes.root} ${classes.listitem}`} >
+          <ListItem key={i} id={`rank${i+1}`} className={`${classes.listroot} ${classes.listitem}`} >
             <ChannelCard channel={channel} />
           </ListItem>
           {/* 広告枠用 item-area のクラス名必須 display: block 必須 */}
@@ -113,6 +126,10 @@ export const Ranking: React.FC<Props> = (props) => {
         </React.Fragment>
       ))}
       </List>
+      <Link color="inherit" href="/ranking/archive" onClick={(e) => handleClick(e)} className={classes.link}>
+        <AccountBalanceIcon className={classes.icon} />
+        アーカイブ
+      </Link>
       {error ? (<ErrorSnackBar text="データ読み込みエラー" />) : ""}
     </TabPanel>
   )
