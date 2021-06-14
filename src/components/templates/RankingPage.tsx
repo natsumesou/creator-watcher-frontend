@@ -64,7 +64,7 @@ const RankingPage = ({pageContext}) => {
       return null;
     }
     const date = CustomDate.fromDatestring(query.t);
-    date.setHours(date.getHours() + 13); // queryのtimeから13時間足すとちょうど集計時間の朝5時になる
+    date.setHours(date.getHours() + 17); // queryのtimeから17時間足すとちょうど集計時間の朝9時になる
 
     const displayDate =
       query.range === "daily" ?
@@ -95,9 +95,9 @@ const RankingPage = ({pageContext}) => {
   }, []);
 
   const notices = {
-    daily: ["デイリーランキングは毎日朝5時過ぎに前日の朝5時〜当日の朝5時前後の枠のスパチャ金額・メンバー加入数を集計しています"],
-    weekly: ["ウィークリーランキングは毎週月曜の朝5時過ぎに前週分のスパチャ金額・メンバー加入数を集計しています"],
-    monthly: ["マンスリーランキングは毎月１日の朝5時過ぎに前月分のスパチャ金額・メンバー加入数を集計しています"],
+    daily: ["デイリーランキングは毎日朝9時過ぎに前日の朝5時〜当日の朝5時前後の枠のスパチャ金額・メンバー加入数を集計しています"],
+    weekly: ["ウィークリーランキングは毎週月曜の朝9時過ぎに前週分のスパチャ金額・メンバー加入数を集計しています"],
+    monthly: ["マンスリーランキングは毎月１日の朝9時過ぎに前月分のスパチャ金額・メンバー加入数を集計しています"],
   }
   const ogpImage = {
     daily: "https://drive.google.com/uc?id=1gtcIIVuktGOKjmqSwgU5hu0PkX6eTXK9",
