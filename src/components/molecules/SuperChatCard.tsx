@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme) =>
     root: {
       display: 'flex',
       [theme.breakpoints.up('xs')]: {
-        minHeight: 180,
+        minHeight: 130,
       },
       [theme.breakpoints.down('xs')]: {
         flexDirection: 'column',
