@@ -21,12 +21,16 @@ const ChannelPage = ({ pageContext }) => {
   const location = useLocation();
   const params = parse(location.search) as {id: string};
   const [channelId, setChannelId] = useState<string>(params.id);
+  const notices = [
+    "チャンネルごとの週間スパチャ上位者を集計してます",
+    "毎週月曜の朝9時過ぎに前週分のスパチャ金額を集計しています"
+  ]
 
   return (
     <ChannelIdContext.Provider value={{channelId, setChannelId}}>
     <Box>
       <SEO siteMetadata={site.siteMetadata} subtitle="チャンネル" />
-      <SuperChats />
+      <SuperChats notices={notices} />
     </Box>
     </ChannelIdContext.Provider>
   )

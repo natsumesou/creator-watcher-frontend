@@ -1,8 +1,8 @@
 import { useProgressContext } from '@/app';
-import { createStyles, List, ListItem, makeStyles, Theme, Box, Typography } from '@material-ui/core';
+import { createStyles, List, ListItem, makeStyles, Theme, Box, Typography, ListItemText } from '@material-ui/core';
 import React, { useEffect, useState } from 'react'
 import { SuperChat, SuperChats as SuperChatsType } from '../../entities/entity';
-import { RANGE, YouTube } from '../../repositories/YouTube';
+import { NotFoundError, RANGE, YouTube } from '../../repositories/YouTube';
 import { ErrorSnackBar } from '../atoms/ErrorSnackBar';
 import { TabPanel } from './TabPane';
 import { InfeedAds } from '../atoms/ads/InfeedAds';
@@ -56,7 +56,7 @@ const initialSuperChatData = () => {
   } as SuperChatsType;
 }
 
-export const SuperChats = () => {
+export const SuperChats = ({notices}) => {
   const { showProgress, setShowProgress } = useProgressContext();
   const { channelId, setChannelId } = useChannelIdContext();
   const classes = useStyles();
@@ -74,7 +74,11 @@ export const SuperChats = () => {
         setShowProgress(false);
         setData(superChats);
       } catch(err) {
-        console.error(err);
+        if (err instanceof NotFoundError) {
+          setError(err);
+        } else {
+          console.error(err);
+        }
         setShowProgress(false);
         setError(err);
       }
@@ -92,6 +96,11 @@ export const SuperChats = () => {
         <Skeleton animation="wave" height={40} width="50%" />
         )}
       </Box>
+      <List dense={true}>
+      {notices.map((notice, i) => (
+        <ListItem key={i} className={classes.listitem}><ListItemText primary={notice} /></ListItem>
+      ))}
+      </List>
       <List className="ranking-main">
       {data.superChats.map((superChat, i) => (
         <React.Fragment key={i}>
@@ -107,7 +116,11 @@ export const SuperChats = () => {
         </React.Fragment>
       ))}
       </List>
-      {error ? (<ErrorSnackBar text="データ読み込みエラー" />) : ""}
+      {error ? (error instanceof NotFoundError) ? (
+        <ErrorSnackBar text="このチャンネルは集計中です" />
+      ) : (
+        <ErrorSnackBar text="データ読み込みエラー" />
+      ) : ""}
     </TabPanel>
   )
 }

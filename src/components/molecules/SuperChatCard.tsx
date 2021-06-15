@@ -66,7 +66,7 @@ const useStyles = makeStyles((theme) =>
       backgroundRepeat: 'no-repeat',
       backgroundSize: 'cover',
       backgroundPosition: 'center',
-      filter: 'blur(8px) grayscale(60%) saturate(30%)',
+      filter: 'blur(8px) grayscale(90%) opacity(60%)',
     },
     avatar: {
       position: 'absolute',

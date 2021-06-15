@@ -19,6 +19,8 @@ export const RANGE = {
 } as const;
 export type RANGE = typeof RANGE[keyof typeof RANGE];
 
+export class NotFoundError extends Error {};
+
 const URL = {
   archive: "https://storage.googleapis.com/vtuber.ytubelab.com/ranking/index.tsv",
   all: {
@@ -64,6 +66,9 @@ export class YouTube {
     const url = this.freshURL(URL.channel.weeklySuperChats.replace('channel_id', channelId));
     const response = await fetch(url);
     if (response.status >= 400) {
+      if (response.status === 404) {
+        throw new NotFoundError(`404 / ${channelId} superChats: ${url}`);
+      }
       throw new Error(`HTTPリクエストエラー / ${channelId} superChats / [${response.status}]: ${url}`);
     }
     const text = await response.text();
