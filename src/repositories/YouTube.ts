@@ -48,7 +48,10 @@ const URL = {
   },
   channel: {
     weeklySuperChats: 'https://storage.googleapis.com/vtuber.ytubelab.com/channels/channel_id/superChats-weekly.tsv',
-  }
+  },
+  video: {
+    superChats: 'https://storage.googleapis.com/vtuber.ytubelab.com/channels/channel_id/video_id/superChats.tsv',
+  },
 }
 
 export class YouTube {
@@ -60,6 +63,19 @@ export class YouTube {
     }
     const text = await response.text();
     return this.parseTimeline(text);
+  }
+
+  async fetchStreamSuperChats(channelId: string, videoId: string) {
+    const url = this.freshURL(URL.video.superChats.replace('channel_id', channelId).replace('video_id', videoId));
+    const response = await fetch(url);
+    if (response.status >= 400) {
+      if (response.status === 404) {
+        throw new NotFoundError(`404 / channel: ${channelId} / video: ${videoId} / superChats: ${url}`);
+      }
+      throw new Error(`HTTPリクエストエラー / ${channelId} / video: ${videoId} / superChats / [${response.status}]: ${url}`);
+    }
+    const text = await response.text();
+    return this.parseSuperChats(text);
   }
 
   async fetchChannelSuperChats(channelId: string) {
@@ -109,6 +125,7 @@ export class YouTube {
         id: columns[5],
         status: columns[6],
         publishedAt: new CustomDate(parseInt(columns[7]+"000")),
+        channelId: columns[8],
       } as Stream;
     });
     return streams;

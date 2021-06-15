@@ -6,6 +6,7 @@ import { CardMediaWithLazyLoad } from '../atoms/CardMediaWithLazyLoad';
 import { useBreakpoint } from 'gatsby-plugin-breakpoints';
 import DirectionsRunIcon from '@material-ui/icons/DirectionsRun';
 import { CustomDate } from '@/entities/Date';
+import { navigate } from 'gatsby';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -80,8 +81,12 @@ export const StreamCard: React.FC<Props> = ({stream}) => {
   const thumbnail = breakpoints.sm ?
     `https://i.ytimg.com/vi/${stream.id}/sddefault.jpg` :
     `https://i.ytimg.com/vi/${stream.id}/maxresdefault.jpg`;
-  return (
-    <a id={stream.id} className={classes.link} href={loading ? "" : `https://www.youtube.com/watch?v=${stream.id}`} target="_blank" rel="noopener">
+
+    const handleClick = (event) => {
+      navigate(event.currentTarget.getAttribute('href'));
+      event.preventDefault();
+    };
+  const card = (
     <Card className={classes.root}>
       {loading ? (
         <Skeleton animation="wave" variant="rect" className={classes.skeletonMedia} />
@@ -136,6 +141,13 @@ export const StreamCard: React.FC<Props> = ({stream}) => {
       </CardContent>
       </div>
     </Card>
-    </a>
   )
+  if (stream.status === "done") {
+    return (
+      <a id={stream.id} className={classes.link} href={loading ? "" : `/watch?cid=${stream.channelId}&vid=${stream.id}`} onClick={handleClick}>
+        {card}
+      </a>
+    )
+  }
+  return card;
 }

@@ -39,6 +39,7 @@ const initialStreamData = () => {
       link: null,
       status: "process",
       publishedAt: new CustomDate(),
+      channelId: null,
     } as Stream;
   });
 }

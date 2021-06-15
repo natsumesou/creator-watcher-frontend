@@ -1,8 +1,8 @@
 import { Box } from '@material-ui/core'
 import React, { createContext, useContext, useState } from 'react'
 import SEO from '@/components/SEO';
-import { SuperChats } from '../organisms/SuperChats';
-import { useLocation, globalHistory } from "@reach/router"
+import { ChannelSuperChats } from '../organisms/ChannelSuperChats';
+import { useLocation } from "@reach/router"
 import { parse } from "query-string"
 
 type ContextType = {
@@ -23,14 +23,15 @@ const ChannelPage = ({ pageContext }) => {
   const [channelId, setChannelId] = useState<string>(params.id);
   const notices = [
     "チャンネルごとの週間スパチャ上位者を集計してます",
-    "毎週月曜の朝9時過ぎに前週分のスパチャ金額を集計しています"
+    "毎週月曜の朝9時過ぎに前週分のスパチャ金額を集計しています",
+    "同額の場合はスパチャ回数が少ないものが優先されます",
   ]
 
   return (
     <ChannelIdContext.Provider value={{channelId, setChannelId}}>
     <Box>
       <SEO siteMetadata={site.siteMetadata} subtitle="チャンネル" />
-      <SuperChats notices={notices} />
+      <ChannelSuperChats notices={notices} />
     </Box>
     </ChannelIdContext.Provider>
   )

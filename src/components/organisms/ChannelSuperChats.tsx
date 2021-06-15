@@ -56,7 +56,7 @@ const initialSuperChatData = () => {
   } as SuperChatsType;
 }
 
-export const SuperChats = ({notices}) => {
+export const ChannelSuperChats = ({notices}) => {
   const { showProgress, setShowProgress } = useProgressContext();
   const { channelId, setChannelId } = useChannelIdContext();
   const classes = useStyles();
@@ -117,7 +117,7 @@ export const SuperChats = ({notices}) => {
       ))}
       </List>
       {error ? (error instanceof NotFoundError) ? (
-        <ErrorSnackBar text="このチャンネルは集計中です" />
+        <ErrorSnackBar text="このチャンネルは集計中です🙇‍♀️" />
       ) : (
         <ErrorSnackBar text="データ読み込みエラー" />
       ) : ""}
