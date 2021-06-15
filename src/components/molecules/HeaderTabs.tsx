@@ -38,19 +38,22 @@ export const HeaderTabs = ({routers = []}) => {
       return false;
     }
   }
-  const [index, changeIndex] = useState(routers.findIndex(v => findPathIndex(v,pathname)));
+  const findIndexOrFalse = (pathname: string) => {
+    const index =routers.findIndex(router => findPathIndex(router, pathname));
+    return index >= 0 ? index : false;
+  }
+  const [index, changeIndex] = useState(findIndexOrFalse(pathname));
 
   useEffect(() => {
     // ブラウザバックでindexが更新されない問題に対応
     return globalHistory .listen(({ location }) => {
       const pathname = location.pathname;
-      const index = routers.findIndex((router) => findPathIndex(router, pathname));
+      const index = findIndexOrFalse(pathname);
       changeIndex(index);
     });
   }, []);
 
   const handleChange = (_, value) => {
-    changeIndex(value);
     navigate(routers[value].link);
   };
 

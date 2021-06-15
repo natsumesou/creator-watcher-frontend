@@ -4,6 +4,7 @@ import {Channel} from '../../entities/entity';
 import React from 'react'
 import { CardMediaWithLazyLoad } from '../atoms/CardMediaWithLazyLoad';
 import { useBreakpoint } from 'gatsby-plugin-breakpoints';
+import { navigate } from 'gatsby';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -66,8 +67,13 @@ export const ChannelCard: React.FC<Props> = ({channel}) => {
 
   const thumbnail = getThumbnail(channel.videoId, breakpoints.sm);
 
+  const handleClick = (event) => {
+    navigate(event.currentTarget.getAttribute('href'));
+    event.preventDefault();
+  };
+
   return (
-    <a className={classes.link} href={loading ? "" : `https://www.youtube.com/channel/${channel.id}`} target="_blank" rel="noopener">
+    <a className={classes.link} href={loading ? "" : `/channel?id=${channel.id}`} onClick={handleClick}>
     <Card className={classes.root}>
       {loading ? (
         <Skeleton animation="wave" variant="rect" className={classes.skeletonMedia} />

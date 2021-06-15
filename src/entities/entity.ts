@@ -32,3 +32,16 @@ export type Archive = {
   weekly: string[],
   monthly: string[],
 }
+
+export type SuperChat = {
+  supporterChannelId: string,
+  supporterDisplayName: string,
+  totalAmount: string,
+  thumbnail: string,
+}
+
+export type SuperChats = {
+  channelName: string,
+  startAt: string,
+  superChats: SuperChat[],
+}

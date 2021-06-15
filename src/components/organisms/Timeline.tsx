@@ -95,7 +95,7 @@ export const Timeline: React.FC<Props> = (props) => {
             <StreamCard stream={stream} />
           </ListItem>
           {/* 広告枠用 item-area のクラス名必須 display: block 必須 */}
-          {((i !== 0 && i % 10 === 0)) ? (
+          {((i !== 0 && i % 10 === 0) || i === 1) ? (
           <ListItem className={`${classes.listitem} ${classes.ads} item-area`}>
             <InfeedAds />
           </ListItem>

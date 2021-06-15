@@ -1,20 +1,7 @@
 import { CustomDate } from '@/entities/Date';
 import { RANGE } from '@/repositories/YouTube';
-import { Box, createStyles, makeStyles, Theme, Typography } from '@material-ui/core'
+import { Box } from '@material-ui/core'
 import React from 'react'
-
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    root: {
-      display: 'flex',
-      justifyContent: 'flex-end',
-    },
-  }),
-);
-
-const twoDigit = (num: number) => {
-  return ("0" + num).slice(-2);
-}
 
 const getDisplayTime = (range: RANGE, time: string) => {
   switch(range) {
@@ -35,16 +22,15 @@ const getDisplayTime = (range: RANGE, time: string) => {
 type Props = {
   range: RANGE,
   time: string,
+  prefix?: string,
 }
 
-export const RankingTime: React.FC<Props> = ({range, time}) => {
-  const classes = useStyles();
-
+export const CalcTime: React.FC<Props> = ({range, time, prefix}) => {
   const displayTime = getDisplayTime(range, time);
 
   return (
-    <Box className={classes.root}>
-      ランキング対象期間：
+    <Box>
+      {prefix}：
       <time dateTime={time}>{displayTime}</time>
     </Box>
   )

@@ -1,5 +1,5 @@
 import { CustomDate } from "@/entities/Date";
-import { Archive, Channel, Stream } from "../entities/entity";
+import { Archive, Channel, Stream, SuperChat, SuperChats } from "../entities/entity";
 
 const CATEGORY = {
   hololive: 'hololive',
@@ -43,6 +43,9 @@ const URL = {
   },
   nijisanji: {
     timeline: 'https://storage.googleapis.com/vtuber.ytubelab.com/nijisanji-timeline.tsv',
+  },
+  channel: {
+    weeklySuperChats: 'https://storage.googleapis.com/vtuber.ytubelab.com/channels/channel_id/superChats-weekly.tsv',
   }
 }
 
@@ -55,6 +58,16 @@ export class YouTube {
     }
     const text = await response.text();
     return this.parseTimeline(text);
+  }
+
+  async fetchChannelSuperChats(channelId: string) {
+    const url = this.freshURL(URL.channel.weeklySuperChats.replace('channel_id', channelId));
+    const response = await fetch(url);
+    if (response.status >= 400) {
+      throw new Error(`HTTPリクエストエラー / ${channelId} superChats / [${response.status}]: ${url}`);
+    }
+    const text = await response.text();
+    return this.parseSuperChats(text);
   }
 
   async fetchRanking(category: CATEGORY, range: RANGE, time?: string) {
@@ -94,6 +107,28 @@ export class YouTube {
       } as Stream;
     });
     return streams;
+  }
+
+  private parseSuperChats(text: string) {
+    const lines = text.split("\r\n");
+    const dateinfo = lines.shift();
+    const meta = dateinfo.split("\t");
+    const channelName = meta[0];
+    const date = meta[1];
+    const superChats = lines.map((line) => {
+      const columns = line.split("\t");
+      return {
+        supporterChannelId: columns[0],
+        supporterDisplayName: columns[1],
+        totalAmount: columns[2],
+        thumbnail: columns[3],
+      } as SuperChat;
+    });
+    return {
+      channelName: channelName,
+      startAt: date,
+      superChats: superChats,
+    } as SuperChats;
   }
 
   private parseRanking(text: string) {

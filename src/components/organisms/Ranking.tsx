@@ -1,10 +1,10 @@
 import { useProgressContext } from '@/app';
-import { createStyles, List, ListItem, ListItemText, makeStyles, Theme } from '@material-ui/core';
+import { createStyles, List, ListItem, ListItemText, makeStyles, Theme, Box } from '@material-ui/core';
 import React, { useEffect, useState } from 'react'
 import { Channel } from '../../entities/entity';
 import { CATEGORY, RANGE, YouTube } from '../../repositories/YouTube';
 import { ErrorSnackBar } from '../atoms/ErrorSnackBar';
-import { RankingTime } from '../atoms/RankingTime';
+import { CalcTime } from '../atoms/CalcTime';
 import { ChannelCard, getThumbnail } from '../molecules/ChannelCard';
 import { RankingNavigation } from '../molecules/RankingNavigation';
 import { Article } from '../SEO';
@@ -33,10 +33,14 @@ const useStyles = makeStyles((theme: Theme) =>
       height: 20,
       verticalAlign: 'middle',
     },
+    time: {
+      display: 'flex',
+      justifyContent: 'flex-end',
+    },
     ads: {
       minHeight: '250px',
       display: 'block',
-    }
+    },
   }),
 );
 
@@ -104,7 +108,9 @@ export const Ranking: React.FC<Props> = (props) => {
 
   return (
     <TabPanel>
-      { time ? (<RankingTime range={range} time={time} />) : (<RankingNavigation />)}
+      <Box className={classes.time}>
+      { time ? (<CalcTime range={range} time={time} prefix="ランキング対象期間" />) : (<RankingNavigation />)}
+      </Box>
       <List dense={true}>
         {notices ?
           notices.map((notice, i) => (
@@ -118,7 +124,7 @@ export const Ranking: React.FC<Props> = (props) => {
             <ChannelCard channel={channel} />
           </ListItem>
           {/* 広告枠用 item-area のクラス名必須 display: block 必須 */}
-          {((i !== 0 && i % 10 === 0)) ? (
+          {((i !== 0 && i % 10 === 0) || i === 1) ? (
           <ListItem className={`${classes.listitem} ${classes.ads} item-area`}>
             <InfeedAds />
           </ListItem>
