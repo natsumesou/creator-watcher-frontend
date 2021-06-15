@@ -1,5 +1,5 @@
 import { useProgressContext } from '@/app';
-import { createStyles, List, ListItem, makeStyles, Theme, Box, Typography, ListItemText } from '@material-ui/core';
+import { createStyles, List, ListItem, makeStyles, Theme, Box, Typography, ListItemText, Button } from '@material-ui/core';
 import React, { useEffect, useState } from 'react'
 import { SuperChat, SuperChats as SuperChatsType } from '../../entities/entity';
 import { NotFoundError, RANGE, YouTube } from '../../repositories/YouTube';
@@ -88,7 +88,9 @@ export const ChannelSuperChats = ({notices}) => {
 
   return (
     <TabPanel>
-      <Typography component="h2" variant="h2">{data.channelName}</Typography>
+      <Button href={`https://www.youtube.com/channel/${channelId}`} target="_blank" rel="noopener">
+      <Typography component="h2" variant="h2">{data.title}</Typography>
+      </Button>
       <Box className={classes.time}>
       {data.startAt ? (
         <CalcTime range={RANGE.weekly} time={data.startAt} prefix="スパチャ集計期間" />
@@ -116,6 +118,9 @@ export const ChannelSuperChats = ({notices}) => {
         </React.Fragment>
       ))}
       </List>
+      {data.superChats.length === 0 ? (
+        <React.Fragment>スパチャは確認できませんでした</React.Fragment>
+      ) : ""}
       {error ? (error instanceof NotFoundError) ? (
         <ErrorSnackBar text="このチャンネルは集計中です🙇‍♀️" />
       ) : (

@@ -1,15 +1,15 @@
 import { useProgressContext } from '@/app';
-import { createStyles, List, ListItem, makeStyles, Theme, Box, Typography, ListItemText } from '@material-ui/core';
+import { createStyles, List, ListItem, makeStyles, Theme, Button, ButtonBase, Typography, ListItemText, Box } from '@material-ui/core';
 import React, { useEffect, useState } from 'react'
 import { SuperChat, SuperChats as SuperChatsType } from '../../entities/entity';
-import { NotFoundError, RANGE, YouTube } from '../../repositories/YouTube';
+import { NotFoundError, YouTube } from '../../repositories/YouTube';
 import { ErrorSnackBar } from '../atoms/ErrorSnackBar';
 import { TabPanel } from './TabPane';
 import { InfeedAds } from '../atoms/ads/InfeedAds';
 import { SuperChatCard } from '../molecules/SuperChatCard';
-import { CalcTime } from '../atoms/CalcTime';
-import { Skeleton } from '@material-ui/lab';
-import { useQueryContext } from '../templates/WatchPage';
+import { Query, useQueryContext } from '../templates/WatchPage';
+import { navigate } from 'gatsby';
+import { getThumbnail } from '../molecules/ChannelCard';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -36,7 +36,37 @@ const useStyles = makeStyles((theme: Theme) =>
     ads: {
       minHeight: '250px',
       display: 'block',
-    }
+    },
+    videoLinkRoot: {
+      width: '100%',
+      position: 'relative',
+      height: 150,
+      '&:hover, &$focusVisible': {
+        zIndex: 1,
+        '& $imageBackdrop': {
+          opacity: 0.15,
+        },
+        '& $imageMarked': {
+          opacity: 0,
+        },
+        '& $imageTitle': {
+          border: '4px solid currentColor',
+        },
+      },
+    },
+    videoLinkBox: {
+      position: 'absolute',
+      width: '100%',
+      height: '100%',
+      backgroundImage: (query: Query) =>  `url(${getThumbnail(query.vid)})`,
+      backgroundRepeat: 'no-repeat',
+      backgroundSize: 'cover',
+      backgroundPosition: 'center',
+      filter: 'blur(4px) grayscale(30%) opacity(30%)',
+    },
+    videoLink: {
+      position: 'absolute',
+    },
   }),
 );
 
@@ -59,7 +89,7 @@ const initialSuperChatData = () => {
 export const WatchSuperChats = ({notices}) => {
   const { showProgress, setShowProgress } = useProgressContext();
   const { query, setQuery } = useQueryContext();
-  const classes = useStyles();
+  const classes = useStyles(query);
   const [data, setData] = useState<SuperChatsType>(initialSuperChatData());
   const youtube = new YouTube();
   const [error, setError] = useState<Error>(null);
@@ -70,7 +100,6 @@ export const WatchSuperChats = ({notices}) => {
 
     const fetchData = async () => {
       try {
-        console.log(query);
         const superChats = await youtube.fetchStreamSuperChats(query.cid, query.vid);
         setShowProgress(false);
         setData(superChats);
@@ -87,11 +116,20 @@ export const WatchSuperChats = ({notices}) => {
     fetchData();
   }, [query]);
 
+  const handleClick = (event) => {
+    navigate(event.currentTarget.getAttribute('href'));
+    event.preventDefault();
+  };
+
   return (
     <TabPanel>
-      <a href={`https://www.youtube.com/watch?v=${query.vid}`} target="_blank" rel="noopener">
-        <Typography component="h2" variant="h2">{data.channelName}</Typography>
-      </a>
+      <ButtonBase href={`https://www.youtube.com/watch?v=${query.vid}`} className={classes.videoLinkRoot} target="_blank" rel="noopener">
+        <span className={classes.videoLinkBox}></span>
+        <Typography className={classes.videoLink} component="h2" variant="h2">{data.title}</Typography>
+      </ButtonBase>
+      <Button href={`/channel?id=${query.cid}`} onClick={handleClick}>
+        <Typography component="h3" variant="h3">{data.channelName} の週間スパチャ上位を見る</Typography>
+      </Button>
       <List dense={true}>
       {notices.map((notice, i) => (
         <ListItem key={i} className={classes.listitem}><ListItemText primary={notice} /></ListItem>
@@ -112,6 +150,9 @@ export const WatchSuperChats = ({notices}) => {
         </React.Fragment>
       ))}
       </List>
+      {data.superChats.length === 0 ? (
+        <React.Fragment>スパチャは確認できませんでした</React.Fragment>
+      ) : ""}
       {error ? (error instanceof NotFoundError) ? (
         <ErrorSnackBar text="集計対象外です🙇‍♀️" />
       ) : (

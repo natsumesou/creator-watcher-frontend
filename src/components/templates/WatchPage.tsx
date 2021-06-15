@@ -5,7 +5,7 @@ import { useLocation } from "@reach/router"
 import { parse } from "query-string"
 import { WatchSuperChats } from '../organisms/WatchSuperChats';
 
-type Query = {
+export type Query = {
   cid: string,
   vid: string,
 }

@@ -42,7 +42,8 @@ export type SuperChat = {
 }
 
 export type SuperChats = {
-  channelName: string,
-  startAt: string,
+  title: string,
   superChats: SuperChat[],
+  channelName?: string,
+  startAt?: string,
 }

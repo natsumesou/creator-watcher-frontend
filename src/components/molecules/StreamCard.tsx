@@ -7,6 +7,7 @@ import { useBreakpoint } from 'gatsby-plugin-breakpoints';
 import DirectionsRunIcon from '@material-ui/icons/DirectionsRun';
 import { CustomDate } from '@/entities/Date';
 import { navigate } from 'gatsby';
+import { getThumbnail } from './ChannelCard';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -78,9 +79,7 @@ export const StreamCard: React.FC<Props> = ({stream}) => {
   const loading =
     stream.title === null;
 
-  const thumbnail = breakpoints.sm ?
-    `https://i.ytimg.com/vi/${stream.id}/sddefault.jpg` :
-    `https://i.ytimg.com/vi/${stream.id}/maxresdefault.jpg`;
+  const thumbnail = getThumbnail(stream.id, breakpoints.sm);
 
     const handleClick = (event) => {
       navigate(event.currentTarget.getAttribute('href'));

@@ -75,7 +75,7 @@ export class YouTube {
       throw new Error(`HTTPリクエストエラー / ${channelId} / video: ${videoId} / superChats / [${response.status}]: ${url}`);
     }
     const text = await response.text();
-    return this.parseSuperChats(text);
+    return this.parseSuperChatsForVideo(text);
   }
 
   async fetchChannelSuperChats(channelId: string) {
@@ -88,7 +88,7 @@ export class YouTube {
       throw new Error(`HTTPリクエストエラー / ${channelId} superChats / [${response.status}]: ${url}`);
     }
     const text = await response.text();
-    return this.parseSuperChats(text);
+    return this.parseSuperChatsForChannel(text);
   }
 
   async fetchRanking(category: CATEGORY, range: RANGE, time?: string) {
@@ -131,13 +131,8 @@ export class YouTube {
     return streams;
   }
 
-  private parseSuperChats(text: string) {
-    const lines = text.split("\r\n");
-    const dateinfo = lines.shift();
-    const meta = dateinfo.split("\t");
-    const channelName = meta[0];
-    const date = meta[1];
-    const superChats = lines.map((line) => {
+  private parseSuperChats(lines: string[]) {
+    return lines.map((line) => {
       const columns = line.split("\t");
       return {
         supporterChannelId: columns[0],
@@ -146,9 +141,34 @@ export class YouTube {
         thumbnail: columns[3],
       } as SuperChat;
     });
+  }
+
+  private parseSuperChatsForVideo(text: string) {
+    const lines = text.split("\r\n");
+    const dateinfo = lines.shift();
+    const meta = dateinfo.split("\t");
+    const title = meta[0];
+    const channelName = meta[1];
+
+    const superChats = this.parseSuperChats(lines);
     return {
+      title: title,
       channelName: channelName,
-      startAt: date,
+      superChats: superChats,
+    } as SuperChats;
+  }
+
+  private parseSuperChatsForChannel(text: string) {
+    const lines = text.split("\r\n");
+    const dateinfo = lines.shift();
+    const meta = dateinfo.split("\t");
+    const title = meta[0];
+    const startAt = meta[1];
+
+    const superChats = this.parseSuperChats(lines);
+    return {
+      title: title,
+      startAt: startAt,
       superChats: superChats,
     } as SuperChats;
   }
