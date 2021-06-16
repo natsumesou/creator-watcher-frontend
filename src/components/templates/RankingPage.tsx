@@ -1,11 +1,12 @@
 import { CustomDate } from '@/entities/Date';
 import { Box } from '@material-ui/core'
 import React, { createContext, useContext, useEffect, useState } from 'react'
-import SEO, { Article } from '@/components/SEO';
+import SEO, { Article, SeoType, SeoContext } from '@/components/SEO';
 import { Ranking } from '../organisms/Ranking';
 import { RANGE } from '@/repositories/YouTube';
 import { useLocation, globalHistory } from "@reach/router"
 import { parse } from "query-string"
+import { PageContext } from '@/app/index';
 
 export const RankingRouters = {
   daily: {name: "デイリー", link: "/ranking/daily"},
@@ -29,19 +30,7 @@ export const QueryContext = createContext<ContextType>({
 });
 export const useQueryContext = () => useContext(QueryContext);
 
-type ArticleContextType = {
-  article: Article,
-  setArticle:(article: Article) => void
-};
-
-export const ArticleContext = createContext<ArticleContextType>({
-  article: {} as Article,
-  setArticle: () => {},
-});
-export const useArticleContext = () => useContext(ArticleContext);
-
-
-const RankingPage = ({pageContext}) => {
+const RankingPage: React.FC<PageContext> = ({pageContext}) => {
   const { site } = pageContext;
   const location = useLocation();
   const queryFromLocationSearch = (location: Location) => {
@@ -84,6 +73,13 @@ const RankingPage = ({pageContext}) => {
 
   const [query, setQuery] = useState<Query>(initialQuery);
   const [article, setArticle] = useState<Article>(initialArticle);
+  const title = `${RankingRouters[query.range].name}ランキング`;
+  const initialSeo = {
+    subtitle: article?.headline || title,
+    article: article,
+  }
+  const [seo, setSeo] = useState<SeoType>(initialSeo);
+
 
   useEffect(() => {
     // ナビゲーションタブのランキングをクリックしたときにstateをリセットさせる
@@ -105,17 +101,16 @@ const RankingPage = ({pageContext}) => {
     monthly: "https://drive.google.com/uc?id=1dwtjcAoB41u5qLX6Xz4xaVABaArIYCbV",
   }
   site.siteMetadata.defaultImage = ogpImage[initialQuery.range]; // OGP画像は初回アクセス時の初期化値しか見られないので固定値を設定
-  const subtitle = article ? article.headline : RankingRouters[query.range].name + "ランキング";
 
   return (
-    <ArticleContext.Provider value={{article, setArticle}}>
+    <SeoContext.Provider value={{seo, setSeo}}>
     <QueryContext.Provider value={{query, setQuery}}>
     <Box>
-      <SEO siteMetadata={site.siteMetadata} subtitle={subtitle} article={article} />
+      <SEO site={site} />
       <Ranking category="all" range={query.range} time={query.t} notices={notices[query.range]} />
     </Box>
     </QueryContext.Provider>
-    </ArticleContext.Provider>
+    </SeoContext.Provider>
   )
 }
 

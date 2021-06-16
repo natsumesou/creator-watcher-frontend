@@ -1,6 +1,6 @@
 import { Box } from '@material-ui/core'
-import React from 'react'
-import SEO from '@/components/SEO';
+import React, { useState } from 'react'
+import SEO, { SeoType, SeoContext } from '@/components/SEO';
 import { Timeline } from '../organisms/Timeline';
 
 const HololivePage = ({ pageContext }) => {
@@ -8,11 +8,17 @@ const HololivePage = ({ pageContext }) => {
   const notices = [
     "ホロライブ(JP)のチャンネルのみ取得しています"
   ]
+  const [seo, setSeo] = useState<SeoType>({
+    subtitle: "ホロライブ",
+  });
+
   return (
+    <SeoContext.Provider value={{seo, setSeo}}>
     <Box>
-      <SEO siteMetadata={site.siteMetadata} subtitle="ホロライブ" />
+      <SEO site={site} />
       <Timeline category="hololive" notices={notices} />
     </Box>
+    </SeoContext.Provider>
   )
 }
 

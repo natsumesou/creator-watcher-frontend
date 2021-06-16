@@ -7,8 +7,7 @@ import { ErrorSnackBar } from '../atoms/ErrorSnackBar';
 import { CalcTime } from '../atoms/CalcTime';
 import { ChannelCard, getThumbnail } from '../molecules/ChannelCard';
 import { RankingNavigation } from '../molecules/RankingNavigation';
-import { Article } from '../SEO';
-import { useArticleContext } from '../templates/RankingPage';
+import { Article, useSeoContext } from '../SEO';
 import { TabPanel } from './TabPane';
 import { InfeedAds } from '../atoms/ads/InfeedAds';
 import { Link } from '@material-ui/core';
@@ -65,7 +64,7 @@ type Props = {
 
 export const Ranking: React.FC<Props> = (props) => {
   const { showProgress, setShowProgress } = useProgressContext();
-  const { article, setArticle } = useArticleContext();
+  const { seo, setSeo } = useSeoContext();
   const classes = useStyles();
   const [data, setData] = useState<Channel[]>(initialChannelData());
   const youtube = new YouTube();
@@ -74,9 +73,9 @@ export const Ranking: React.FC<Props> = (props) => {
 
   const createArticle = (ranking: Channel[]) => {
     return {
-      headline: article.headline,
+      headline: seo.article.headline,
       image: getThumbnail(ranking[0].videoId),
-      publishedAt: article.publishedAt,
+      publishedAt: seo.article.publishedAt,
     } as Article;
   }
 
@@ -92,8 +91,12 @@ export const Ranking: React.FC<Props> = (props) => {
     const fetchData = async () => {
       try {
         const ranking = await youtube.fetchRanking(category, range, time);
-        if (article) {
-          setArticle(createArticle(ranking));
+        if (seo.article) {
+          const article = createArticle(ranking);
+          setSeo({
+            subtitle: article.headline,
+            article: article,
+          });
         }
         setShowProgress(false);
         setData(ranking);

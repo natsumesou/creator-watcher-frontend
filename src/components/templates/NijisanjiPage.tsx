@@ -1,6 +1,6 @@
 import { Box } from '@material-ui/core'
-import React from 'react'
-import SEO from '@/components/SEO';
+import React, { useState } from 'react'
+import SEO, { SeoType, SeoContext } from '@/components/SEO';
 import { Timeline } from '../organisms/Timeline';
 
 const NijisanjiPage = ({ pageContext }) => {
@@ -8,12 +8,17 @@ const NijisanjiPage = ({ pageContext }) => {
   const notices = [
     "にじさんじの一部チャンネルのみ取得しています",
   ];
+  const [seo, setSeo] = useState<SeoType>({
+    subtitle: "にじさんじ",
+  });
 
   return (
+    <SeoContext.Provider value={{seo, setSeo}}>
     <Box>
-      <SEO siteMetadata={site.siteMetadata} subtitle="にじさんじ" />
+      <SEO site={site} />
       <Timeline category="nijisanji" notices={notices} />
     </Box>
+    </SeoContext.Provider>
   )
 }
 

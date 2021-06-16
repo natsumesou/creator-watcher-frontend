@@ -18,6 +18,23 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
+export type PageContext = {
+  [pageContext: string]: {
+    [site: string]: {
+      [siteMetadata: string]: SiteMetadata,
+    }
+  }
+}
+
+export type SiteMetadata = {
+  title: string,
+  description: string,
+  siteUrl: string,
+  siteLogo: string,
+  defaultImage: string,
+  author: string,
+}
+
 type ContextType = {
   showProgress: boolean,
   setShowProgress:(value: boolean) => void

@@ -1,6 +1,6 @@
 import { Box, createStyles, makeStyles, Theme } from '@material-ui/core'
-import React from 'react'
-import SEO from '@/components/SEO';
+import React, { useState } from 'react'
+import SEO, { SeoType,SeoContext } from '@/components/SEO';
 import { RankingArchive } from '../organisms/RankingArchive';
 import { DisplayAds } from '../atoms/ads/DisplayAds';
 
@@ -15,14 +15,17 @@ const useStyles = makeStyles((theme: Theme) =>
 const ArchivePage = ({ pageContext }) => {
   const classes = useStyles();
   const { site } = pageContext;
+  const [seo, setSeo] = useState<SeoType>({
+    subtitle: "ランキングアーカイブ",
+  });
 
   return (
-    <Box>
-      <SEO siteMetadata={site.siteMetadata} subtitle="ランキングアーカイブ" />
+    <SeoContext.Provider value={{seo, setSeo}}>
+      <SEO site={site} />
       <RankingArchive />
       {/* 広告枠用 */}
       <Box id="free-area-of-archive" className={classes.area}><DisplayAds /></Box>
-    </Box>
+    </SeoContext.Provider>
   )
 }
 

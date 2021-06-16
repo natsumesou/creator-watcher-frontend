@@ -10,6 +10,7 @@ import { SuperChatCard } from '../molecules/SuperChatCard';
 import { CalcTime } from '../atoms/CalcTime';
 import { Skeleton } from '@material-ui/lab';
 import { useChannelIdContext } from '../templates/ChannelPage';
+import { useSeoContext } from '../SEO';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -63,6 +64,7 @@ export const ChannelSuperChats = ({notices}) => {
   const [data, setData] = useState<SuperChatsType>(initialSuperChatData());
   const youtube = new YouTube();
   const [error, setError] = useState<Error>(null);
+  const { seo, setSeo } = useSeoContext();
 
   useEffect(() => {
     setData(initialSuperChatData());
@@ -73,6 +75,7 @@ export const ChannelSuperChats = ({notices}) => {
         const superChats = await youtube.fetchChannelSuperChats(channelId);
         setShowProgress(false);
         setData(superChats);
+        setSeo({subtitle: superChats.title});
       } catch(err) {
         if (err instanceof NotFoundError) {
           setError(err);

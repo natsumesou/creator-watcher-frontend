@@ -1,16 +1,8 @@
-import React from "react"
+import React, { createContext, useContext } from "react"
 import { Helmet } from "react-helmet"
 import { useLocation } from "@reach/router"
 import { CustomDate } from "@/entities/Date"
-
-export type SiteMetadata = {
-  title: string,
-  description: string,
-  siteUrl: string,
-  siteLogo: string,
-  defaultImage: string,
-  author: string,
-}
+import { SiteMetadata } from "@/app"
 
 export type Article = {
   headline: string,
@@ -18,26 +10,43 @@ export type Article = {
   publishedAt: CustomDate,
 }
 
-type Props = {
-  siteMetadata: SiteMetadata,
-  subtitle: string,
+export type SeoType = {
+  subtitle?: string,
   article?: Article,
 }
 
-const SEO: React.FC<Props> = ({siteMetadata, subtitle, article}) => {
+type ContextType = {
+  seo: SeoType,
+  setSeo:(seo: SeoType) => void
+};
+
+type Props = {
+  [site:string]: {
+    [siteMetadata:string]: SiteMetadata,
+  }
+}
+
+export const SeoContext = createContext<ContextType>({
+  seo: null,
+  setSeo: () => {},
+});
+export const useSeoContext = () => useContext(SeoContext);
+
+const SEO: React.FC<Props> = ({site}) => {
   const { href } = useLocation()
-  const title = subtitle ?
-  subtitle + " - " + siteMetadata.title : siteMetadata.title;
+  const { seo, setSeo } = useSeoContext();
+  const title = seo.subtitle ?
+  seo.subtitle + " - " + site.siteMetadata.title : site.siteMetadata.title;
   const nocache = new Date().getTime();
-  const seo = {
+  const meta = {
     title: title,
-    description: siteMetadata.description,
-    image: siteMetadata.defaultImage + "&_=" + nocache,
+    description: site.siteMetadata.description,
+    image: site.siteMetadata.defaultImage + "&_=" + nocache,
     url: href,
   }
 
   return (
-    <Helmet script={article ? [
+    <Helmet script={seo.article ? [
       {
         type: 'application/ld+json',
         innerHTML: JSON.stringify({
@@ -47,39 +56,39 @@ const SEO: React.FC<Props> = ({siteMetadata, subtitle, article}) => {
             "@type": "WebPage",
             "@id": href
           },
-          "headline": article.headline,
+          "headline": seo.article.headline,
           "image": [
-            article.image,
+            seo.article.image,
           ],
-          "datePublished": article.publishedAt.toISOString(),
-          "dateModified": article.publishedAt.toISOString(),
+          "datePublished": seo.article.publishedAt.toISOString(),
+          "dateModified": seo.article.publishedAt.toISOString(),
           "author": {
             "@type": "Person",
-            "name": siteMetadata.author
+            "name": site.siteMetadata.author
           },
           "publisher": {
             "@type": "Organization",
-            "name": siteMetadata.author,
+            "name": site.siteMetadata.author,
             "logo": {
               "@type": "ImageObject",
-              "url": siteMetadata.siteLogo
+              "url": site.siteMetadata.siteLogo
             }
           }
         }),
       }
     ] : []}
-    title={seo.title} htmlAttributes={{lang: 'ja'}}>
+    title={meta.title} htmlAttributes={{lang: 'ja'}}>
       <title>{title}</title>
-      <meta name="description" content={seo.description} />
-      <meta name="image" content={seo.image} />
-      <meta property="og:url" content={seo.url} />
-      <meta property="og:title" content={seo.title} />
-      <meta property="og:description" content={seo.description} />
-      <meta property="og:image" content={seo.image} />
+      <meta name="description" content={meta.description} />
+      <meta name="image" content={meta.image} />
+      <meta property="og:url" content={meta.url} />
+      <meta property="og:title" content={meta.title} />
+      <meta property="og:description" content={meta.description} />
+      <meta property="og:image" content={meta.image} />
       <meta name="twitter:card" content="summary_large_image" />
-      <meta name="twitter:title" content={seo.title} />
-      <meta name="twitter:description" content={seo.description} />
-      <meta name="twitter:image" content={seo.image} />
+      <meta name="twitter:title" content={meta.title} />
+      <meta name="twitter:description" content={meta.description} />
+      <meta name="twitter:image" content={meta.image} />
     </Helmet>
   )
 }

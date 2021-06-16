@@ -10,6 +10,7 @@ import { SuperChatCard } from '../molecules/SuperChatCard';
 import { Query, useQueryContext } from '../templates/WatchPage';
 import { navigate } from 'gatsby';
 import { getThumbnail } from '../molecules/ChannelCard';
+import { useSeoContext } from '../SEO';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -41,18 +42,6 @@ const useStyles = makeStyles((theme: Theme) =>
       width: '100%',
       position: 'relative',
       height: 150,
-      '&:hover, &$focusVisible': {
-        zIndex: 1,
-        '& $imageBackdrop': {
-          opacity: 0.15,
-        },
-        '& $imageMarked': {
-          opacity: 0,
-        },
-        '& $imageTitle': {
-          border: '4px solid currentColor',
-        },
-      },
     },
     videoLinkBox: {
       position: 'absolute',
@@ -89,6 +78,7 @@ const initialSuperChatData = () => {
 export const WatchSuperChats = ({notices}) => {
   const { showProgress, setShowProgress } = useProgressContext();
   const { query, setQuery } = useQueryContext();
+  const { seo, setSeo } = useSeoContext();
   const classes = useStyles(query);
   const [data, setData] = useState<SuperChatsType>(initialSuperChatData());
   const youtube = new YouTube();
@@ -103,6 +93,7 @@ export const WatchSuperChats = ({notices}) => {
         const superChats = await youtube.fetchStreamSuperChats(query.cid, query.vid);
         setShowProgress(false);
         setData(superChats);
+        setSeo({subtitle: superChats.title});
       } catch(err) {
         if (err instanceof NotFoundError) {
           setError(err);

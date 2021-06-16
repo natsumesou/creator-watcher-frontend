@@ -1,16 +1,21 @@
 import { Box } from '@material-ui/core'
-import React from 'react'
-import SEO from '@/components/SEO';
+import React, { useState } from 'react'
+import SEO, { SeoType, SeoContext } from '@/components/SEO';
 import { Timeline } from '../organisms/Timeline';
 
 const HomePage = ({ pageContext }) => {
   const { site } = pageContext;
+  const [seo, setSeo] = useState<SeoType>({
+    subtitle: "タイムライン",
+  });
 
   return (
+    <SeoContext.Provider value={{seo, setSeo}}>
     <Box>
-      <SEO siteMetadata={site.siteMetadata} subtitle="タイムライン" />
+      <SEO site={site} />
       <Timeline category="all" />
     </Box>
+    </SeoContext.Provider>
   )
 }
 
