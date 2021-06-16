@@ -53,6 +53,7 @@ const useStyles = makeStyles((theme) =>
       position: 'relative',
       margin: 8,
       flex: 1,
+      overflow: 'hidden',
       [theme.breakpoints.down('xs')]: {
         flex: 10,
         width: 'auto',

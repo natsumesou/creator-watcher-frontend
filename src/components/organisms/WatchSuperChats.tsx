@@ -42,6 +42,7 @@ const useStyles = makeStyles((theme: Theme) =>
       width: '100%',
       position: 'relative',
       height: 150,
+      overflow: 'hidden',
     },
     videoLinkBox: {
       position: 'absolute',
@@ -55,6 +56,10 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     videoLink: {
       position: 'absolute',
+      padding: 20,
+      [theme.breakpoints.down('xs')]: {
+        padding: 10,
+      },
     },
   }),
 );
