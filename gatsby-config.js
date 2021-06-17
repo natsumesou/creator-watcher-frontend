@@ -9,7 +9,7 @@ module.exports = {
     author: 'YouTube研究所',
     siteUrl: 'https://vtuber.ytubelab.com',
     siteLogo: 'https://vtuber.ytubelab.com/images/logo.png',
-    defaultImage: 'https://drive.google.com/uc?id=1gtcIIVuktGOKjmqSwgU5hu0PkX6eTXK9', // google driveに画像を上げてる・GASで毎日中身更新運用
+    defaultImage: 'https://vtuber.ytubelab.com/images/share.png', // google driveに画像を上げてる・GASで毎日中身更新運用
   },
   plugins: [
     'gatsby-plugin-typescript',

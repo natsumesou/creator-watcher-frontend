@@ -106,7 +106,7 @@ export const ChannelSuperChats = ({notices}) => {
         <ListItem key={i} className={classes.listitem}><ListItemText primary={notice} /></ListItem>
       ))}
       </List>
-      <Typography variant="body1">合計スパチャ金額🥇{data.superChatAmount}</Typography>
+      <Typography variant="body1">週間スパチャ金額🥇{data.superChatAmount}</Typography>
       <List className="ranking-main">
       {data.superChats.map((superChat, i) => (
         <React.Fragment key={i}>
