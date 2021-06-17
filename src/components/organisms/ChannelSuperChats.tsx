@@ -113,7 +113,7 @@ export const ChannelSuperChats = ({notices}) => {
             <SuperChatCard superChat={superChat} />
           </ListItem>
           {/* 広告枠用 item-area のクラス名必須 display: block 必須 */}
-          {((i === 2 || i === 6)) ? (
+          {((i === 6)) ? (
           <ListItem className={`${classes.listitem} ${classes.ads} item-area`}>
             <InfeedAds />
           </ListItem>
