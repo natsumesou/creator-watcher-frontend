@@ -41,7 +41,7 @@ const SEO: React.FC<Props> = ({site}) => {
   const meta = {
     title: title,
     description: site.siteMetadata.description,
-    image: site.siteMetadata.defaultImage + "&_=" + nocache,
+    image: site.siteMetadata.defaultImage + (site.siteMetadata.defaultImage.includes("?") ? "&_=" : "?_=" ) + nocache,
     url: href,
   }
 
