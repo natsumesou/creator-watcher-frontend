@@ -131,6 +131,7 @@ export const WatchSuperChats = ({notices}) => {
         <ListItem key={i} className={classes.listitem}><ListItemText primary={notice} /></ListItem>
       ))}
       </List>
+      <Typography variant="body1">合計スパチャ金額🥇{data.superChatAmount}</Typography>
       <List className="ranking-main">
       {data.superChats.map((superChat, i) => (
         <React.Fragment key={i}>
@@ -138,7 +139,7 @@ export const WatchSuperChats = ({notices}) => {
             <SuperChatCard superChat={superChat} />
           </ListItem>
           {/* 広告枠用 item-area のクラス名必須 display: block 必須 */}
-          {((i === 3)) ? (
+          {((i === 100)) ? (
           <ListItem className={`${classes.listitem} ${classes.ads} item-area`}>
             <InfeedAds />
           </ListItem>

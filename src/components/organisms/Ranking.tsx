@@ -127,7 +127,7 @@ export const Ranking: React.FC<Props> = (props) => {
             <ChannelCard channel={channel} />
           </ListItem>
           {/* 広告枠用 item-area のクラス名必須 display: block 必須 */}
-          {((i !== 0 && i % 10 === 0)) ? (
+          {((i === 200)) ? (
           <ListItem className={`${classes.listitem} ${classes.ads} item-area`}>
             <InfeedAds />
           </ListItem>

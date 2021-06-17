@@ -16,6 +16,7 @@ const useStyles = makeStyles((theme) =>
       },
       [theme.breakpoints.down('xs')]: {
         flexDirection: 'column',
+        minHeight: 200,
       },
     },
     content: {
@@ -117,7 +118,7 @@ export const SuperChatCard: React.FC<Props> = (props) => {
               {superChat.supporterDisplayName}
             </Typography>
             <Typography variant="body1">
-              {superChat.totalAmount}
+            🥇{superChat.totalAmount}
             </Typography>
           </Box>
         )}

@@ -45,5 +45,6 @@ export type SuperChats = {
   title: string,
   superChats: SuperChat[],
   channelName?: string,
+  superChatAmount?: string,
   startAt?: string,
 }
