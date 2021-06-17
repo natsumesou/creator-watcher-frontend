@@ -8,6 +8,7 @@ import { ErrorSnackBar } from '../atoms/ErrorSnackBar';
 import { InfeedAds } from '../atoms/ads/InfeedAds';
 import { StreamCard } from '../molecules/StreamCard';
 import { TabPanel } from './TabPane';
+import { TempCard } from '../molecules/TempCard';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -62,9 +63,9 @@ export const Timeline: React.FC<Props> = (props) => {
 
     const fetchData = async () => {
       try {
-      const streams = await youtube.fetchTimeline(category);
-      setShowProgress(false);
-      setData(streams);
+        const streams = await youtube.fetchTimeline(category);
+        setShowProgress(false);
+        setData(streams);
       } catch (err) {
         console.error(err);
         setShowProgress(false);
@@ -94,6 +95,7 @@ export const Timeline: React.FC<Props> = (props) => {
         <React.Fragment key={i}>
           <ListItem className={`${classes.root} ${classes.listitem}`} >
             <StreamCard stream={stream} />
+            <TempCard id={stream.id} />
           </ListItem>
           {/* 広告枠用 item-area のクラス名必須 display: block 必須 */}
           {((i === 200)) ? (

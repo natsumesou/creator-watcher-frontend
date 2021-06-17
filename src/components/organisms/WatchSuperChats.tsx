@@ -11,6 +11,7 @@ import { Query, useQueryContext } from '../templates/WatchPage';
 import { navigate } from 'gatsby';
 import { getThumbnail } from '../molecules/ChannelCard';
 import { useSeoContext } from '../SEO';
+import { TempCard } from '../molecules/TempCard';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -126,6 +127,7 @@ export const WatchSuperChats = ({notices}) => {
       <Button href={`/channel?id=${query.cid}`} onClick={handleClick}>
         <Typography component="h3" variant="h3">{data.channelName} の週間スパチャ上位を見る</Typography>
       </Button>
+      <TempCard id={query.vid} />
       <List dense={true}>
       {notices.map((notice, i) => (
         <ListItem key={i} className={classes.listitem}><ListItemText primary={notice} /></ListItem>
