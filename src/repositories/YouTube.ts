@@ -166,12 +166,14 @@ export class YouTube {
     const meta = dateinfo.split("\t");
     const title = meta[0];
     const startAt = meta[1];
+    const superChatAmount = meta[2];
 
     const superChats = this.parseSuperChats(lines);
     return {
       title: title,
       startAt: startAt,
       superChats: superChats,
+      superChatAmount: superChatAmount,
     } as SuperChats;
   }
 
