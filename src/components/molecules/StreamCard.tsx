@@ -16,6 +16,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     root: {
       display: 'flex',
+      opacity: (props: Props) => props.stream.status !== 'done' ? '60%' : '100%',
       [theme.breakpoints.up('xs')]: {
         minHeight: 180,
       },
@@ -73,9 +74,10 @@ type Props = {
   stream: Stream,
 }
 
-export const StreamCard: React.FC<Props> = ({stream}) => {
+export const StreamCard: React.FC<Props> = (props) => {
   const breakpoints = useBreakpoint();
-  const classes = useStyles();
+  const { stream } = props;
+  const classes = useStyles(props);
   const loading =
     stream.title === null;
 
