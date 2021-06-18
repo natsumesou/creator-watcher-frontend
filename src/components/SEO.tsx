@@ -46,6 +46,8 @@ const SEO: React.FC<Props> = ({site}) => {
   }
 
   return (
+    <React.Fragment>
+    <script data-ad-client="ca-pub-3219662000601843" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
     <Helmet script={seo.article ? [
       {
         type: 'application/ld+json',
@@ -89,7 +91,9 @@ const SEO: React.FC<Props> = ({site}) => {
       <meta name="twitter:title" content={meta.title} />
       <meta name="twitter:description" content={meta.description} />
       <meta name="twitter:image" content={meta.image} />
+      <script data-ad-client="ca-pub-3219662000601843" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
     </Helmet>
+    </React.Fragment>
   )
 }
 
