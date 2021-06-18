@@ -24,7 +24,7 @@ export type Channel = {
   title: string,
   id: string,
   superChatAmount: string,
-  memberCount: string,
+  memberCount?: string,
   videoId: string,
 }
 
@@ -34,11 +34,15 @@ export type Archive = {
   monthly: string[],
 }
 
-export type SuperChat = {
+export type User = {
   supporterChannelId: string,
   supporterDisplayName: string,
-  totalAmount: string,
   thumbnail: string,
+}
+
+export type SuperChat = {
+  user: User,
+  totalAmount: string,
 }
 
 export type SuperChats = {
@@ -47,4 +51,9 @@ export type SuperChats = {
   channelName?: string,
   superChatAmount?: string,
   startAt?: string,
+}
+
+export type SuperChatByChannels = {
+  user: User,
+  superChatByChannels: Channel[],
 }

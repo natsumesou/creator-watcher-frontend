@@ -1,16 +1,15 @@
 import { useProgressContext } from '@/app';
 import { createStyles, List, ListItem, makeStyles, Theme, Box, Typography, ListItemText, Button } from '@material-ui/core';
 import React, { useEffect, useState } from 'react'
-import { SuperChat, SuperChats as SuperChatsType } from '../../entities/entity';
-import { NotFoundError, RANGE, YouTube } from '../../repositories/YouTube';
+import { SuperChatByChannels, Channel } from '../../entities/entity';
+import { NotFoundError, YouTube } from '../../repositories/YouTube';
 import { ErrorSnackBar } from '../atoms/ErrorSnackBar';
 import { TabPanel } from './TabPane';
 import { InfeedAds } from '../atoms/ads/InfeedAds';
-import { SuperChatCard } from '../molecules/SuperChatCard';
-import { CalcTime } from '../atoms/CalcTime';
-import { Skeleton } from '@material-ui/lab';
+import { ChannelCard } from '../molecules/ChannelCard';
 import { useChannelIdContext } from '../templates/ChannelPage';
 import { useSeoContext } from '../SEO';
+import DirectionsRunIcon from '@material-ui/icons/DirectionsRun';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -44,22 +43,23 @@ const useStyles = makeStyles((theme: Theme) =>
 const initialSuperChatData = () => {
   const superChats = Array(10).fill(null).map((_,i) => {
     return {
-      user: null,
-      totalAmount: null,
-    } as SuperChat;
+      id: null,
+      title: null,
+      superChatAmount: null,
+    } as Channel;
   });
 
   return {
-    startAt: null,
-    superChats: superChats,
-  } as SuperChatsType;
+    user: null,
+    superChatByChannels: superChats,
+  } as SuperChatByChannels;
 }
 
-export const ChannelSuperChats = ({notices}) => {
+export const UserSuperChats = ({notices}) => {
   const { showProgress, setShowProgress } = useProgressContext();
   const { channelId, setChannelId } = useChannelIdContext();
   const classes = useStyles();
-  const [data, setData] = useState<SuperChatsType>(initialSuperChatData());
+  const [data, setData] = useState<SuperChatByChannels>(initialSuperChatData());
   const youtube = new YouTube();
   const [error, setError] = useState<Error>(null);
   const { seo, setSeo } = useSeoContext();
@@ -70,10 +70,13 @@ export const ChannelSuperChats = ({notices}) => {
 
     const fetchData = async () => {
       try {
-        const superChats = await youtube.fetchChannelSuperChats(channelId);
+        const superChats = await youtube.fetchUserSuperChats(channelId);
+        console.log(superChats);
         setShowProgress(false);
         setData(superChats);
-        setSeo({subtitle: superChats.title});
+        if (superChats.user) {
+          setSeo({subtitle: superChats.user.supporterDisplayName});
+        }
       } catch(err) {
         if (err instanceof NotFoundError) {
           setError(err);
@@ -89,27 +92,17 @@ export const ChannelSuperChats = ({notices}) => {
 
   return (
     <TabPanel>
-      <Button href={`https://www.youtube.com/channel/${channelId}`} target="_blank" rel="noopener">
-      <Typography component="h2" variant="h2">{data.title}</Typography>
-      </Button>
-      <Box className={classes.time}>
-      {data.startAt ? (
-        <CalcTime range={RANGE.weekly} time={data.startAt} prefix="スパチャ集計期間" />
-        ) : (
-        <Skeleton animation="wave" height={40} width="50%" />
-        )}
-      </Box>
+      <Typography component="h2" variant="h2">{data.user ? data.user.supporterDisplayName : ""}</Typography>
       <List dense={true}>
       {notices.map((notice, i) => (
         <ListItem key={i} className={classes.listitem}><ListItemText primary={notice} /></ListItem>
       ))}
       </List>
-      <Typography variant="body1">チャンネルの週間スパチャ金額🥇{data.superChatAmount}</Typography>
       <List className="ranking-main">
-      {data.superChats.map((superChat, i) => (
+      {data.superChatByChannels.map((superChat, i) => (
         <React.Fragment key={i}>
           <ListItem key={i} id={`rank${i+1}`} className={`${classes.listroot} ${classes.listitem}`} >
-            <SuperChatCard superChat={superChat} />
+            <ChannelCard channel={superChat} />
           </ListItem>
           {/* 広告枠用 item-area のクラス名必須 display: block 必須 */}
           {((i === 6)) ? (
@@ -120,8 +113,8 @@ export const ChannelSuperChats = ({notices}) => {
         </React.Fragment>
       ))}
       </List>
-      {data.superChats.length === 0 ? (
-        <React.Fragment>スパチャは確認できませんでした</React.Fragment>
+      {data.superChatByChannels.length === 0 ? (
+        <React.Fragment><DirectionsRunIcon className={classes.icon} />集計中</React.Fragment>
       ) : ""}
       {error ? (error instanceof NotFoundError) ? (
         <ErrorSnackBar text="このチャンネルは集計中です🙇‍♀️" />

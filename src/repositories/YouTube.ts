@@ -1,5 +1,5 @@
 import { CustomDate } from "@/entities/Date";
-import { Archive, Channel, Stream, SuperChat, SuperChats } from "../entities/entity";
+import { Archive, Channel, Stream, SuperChat, SuperChatByChannels, SuperChats, User } from "../entities/entity";
 
 const CATEGORY = {
   hololive: 'hololive',
@@ -52,6 +52,9 @@ const URL = {
   video: {
     superChats: 'https://storage.googleapis.com/vtuber.ytubelab.com/channels/channel_id/video_id/superChats.tsv',
   },
+  user: {
+    superChats: 'https://storage.googleapis.com/vtuber.ytubelab.com/user/group_id/monthly.tsv',
+  },
 }
 
 export class YouTube {
@@ -63,6 +66,20 @@ export class YouTube {
     }
     const text = await response.text();
     return this.parseTimeline(text);
+  }
+
+  async fetchUserSuperChats(channelId: string) {
+    const groupId = channelId.slice(0,3);
+    const url = this.freshURL(URL.user.superChats.replace('group_id', groupId));
+    const response = await fetch(url);
+    if (response.status >= 400) {
+      if (response.status === 404) {
+        throw new NotFoundError(`404 / ${channelId} superChats: ${url}`);
+      }
+      throw new Error(`HTTPリクエストエラー / ${channelId} superChats / [${response.status}]: ${url}`);
+    }
+    const text = await response.text();
+    return this.parseSuperChatsForUser(text, channelId);
   }
 
   async fetchStreamSuperChats(channelId: string, videoId: string) {
@@ -134,11 +151,14 @@ export class YouTube {
   private parseSuperChats(lines: string[]) {
     return lines.map((line) => {
       const columns = line.split("\t");
-      return {
+      const user = {
         supporterChannelId: columns[0],
         supporterDisplayName: columns[1],
-        totalAmount: columns[2],
         thumbnail: columns[3],
+      } as User;
+      return {
+        user: user,
+        totalAmount: columns[2],
       } as SuperChat;
     });
   }
@@ -175,6 +195,38 @@ export class YouTube {
       superChats: superChats,
       superChatAmount: superChatAmount,
     } as SuperChats;
+  }
+
+  private parseSuperChatsForUser(text: string, channelId: string) {
+    const lines = text.split("\n");
+    return lines.reduce((result, line) => {
+      const columns = line.split("\t");
+      const supporterChannelId =  columns[0];
+      if (supporterChannelId !== channelId) {
+        return result;
+      }
+      const supporterDisplayName = columns[1];
+      const thumbnail = columns[2]
+      const totalSuperChatAmount = columns[3];
+      const targetChannelId = columns[4];
+      const targetChannelTitle = columns[5];
+      const targetChannelVideoId = columns[6];
+      // 複数チャンネル分のデータが返されるので必要なものだけにフィルタする
+      if (!result.user) {
+        result.user = {
+          supporterChannelId,
+          supporterDisplayName,
+          thumbnail,
+        };
+      }
+      result.superChatByChannels.push({
+        id: targetChannelId,
+        title: targetChannelTitle,
+        superChatAmount: totalSuperChatAmount,
+        videoId: targetChannelVideoId,
+      });
+      return result;
+    }, {user: null, superChatByChannels: []} as SuperChatByChannels);
   }
 
   private parseRanking(text: string) {

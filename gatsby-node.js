@@ -64,6 +64,14 @@ exports.createPages = async ({ graphql, actions: { createPage }}) => {
   })
 
   createPage({
+    path: `/user`,
+    component: require.resolve("./src/components/templates/UserPage.tsx"),
+    context: {
+      site: site.data.site
+    }
+  })
+
+  createPage({
     path: `/watch`,
     component: require.resolve("./src/components/templates/WatchPage.tsx"),
     context: {

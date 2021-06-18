@@ -3,6 +3,7 @@ import { Skeleton } from '@material-ui/lab';
 import { SuperChat} from '../../entities/entity';
 import React from 'react'
 import { Avatar } from '@material-ui/core';
+import { navigate } from 'gatsby';
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -64,7 +65,7 @@ const useStyles = makeStyles((theme) =>
       position: 'absolute',
       width: '100%',
       height: '100%',
-      backgroundImage: (props: Props) =>  `url(${props.superChat.thumbnail})`,
+      backgroundImage: (props: Props) =>  `url(${props.superChat.user ? props.superChat.user.thumbnail : ""})`,
       backgroundRepeat: 'no-repeat',
       backgroundSize: 'cover',
       backgroundPosition: 'center',
@@ -92,9 +93,15 @@ export const SuperChatCard: React.FC<Props> = (props) => {
   const classes = useStyles(props);
   const { superChat } = props;
   const loading =
-    superChat.supporterChannelId === null;
+    superChat.user === null;
+
+  const handleClick = (event) => {
+    navigate(event.currentTarget.getAttribute('href'));
+    event.preventDefault();
+  };
 
   return (
+    <a className={classes.link} href={superChat.user ? `/user?id=${superChat.user.supporterChannelId}` : ""} onClick={handleClick}>
     <Card className={classes.root}>
       <Box className={classes.avatarBox}>
         {loading ? (
@@ -102,7 +109,7 @@ export const SuperChatCard: React.FC<Props> = (props) => {
         ) : (
           <React.Fragment>
           <Box className={classes.avatarCover}></Box>
-          <Avatar alt="Remy Sharp" src={superChat.thumbnail} className={classes.avatar} />
+          <Avatar alt="Remy Sharp" src={superChat.user.thumbnail} className={classes.avatar} />
           </React.Fragment>
         )}
       </Box>
@@ -115,7 +122,7 @@ export const SuperChatCard: React.FC<Props> = (props) => {
         ) : (
           <Box className={classes.main}>
             <Typography component="h3" variant="h3">
-              {superChat.supporterDisplayName}
+              {superChat.user.supporterDisplayName}
             </Typography>
             <Typography variant="body1">
             🥇{superChat.totalAmount}
@@ -124,5 +131,6 @@ export const SuperChatCard: React.FC<Props> = (props) => {
         )}
       </CardContent>
     </Card>
+    </a>
   )
 }

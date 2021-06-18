@@ -95,9 +95,11 @@ export const ChannelCard: React.FC<Props> = ({channel}) => {
             <Typography variant="body1">
               スパチャ金額：{channel.superChatAmount}
             </Typography>
-            <Typography variant="body1">
+            {channel.memberCount ? (
+              <Typography variant="body1">
                 メンバー加入数：{channel.memberCount}
-            </Typography>
+              </Typography>
+            ) : ""}
           </React.Fragment>
         )}
       </CardContent>
