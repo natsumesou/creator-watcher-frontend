@@ -12,11 +12,11 @@ const UserPage = ({ pageContext }) => {
   const params = parse(location.search) as {id: string};
   const [channelId, setChannelId] = useState<string>(params.id);
   const notices = [
-    "毎日朝9時過ぎに今月のスパチャ金額を集計しています",
-    "毎月１日は前月の合計スパチャ額が表示されます",
+    "今月のスパチャ金額を集計しています(毎月１日は前月の合計スパチャ額が表示されます)",
+    "毎日朝9時過ぎに今月のスパチャ金額を更新しています。"
   ]
   const [seo, setSeo] = useState<SeoType>({
-    subtitle: "ユーザーページ",
+    subtitle: "月間スパチャ金額",
   });
 
   return (

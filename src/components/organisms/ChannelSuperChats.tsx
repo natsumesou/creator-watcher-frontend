@@ -7,8 +7,6 @@ import { ErrorSnackBar } from '../atoms/ErrorSnackBar';
 import { TabPanel } from './TabPane';
 import { InfeedAds } from '../atoms/ads/InfeedAds';
 import { SuperChatCard } from '../molecules/SuperChatCard';
-import { CalcTime } from '../atoms/CalcTime';
-import { Skeleton } from '@material-ui/lab';
 import { useChannelIdContext } from '../templates/ChannelPage';
 import { useSeoContext } from '../SEO';
 
@@ -92,19 +90,12 @@ export const ChannelSuperChats = ({notices}) => {
       <Button href={`https://www.youtube.com/channel/${channelId}`} target="_blank" rel="noopener">
       <Typography component="h2" variant="h2">{data.title}</Typography>
       </Button>
-      <Box className={classes.time}>
-      {data.startAt ? (
-        <CalcTime range={RANGE.weekly} time={data.startAt} prefix="スパチャ集計期間" />
-        ) : (
-        <Skeleton animation="wave" height={40} width="50%" />
-        )}
-      </Box>
       <List dense={true}>
       {notices.map((notice, i) => (
         <ListItem key={i} className={classes.listitem}><ListItemText primary={notice} /></ListItem>
       ))}
       </List>
-      <Typography variant="body1">チャンネルの週間スパチャ金額🥇{data.superChatAmount}</Typography>
+      <Typography variant="body1">チャンネルの月間スパチャ金額🥇{data.superChatAmount}</Typography>
       <List className="ranking-main">
       {data.superChats.map((superChat, i) => (
         <React.Fragment key={i}>
@@ -112,7 +103,7 @@ export const ChannelSuperChats = ({notices}) => {
             <SuperChatCard superChat={superChat} />
           </ListItem>
           {/* 広告枠用 item-area のクラス名必須 display: block 必須 */}
-          {((i === 6)) ? (
+          {((i === 100)) ? (
           <ListItem className={`${classes.listitem} ${classes.ads} item-area`}>
             <InfeedAds />
           </ListItem>

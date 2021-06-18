@@ -1,5 +1,5 @@
 import { useProgressContext } from '@/app';
-import { createStyles, List, ListItem, makeStyles, Theme, Box, Typography, ListItemText, Button } from '@material-ui/core';
+import { createStyles, List, ListItem, makeStyles, Theme, Box, Typography, ListItemText, Avatar } from '@material-ui/core';
 import React, { useEffect, useState } from 'react'
 import { SuperChatByChannels, Channel } from '../../entities/entity';
 import { NotFoundError, YouTube } from '../../repositories/YouTube';
@@ -16,6 +16,40 @@ const useStyles = makeStyles((theme: Theme) =>
     listroot: {
       margin: '0 0 1em',
       display: 'block',
+    },
+    profileRoot: {
+      width: '100%',
+      position: 'relative',
+      height: 150,
+      overflow: 'hidden',
+      alignItems: 'center',
+      display: 'flex',
+    },
+    profileBox: {
+      position: 'absolute',
+      width: '100%',
+      height: '100%',
+      backgroundImage: (data: SuperChatByChannels) => `${data.user ? `url(${data.user.thumbnail})` : ""}`,
+      backgroundRepeat: 'no-repeat',
+      backgroundSize: 'cover',
+      backgroundPosition: 'center',
+      filter: 'blur(4px) grayscale(30%) opacity(30%)',
+    },
+    avatar: {
+      position: 'absolute',
+      width: 64,
+      height: 64,
+      marginLeft: 20,
+      verticalAlign: 'middle',
+    },
+    profileName: {
+      left: 64,
+      marginLeft: 10,
+      position: 'absolute',
+      padding: 20,
+      [theme.breakpoints.down('xs')]: {
+        padding: 10,
+      },
     },
     listitem: {
       padding: 0,
@@ -55,11 +89,11 @@ const initialSuperChatData = () => {
   } as SuperChatByChannels;
 }
 
-export const UserSuperChats = ({notices}) => {
+export const UserSuperChats = ({ notices }) => {
   const { showProgress, setShowProgress } = useProgressContext();
   const { channelId, setChannelId } = useChannelIdContext();
-  const classes = useStyles();
   const [data, setData] = useState<SuperChatByChannels>(initialSuperChatData());
+  const classes = useStyles( data );
   const youtube = new YouTube();
   const [error, setError] = useState<Error>(null);
   const { seo, setSeo } = useSeoContext();
@@ -92,12 +126,17 @@ export const UserSuperChats = ({notices}) => {
 
   return (
     <TabPanel>
-      <Typography component="h2" variant="h2">{data.user ? data.user.supporterDisplayName : ""}</Typography>
+      <Box className={classes.profileRoot}>
+        <span className={classes.profileBox}></span>
+        <Avatar alt={data.user ? data.user.supporterDisplayName : ""} src={data.user ? data.user.thumbnail : ""} className={classes.avatar} />
+        <Typography className={classes.profileName} component="h2" variant="h2">{data.user ? data.user.supporterDisplayName : ""}</Typography>
+      </Box>
       <List dense={true}>
       {notices.map((notice, i) => (
         <ListItem key={i} className={classes.listitem}><ListItemText primary={notice} /></ListItem>
       ))}
       </List>
+      {data.user ? (<Typography variant="body1">個人の月間スパチャ金額🥇{data.totalAmount}</Typography>) : ""}
       <List className="ranking-main">
       {data.superChatByChannels.map((superChat, i) => (
         <React.Fragment key={i}>

@@ -124,7 +124,7 @@ export const WatchSuperChats = ({notices}) => {
       </ButtonBase>
       <TempCard id={query.vid} />
       <Button href={`/channel?id=${query.cid}`} onClick={handleClick}>
-        <Typography component="h3" variant="h3">{data.channelName} の週間スパチャ上位を見る</Typography>
+        <Typography component="h3" variant="h3">{data.channelName} の月間スパチャ上位を見る</Typography>
       </Button>
       <List dense={true}>
       {notices.map((notice, i) => (

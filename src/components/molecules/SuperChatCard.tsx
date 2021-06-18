@@ -109,7 +109,7 @@ export const SuperChatCard: React.FC<Props> = (props) => {
         ) : (
           <React.Fragment>
           <Box className={classes.avatarCover}></Box>
-          <Avatar alt="Remy Sharp" src={superChat.user.thumbnail} className={classes.avatar} />
+          <Avatar alt={superChat.user.supporterDisplayName} src={superChat.user.thumbnail} className={classes.avatar} />
           </React.Fragment>
         )}
       </Box>

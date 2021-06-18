@@ -47,7 +47,7 @@ const URL = {
     timeline: 'https://storage.googleapis.com/vtuber.ytubelab.com/nijisanji-timeline.tsv',
   },
   channel: {
-    weeklySuperChats: 'https://storage.googleapis.com/vtuber.ytubelab.com/channels/channel_id/superChats-weekly.tsv',
+    monthlySuperChats: 'https://storage.googleapis.com/vtuber.ytubelab.com/channels/channel_id/superChats-monthly.tsv',
   },
   video: {
     superChats: 'https://storage.googleapis.com/vtuber.ytubelab.com/channels/channel_id/video_id/superChats.tsv',
@@ -96,7 +96,7 @@ export class YouTube {
   }
 
   async fetchChannelSuperChats(channelId: string) {
-    const url = this.freshURL(URL.channel.weeklySuperChats.replace('channel_id', channelId));
+    const url = this.freshURL(URL.channel.monthlySuperChats.replace('channel_id', channelId));
     const response = await fetch(url);
     if (response.status >= 400) {
       if (response.status === 404) {
@@ -207,10 +207,11 @@ export class YouTube {
       }
       const supporterDisplayName = columns[1];
       const thumbnail = columns[2]
-      const totalSuperChatAmount = columns[3];
-      const targetChannelId = columns[4];
-      const targetChannelTitle = columns[5];
-      const targetChannelVideoId = columns[6];
+      const targetSuperChatAmount = columns[3];
+      const totalSuperChatAmount = columns[4];
+      const targetChannelId = columns[5];
+      const targetChannelTitle = columns[6];
+      const targetChannelVideoId = columns[7];
       // 複数チャンネル分のデータが返されるので必要なものだけにフィルタする
       if (!result.user) {
         result.user = {
@@ -218,15 +219,16 @@ export class YouTube {
           supporterDisplayName,
           thumbnail,
         };
+        result.totalAmount = totalSuperChatAmount;
       }
       result.superChatByChannels.push({
         id: targetChannelId,
         title: targetChannelTitle,
-        superChatAmount: totalSuperChatAmount,
+        superChatAmount: targetSuperChatAmount,
         videoId: targetChannelVideoId,
       });
       return result;
-    }, {user: null, superChatByChannels: []} as SuperChatByChannels);
+    }, {user: null, totalAmount: null, superChatByChannels: []} as SuperChatByChannels);
   }
 
   private parseRanking(text: string) {
