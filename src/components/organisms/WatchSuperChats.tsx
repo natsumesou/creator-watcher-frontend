@@ -124,10 +124,10 @@ export const WatchSuperChats = ({notices}) => {
         <span className={classes.videoLinkBox}></span>
         <Typography className={classes.videoLink} component="h2" variant="h2">{data.title}</Typography>
       </ButtonBase>
+      <TempCard id={query.vid} />
       <Button href={`/channel?id=${query.cid}`} onClick={handleClick}>
         <Typography component="h3" variant="h3">{data.channelName} の週間スパチャ上位を見る</Typography>
       </Button>
-      <TempCard id={query.vid} />
       <List dense={true}>
       {notices.map((notice, i) => (
         <ListItem key={i} className={classes.listitem}><ListItemText primary={notice} /></ListItem>
