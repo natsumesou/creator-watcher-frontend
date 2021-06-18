@@ -33,7 +33,7 @@ export const HeaderTabs = ({routers = []}) => {
   const findPathIndex = (router: any, pathname: string) => {
     const match = pathname.match(/^(\/[^/]*)/);
     if (match) {
-      return router.link === match[1];
+      return router.link.indexOf(match[1]) >= 0;
     } else {
       return false;
     }
