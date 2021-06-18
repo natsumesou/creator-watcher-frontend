@@ -44,7 +44,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     profileName: {
       left: 64,
-      marginLeft: 10,
+      marginLeft: 20,
       position: 'absolute',
       padding: 20,
       [theme.breakpoints.down('xs')]: {

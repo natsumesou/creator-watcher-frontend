@@ -22,8 +22,9 @@ const ChannelPage = ({ pageContext }) => {
   const params = parse(location.search) as {id: string};
   const [channelId, setChannelId] = useState<string>(params.id);
   const notices = [
-    "今月のスパチャ金額を集計しています(毎月１日は前月の合計スパチャ額が表示されます)",
-    "毎日朝9時過ぎに今月のスパチャ金額を更新しています。スパチャ金額上位10位までを表示します。同率が複数いる場合は10位以内がすべて表示されます。",
+    "今月のスパチャ金額を集計しています。毎月１日は前月の合計スパチャ額が表示されます。",
+    "更新タイミングは毎日朝9時過ぎです ※リアルタイムではありません",
+    "スパチャ金額は上位10位までを表示しますが、同率が複数いる場合は10位以内がすべて表示されます。",
   ]
   const [seo, setSeo] = useState<SeoType>({
     subtitle: "チャンネル",
