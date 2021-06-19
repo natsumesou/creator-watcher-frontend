@@ -33,8 +33,8 @@ export const Header = () => {
   const a = classes.root;
   const routers = [
     {name: "タイムライン", link: "/"},
-    {name: "ホロライブ", link: "/hololive"},
-    {name: "にじさんじ", link: "/nijisanji"},
+    // {name: "ホロライブ", link: "/hololive"},
+    // {name: "にじさんじ", link: "/nijisanji"},
     {name: "ランキング", link: "/ranking/archive"},
   ]
   const progressClass = showProgress ? classes.showProgress : classes.hideProgress;
