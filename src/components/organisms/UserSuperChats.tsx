@@ -10,6 +10,7 @@ import { ChannelCard } from '../molecules/ChannelCard';
 import { useChannelIdContext } from '../templates/ChannelPage';
 import { useSeoContext } from '../SEO';
 import DirectionsRunIcon from '@material-ui/icons/DirectionsRun';
+import { Skeleton } from '@material-ui/lab';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -70,12 +71,20 @@ const useStyles = makeStyles((theme: Theme) =>
     ads: {
       minHeight: '250px',
       display: 'block',
+    },
+    amountRoot: {
+      display: 'flex',
+      alignItems: 'center',
+    },
+    amountSkeleton: {
+      display: 'inline-block',
+      width: 100,
     }
   }),
 );
 
 const initialSuperChatData = () => {
-  const superChats = Array(10).fill(null).map((_,i) => {
+  const superChats = Array(3).fill(null).map((_,i) => {
     return {
       id: null,
       title: null,
@@ -129,14 +138,18 @@ export const UserSuperChats = ({ notices }) => {
       <Box className={classes.profileRoot}>
         <span className={classes.profileBox}></span>
         <Avatar alt={data.user ? data.user.supporterDisplayName : ""} src={data.user ? data.user.thumbnail : ""} className={classes.avatar} />
-        <Typography className={classes.profileName} component="h2" variant="h2">{data.user ? data.user.supporterDisplayName : ""}</Typography>
+        <Typography className={classes.profileName} component="h2" variant="h2">{data.user ? data.user.supporterDisplayName : (
+          <Skeleton animation="wave" height="60px" width="200px" />
+        )}</Typography>
       </Box>
       <List dense={true}>
       {notices.map((notice, i) => (
         <ListItem key={i} className={classes.listitem}><ListItemText primary={notice} /></ListItem>
       ))}
       </List>
-      {data.user ? (<Typography variant="body1">個人の月間スパチャ金額🥇{data.totalAmount}</Typography>) : ""}
+        <Typography variant="body1" className={classes.amountRoot}>個人の月間スパチャ金額🥇{data.user ? data.totalAmount : (
+          <Skeleton animation="wave" width="100px" className={classes.amountSkeleton} />
+        )}</Typography>
       <List className="ranking-main">
       {data.superChatByChannels.map((superChat, i) => (
         <React.Fragment key={i}>
@@ -156,7 +169,7 @@ export const UserSuperChats = ({ notices }) => {
         <React.Fragment><DirectionsRunIcon className={classes.icon} />集計中</React.Fragment>
       ) : ""}
       {error ? (error instanceof NotFoundError) ? (
-        <ErrorSnackBar text="このチャンネルは集計中です🙇‍♀️" />
+        <ErrorSnackBar text="集計中です🙇‍♀️" />
       ) : (
         <ErrorSnackBar text="データ読み込みエラー" />
       ) : ""}

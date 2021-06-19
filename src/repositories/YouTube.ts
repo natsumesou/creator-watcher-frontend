@@ -199,7 +199,7 @@ export class YouTube {
 
   private parseSuperChatsForUser(text: string, channelId: string) {
     const lines = text.split("\n");
-    return lines.reduce((result, line) => {
+    const userSuperChats = lines.reduce((result, line) => {
       const columns = line.split("\t");
       const supporterChannelId =  columns[0];
       if (supporterChannelId !== channelId) {
@@ -229,6 +229,11 @@ export class YouTube {
       });
       return result;
     }, {user: null, totalAmount: null, superChatByChannels: []} as SuperChatByChannels);
+
+    if (userSuperChats.superChatByChannels.length === 0) {
+      throw new NotFoundError(`404 / ${channelId} not found`);
+    }
+    return userSuperChats;
   }
 
   private parseRanking(text: string) {

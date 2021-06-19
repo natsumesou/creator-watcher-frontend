@@ -1,14 +1,15 @@
 import { useProgressContext } from '@/app';
-import { createStyles, List, ListItem, makeStyles, Theme, Box, Typography, ListItemText, Button } from '@material-ui/core';
+import { createStyles, List, ListItem, makeStyles, Theme, Box, Typography, ListItemText, ButtonBase } from '@material-ui/core';
 import React, { useEffect, useState } from 'react'
 import { SuperChat, SuperChats as SuperChatsType } from '../../entities/entity';
-import { NotFoundError, RANGE, YouTube } from '../../repositories/YouTube';
+import { NotFoundError, YouTube } from '../../repositories/YouTube';
 import { ErrorSnackBar } from '../atoms/ErrorSnackBar';
 import { TabPanel } from './TabPane';
 import { InfeedAds } from '../atoms/ads/InfeedAds';
 import { SuperChatCard } from '../molecules/SuperChatCard';
 import { useChannelIdContext } from '../templates/ChannelPage';
 import { useSeoContext } from '../SEO';
+import { Skeleton } from '@material-ui/lab';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -35,7 +36,24 @@ const useStyles = makeStyles((theme: Theme) =>
     ads: {
       minHeight: '250px',
       display: 'block',
-    }
+    },
+    channelLinkRoot: {
+      width: '100%',
+    },
+    titleRoot: {
+      width: '100%',
+    },
+    title: {
+      margin: '0 auto',
+    },
+    amountRoot: {
+      display: 'flex',
+      alignItems: 'center',
+    },
+    amountSkeleton: {
+      display: 'inline-block',
+      width: 100,
+    },
   }),
 );
 
@@ -87,15 +105,19 @@ export const ChannelSuperChats = ({notices}) => {
 
   return (
     <TabPanel>
-      <Button href={`https://www.youtube.com/channel/${channelId}`} target="_blank" rel="noopener">
-      <Typography component="h2" variant="h2">{data.title}</Typography>
-      </Button>
+      <ButtonBase href={`https://www.youtube.com/channel/${channelId}`} target="_blank" rel="noopener" className={classes.channelLinkRoot}>
+      <Typography component="h2" variant="h2" className={data.title ? "" : classes.titleRoot}>{data.title ? data.title : (
+        <Skeleton animation="wave" width="30%" className={classes.title} />
+      )}</Typography>
+      </ButtonBase>
       <List dense={true}>
       {notices.map((notice, i) => (
         <ListItem key={i} className={classes.listitem}><ListItemText primary={notice} /></ListItem>
       ))}
       </List>
-      <Typography variant="body1">チャンネルの月間スパチャ金額🥇{data.superChatAmount}</Typography>
+      <Typography variant="body1" className={classes.amountRoot}>チャンネルの月間スパチャ金額🥇{data.superChatAmount ? data.superChatAmount : (
+        <Skeleton animation="wave" width="100px" className={classes.amountSkeleton} />
+      )}</Typography>
       <List className="ranking-main">
       {data.superChats.map((superChat, i) => (
         <React.Fragment key={i}>

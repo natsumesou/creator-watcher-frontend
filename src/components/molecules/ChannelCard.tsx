@@ -69,9 +69,13 @@ export const ChannelCard: React.FC<Props> = ({channel}) => {
   const thumbnail = getThumbnail(channel.videoId, breakpoints.sm);
 
   const handleClick = (event) => {
-    navigate(event.currentTarget.getAttribute('href'));
+    const href =event.currentTarget.getAttribute('href');
+    if (href) {
+      navigate(href);
+    }
     event.preventDefault();
   };
+  console.log(loading);
 
   return (
     <ButtonBase className={classes.link} href={loading ? "" : `/channel?id=${channel.id}`} onClick={handleClick}>

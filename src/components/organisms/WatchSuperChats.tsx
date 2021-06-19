@@ -12,6 +12,7 @@ import { navigate } from 'gatsby';
 import { getThumbnail } from '../molecules/ChannelCard';
 import { useSeoContext } from '../SEO';
 import { TempCard } from '../molecules/TempCard';
+import { Skeleton } from '@material-ui/lab';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -62,6 +63,17 @@ const useStyles = makeStyles((theme: Theme) =>
         padding: 10,
       },
     },
+    nameRoot: {
+      display: 'flex',
+      alignItems: 'center',
+    },
+    nameSkeleton: {
+      display: 'inline-block',
+      width: 100,
+    },
+    titleRoot: {
+      width: '100%',
+    }
   }),
 );
 
@@ -112,19 +124,26 @@ export const WatchSuperChats = ({notices}) => {
   }, [query]);
 
   const handleClick = (event) => {
-    navigate(event.currentTarget.getAttribute('href'));
+    const href = event.currentTarget.getAttribute('href');
+    if (href) {
+      navigate(href);
+    }
     event.preventDefault();
   };
 
   return (
     <TabPanel>
-      <ButtonBase href={`https://www.youtube.com/watch?v=${query.vid}`} className={classes.videoLinkRoot} target="_blank" rel="noopener">
+      <ButtonBase href={data.title ? `https://www.youtube.com/watch?v=${query.vid}` : ""} className={classes.videoLinkRoot} target="_blank" rel="noopener">
         <span className={classes.videoLinkBox}></span>
-        <Typography className={classes.videoLink} component="h2" variant="h2">{data.title}</Typography>
+        <Typography className={`${classes.videoLink} ${data.title ? "" : classes.titleRoot}`} component="h2" variant="h2">{data.title ? data.title : (
+          <Skeleton animation="wave" height="60px" width="100%" />
+        )}</Typography>
       </ButtonBase>
       <TempCard id={query.vid} />
-      <Button href={`/channel?id=${query.cid}`} onClick={handleClick}>
-        <Typography component="h3" variant="h3">{data.channelName} の月間スパチャ上位を見る</Typography>
+      <Button href={data.channelName ? `/channel?id=${query.cid}` : ""} onClick={handleClick}>
+        <Typography component="h3" variant="h3" className={classes.nameRoot}>{data.channelName ? data.channelName : (
+          <Skeleton animation="wave" className={classes.nameSkeleton} />
+        )} の月間スパチャ上位を見る</Typography>
       </Button>
       <List dense={true}>
       {notices.map((notice, i) => (
@@ -151,7 +170,7 @@ export const WatchSuperChats = ({notices}) => {
         <React.Fragment>スパチャは確認できませんでした</React.Fragment>
       ) : ""}
       {error ? (error instanceof NotFoundError) ? (
-        <ErrorSnackBar text="集計対象外です🙇‍♀️" />
+        <ErrorSnackBar text="集計中です🙇‍♀️" />
       ) : (
         <ErrorSnackBar text="データ読み込みエラー" />
       ) : ""}

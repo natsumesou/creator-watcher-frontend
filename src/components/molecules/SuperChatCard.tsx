@@ -97,7 +97,10 @@ export const SuperChatCard: React.FC<Props> = (props) => {
     superChat.user === null;
 
   const handleClick = (event) => {
-    navigate(event.currentTarget.getAttribute('href'));
+    const href = event.currentTarget.getAttribute('href');
+    if (href) {
+      navigate(href);
+    }
     event.preventDefault();
   };
 
