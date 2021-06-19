@@ -35,7 +35,7 @@ export const Header = () => {
     {name: "タイムライン", link: "/"},
     // {name: "ホロライブ", link: "/hololive"},
     // {name: "にじさんじ", link: "/nijisanji"},
-    {name: "ランキング", link: "/ranking/archive"},
+    // {name: "ランキング", link: "/ranking/archive"},
   ]
   const progressClass = showProgress ? classes.showProgress : classes.hideProgress;
   return (

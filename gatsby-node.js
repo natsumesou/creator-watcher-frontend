@@ -87,43 +87,43 @@ exports.createPages = async ({ graphql, actions: { createPage }}) => {
     }
   })
 
-  createPage({
-    path: `/ranking`,
-    component: require.resolve("./src/components/templates/RankingPage.tsx"),
-    context: {
-      site: site.data.site
-    }
-  })
+  // createPage({
+  //   path: `/ranking`,
+  //   component: require.resolve("./src/components/templates/RankingPage.tsx"),
+  //   context: {
+  //     site: site.data.site
+  //   }
+  // })
 
-  createPage({
-    path: `/ranking/daily`,
-    component: require.resolve("./src/components/templates/RankingPage.tsx"),
-    context: {
-      site: site.data.site
-    }
-  })
+  // createPage({
+  //   path: `/ranking/daily`,
+  //   component: require.resolve("./src/components/templates/RankingPage.tsx"),
+  //   context: {
+  //     site: site.data.site
+  //   }
+  // })
 
-  createPage({
-    path: `/ranking/weekly`,
-    component: require.resolve("./src/components/templates/RankingPage.tsx"),
-    context: {
-      site: site.data.site
-    }
-  })
+  // createPage({
+  //   path: `/ranking/weekly`,
+  //   component: require.resolve("./src/components/templates/RankingPage.tsx"),
+  //   context: {
+  //     site: site.data.site
+  //   }
+  // })
 
-  createPage({
-    path: `/ranking/monthly`,
-    component: require.resolve("./src/components/templates/RankingPage.tsx"),
-    context: {
-      site: site.data.site
-    }
-  })
+  // createPage({
+  //   path: `/ranking/monthly`,
+  //   component: require.resolve("./src/components/templates/RankingPage.tsx"),
+  //   context: {
+  //     site: site.data.site
+  //   }
+  // })
 
-  createPage({
-    path: `/ranking/archive`,
-    component: require.resolve("./src/components/templates/ArchivePage.tsx"),
-    context: {
-      site: site.data.site
-    }
-  })
+  // createPage({
+  //   path: `/ranking/archive`,
+  //   component: require.resolve("./src/components/templates/ArchivePage.tsx"),
+  //   context: {
+  //     site: site.data.site
+  //   }
+  // })
 }
