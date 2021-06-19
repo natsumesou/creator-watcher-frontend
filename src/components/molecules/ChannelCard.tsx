@@ -1,4 +1,4 @@
-import { Card, CardContent, createStyles, makeStyles, Theme, Typography } from '@material-ui/core'
+import { Card, CardContent, createStyles, makeStyles, Theme, Typography, ButtonBase } from '@material-ui/core'
 import { Skeleton } from '@material-ui/lab';
 import {Channel} from '../../entities/entity';
 import React from 'react'
@@ -9,9 +9,10 @@ import { navigate } from 'gatsby';
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     link: {
-      textDecoration: 'none',
+      width: '100%',
     },
     root: {
+      width: '100%',
       display: 'flex',
       [theme.breakpoints.up('xs')]: {
         minHeight: 180,
@@ -73,7 +74,7 @@ export const ChannelCard: React.FC<Props> = ({channel}) => {
   };
 
   return (
-    <a className={classes.link} href={loading ? "" : `/channel?id=${channel.id}`} onClick={handleClick}>
+    <ButtonBase className={classes.link} href={loading ? "" : `/channel?id=${channel.id}`} onClick={handleClick}>
     <Card className={classes.root}>
       {loading ? (
         <Skeleton animation="wave" variant="rect" className={classes.skeletonMedia} />
@@ -105,6 +106,6 @@ export const ChannelCard: React.FC<Props> = ({channel}) => {
       </CardContent>
       </div>
     </Card>
-    </a>
+    </ButtonBase>
   )
 }

@@ -1,4 +1,4 @@
-import { Card, CardContent, createStyles, makeStyles, Theme, Typography, Box, useTheme} from '@material-ui/core'
+import { Card, CardContent, createStyles, makeStyles, Typography, Box, ButtonBase } from '@material-ui/core'
 import { Skeleton } from '@material-ui/lab';
 import { SuperChat} from '../../entities/entity';
 import React from 'react'
@@ -8,9 +8,10 @@ import { navigate } from 'gatsby';
 const useStyles = makeStyles((theme) =>
   createStyles({
     link: {
-      textDecoration: 'none',
+      width: '100%',
     },
     root: {
+      width: '100%',
       display: 'flex',
       [theme.breakpoints.up('xs')]: {
         minHeight: 130,
@@ -101,7 +102,7 @@ export const SuperChatCard: React.FC<Props> = (props) => {
   };
 
   return (
-    <a className={classes.link} href={superChat.user ? `/user?id=${superChat.user.supporterChannelId}` : ""} onClick={handleClick}>
+    <ButtonBase className={classes.link} href={superChat.user ? `/user?id=${superChat.user.supporterChannelId}` : ""} onClick={handleClick}>
     <Card className={classes.root}>
       <Box className={classes.avatarBox}>
         {loading ? (
@@ -131,6 +132,6 @@ export const SuperChatCard: React.FC<Props> = (props) => {
         )}
       </CardContent>
     </Card>
-    </a>
+    </ButtonBase>
   )
 }

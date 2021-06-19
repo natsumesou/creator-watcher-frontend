@@ -1,4 +1,4 @@
-import { Card, CardContent, createStyles, makeStyles, Theme, Typography, Box } from '@material-ui/core'
+import { Card, CardContent, createStyles, makeStyles, Theme, Typography, Box, ButtonBase } from '@material-ui/core'
 import { Skeleton } from '@material-ui/lab';
 import {Stream} from '../../entities/entity';
 import React from 'react'
@@ -12,9 +12,10 @@ import { getThumbnail } from './ChannelCard';
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     link: {
-      textDecoration: 'none',
+      width: '100%',
     },
     root: {
+      width: '100%',
       display: 'flex',
       opacity: (props: Props) => props.stream.status !== 'done' ? '60%' : '100%',
       [theme.breakpoints.up('xs')]: {
@@ -145,9 +146,9 @@ export const StreamCard: React.FC<Props> = (props) => {
   )
   if (stream.status === "done") {
     return (
-      <a id={stream.id} className={classes.link} href={loading ? "" : `/watch?cid=${stream.channelId}&vid=${stream.id}`} onClick={handleClick}>
+      <ButtonBase id={stream.id} className={classes.link} href={loading ? "" : `/watch?cid=${stream.channelId}&vid=${stream.id}`} onClick={handleClick}>
         {card}
-      </a>
+      </ButtonBase>
     )
   }
   return card;
