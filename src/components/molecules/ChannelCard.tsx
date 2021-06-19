@@ -75,7 +75,6 @@ export const ChannelCard: React.FC<Props> = ({channel}) => {
     }
     event.preventDefault();
   };
-  console.log(loading);
 
   return (
     <ButtonBase className={classes.link} href={loading ? "" : `/channel?id=${channel.id}`} onClick={handleClick}>

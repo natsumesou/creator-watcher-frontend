@@ -114,7 +114,6 @@ export const UserSuperChats = ({ notices }) => {
     const fetchData = async () => {
       try {
         const superChats = await youtube.fetchUserSuperChats(query.cid);
-        console.log(superChats);
         setShowProgress(false);
         setData(superChats);
         if (superChats.user) {
