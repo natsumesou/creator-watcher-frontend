@@ -80,9 +80,9 @@ export const StreamCard: React.FC<Props> = (props) => {
   const { stream } = props;
   const classes = useStyles(props);
   const loading =
-    stream.title === null;
+    stream.meta.id === null;
 
-  const thumbnail = getThumbnail(stream.id, breakpoints.sm);
+  const thumbnail = getThumbnail(stream.meta.id, breakpoints.sm);
 
     const handleClick = (event) => {
       navigate(event.currentTarget.getAttribute('href'));
@@ -93,7 +93,7 @@ export const StreamCard: React.FC<Props> = (props) => {
       {loading ? (
         <Skeleton animation="wave" variant="rect" className={classes.skeletonMedia} />
       ) : (
-        <CardMediaWithLazyLoad className={classes.cover} image={thumbnail} title={stream.title} />
+        <CardMediaWithLazyLoad className={classes.cover} image={thumbnail} title={stream.meta.title} />
       )}
       <div className={classes.details}>
       <CardContent className={classes.content}>
@@ -108,7 +108,7 @@ export const StreamCard: React.FC<Props> = (props) => {
               {stream.channelTitle}
             </Typography>
             <Typography component="h3" variant="h3">
-              {stream.title}
+              {stream.meta.title}
             </Typography>
             {stream.status === "done" ? (
               <Box className={classes.mainText}>
@@ -146,7 +146,7 @@ export const StreamCard: React.FC<Props> = (props) => {
   )
   if (stream.status === "done") {
     return (
-      <ButtonBase id={stream.id} className={classes.link} href={loading ? "" : `/watch?cid=${stream.channelId}&vid=${stream.id}`} onClick={handleClick}>
+      <ButtonBase id={stream.meta.id} className={classes.link} href={loading ? "" : `/watch?cid=${stream.meta.channelId}&vid=${stream.meta.id}`} onClick={handleClick}>
         {card}
       </ButtonBase>
     )

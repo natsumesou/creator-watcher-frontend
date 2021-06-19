@@ -7,10 +7,10 @@ import { ErrorSnackBar } from '../atoms/ErrorSnackBar';
 import { TabPanel } from './TabPane';
 import { InfeedAds } from '../atoms/ads/InfeedAds';
 import { ChannelCard } from '../molecules/ChannelCard';
-import { useChannelIdContext } from '../templates/ChannelPage';
 import { useSeoContext } from '../SEO';
 import DirectionsRunIcon from '@material-ui/icons/DirectionsRun';
 import { Skeleton } from '@material-ui/lab';
+import { useQueryContext } from '../templates/WatchPage';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -100,7 +100,7 @@ const initialSuperChatData = () => {
 
 export const UserSuperChats = ({ notices }) => {
   const { showProgress, setShowProgress } = useProgressContext();
-  const { channelId, setChannelId } = useChannelIdContext();
+  const { query, setQuery } = useQueryContext();
   const [data, setData] = useState<SuperChatByChannels>(initialSuperChatData());
   const classes = useStyles( data );
   const youtube = new YouTube();
@@ -113,7 +113,7 @@ export const UserSuperChats = ({ notices }) => {
 
     const fetchData = async () => {
       try {
-        const superChats = await youtube.fetchUserSuperChats(channelId);
+        const superChats = await youtube.fetchUserSuperChats(query.cid);
         console.log(superChats);
         setShowProgress(false);
         setData(superChats);
@@ -131,7 +131,7 @@ export const UserSuperChats = ({ notices }) => {
       }
     }
     fetchData();
-  }, [channelId]);
+  }, [query]);
 
   return (
     <TabPanel>

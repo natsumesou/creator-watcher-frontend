@@ -30,17 +30,19 @@ const initialStreamData = () => {
   const streams = Array(10).fill(null);
   return streams.map((_, i) => {
     return {
-      title: null,
+      meta: {
+        id: null,
+        title: null,
+        channelId: null,
+      },
       chatCount: null,
       superChatAmount: null,
       memberCount: null,
       channelTitle: null,
-      id: null,
       thumbnail: null,
       link: null,
       status: "process",
       publishedAt: new CustomDate(),
-      channelId: null,
     } as Stream;
   });
 }
@@ -95,7 +97,7 @@ export const Timeline: React.FC<Props> = (props) => {
         <React.Fragment key={i}>
           <ListItem className={`${classes.root} ${classes.listitem}`} >
             <StreamCard stream={stream} />
-            <TempCard id={stream.id} />
+            <TempCard id={stream.meta.id} />
           </ListItem>
           {/* 広告枠用 item-area のクラス名必須 display: block 必須 */}
           {((i === 200)) ? (

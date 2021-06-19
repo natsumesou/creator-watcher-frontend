@@ -5,10 +5,11 @@ import { useLocation } from "@reach/router"
 import { parse } from "query-string"
 import { WatchSuperChats } from '../organisms/WatchSuperChats';
 import { PageContext } from '@/app';
+import { StreamIndex } from '../organisms/StreamIndex';
 
 export type Query = {
-  cid: string,
-  vid: string,
+  cid?: string,
+  vid?: string,
 }
 
 type ContextType = {
@@ -41,6 +42,7 @@ const WatchPage: React.FC<PageContext> = ({pageContext}) => {
     <Box>
       <SEO site={site} />
       <WatchSuperChats notices={notices} />
+      <StreamIndex />
     </Box>
     </QueryContext.Provider>
     </SeoContext.Provider>

@@ -1,5 +1,5 @@
 import { CustomDate } from "@/entities/Date";
-import { Archive, Channel, Stream, SuperChat, SuperChatByChannels, SuperChats, User } from "../entities/entity";
+import { Archive, Channel, Stream, StreamMeta, SuperChat, SuperChatByChannels, SuperChats, User } from "../entities/entity";
 
 const CATEGORY = {
   hololive: 'hololive',
@@ -48,6 +48,7 @@ const URL = {
   },
   channel: {
     monthlySuperChats: 'https://storage.googleapis.com/vtuber.ytubelab.com/channels/channel_id/superChats-monthly.tsv',
+    index: 'https://storage.googleapis.com/vtuber.ytubelab.com/channels/group_id/channelsIndex.tsv',
   },
   video: {
     superChats: 'https://storage.googleapis.com/vtuber.ytubelab.com/channels/channel_id/video_id/superChats.tsv',
@@ -69,7 +70,7 @@ export class YouTube {
   }
 
   async fetchUserSuperChats(channelId: string) {
-    const groupId = channelId.slice(0,3);
+    const groupId = this.getGroupId(channelId);
     const url = this.freshURL(URL.user.superChats.replace('group_id', groupId));
     const response = await fetch(url);
     if (response.status >= 400) {
@@ -108,6 +109,20 @@ export class YouTube {
     return this.parseSuperChatsForChannel(text);
   }
 
+  async fetchChannelIndex(channelId: string) {
+    const groupId = this.getGroupId(channelId);
+    const url = this.freshURL(URL.channel.index.replace('group_id', groupId));
+    const response = await fetch(url);
+    if (response.status >= 400) {
+      if (response.status == 404) {
+        throw new NotFoundError(`404 / ${channelId} index: ${url}`);
+      }
+      throw new Error(`HTTPリクエストエラー / ${channelId} index / [${response.status}]: ${url}`);
+    }
+    const text = await response.text();
+    return this.parseChannelIndex(text, channelId);
+  }
+
   async fetchRanking(category: CATEGORY, range: RANGE, time?: string) {
     const url = time ? URL[category]["ranking"][range].time + time + ".tsv" : URL[category]["ranking"][range].default;
     const urlWithNoCache = this.freshURL(url);
@@ -134,15 +149,17 @@ export class YouTube {
     const streams = lines.map((line) => {
       const columns = line.split("\t");
       return {
-        title: columns[0],
+        meta: {
+          title: columns[0],
+          id: columns[5],
+          channelId: columns[8],
+        },
         chatCount: columns[1],
         superChatAmount: columns[2],
         memberCount: columns[3],
         channelTitle: columns[4],
-        id: columns[5],
         status: columns[6],
         publishedAt: new CustomDate(parseInt(columns[7]+"000")),
-        channelId: columns[8],
       } as Stream;
     });
     return streams;
@@ -271,11 +288,36 @@ export class YouTube {
     return index;
   }
 
+  private parseChannelIndex(text: string, channelId: string) {
+    const lines = text.split("\r\n");
+    const index = lines.reduce((channel, line) => {
+      const video = line.split("\t");
+      const channelId = video[0];
+      const videoId = video[1];
+      const title = video[2];
+      if (!channel[channelId]) {
+        channel[channelId] = [];
+      }
+      channel[channelId].push({
+        id: videoId,
+        title: title,
+        channelId: channelId,
+      } as StreamMeta)
+      return channel;
+    }, {});
+
+    return index[channelId];
+  }
+
   private freshURL(url: string) {
     if (url.includes("?")) {
       return url + "&_=" + new Date().getTime();
     } else {
       return url + "?_=" + new Date().getTime();
     }
+  }
+
+  private getGroupId(channelId: string) {
+    return channelId.slice(0, 3);
   }
 }

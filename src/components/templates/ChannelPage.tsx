@@ -4,23 +4,16 @@ import SEO, { SeoType, SeoContext } from '@/components/SEO';
 import { ChannelSuperChats } from '../organisms/ChannelSuperChats';
 import { useLocation } from "@reach/router"
 import { parse } from "query-string"
-
-type ContextType = {
-  channelId: string,
-  setChannelId:(channelId: string) => void
-};
-
-export const ChannelIdContext = createContext<ContextType>({
-  channelId: "",
-  setChannelId: () => {},
-});
-export const useChannelIdContext = () => useContext(ChannelIdContext);
+import { StreamMeta } from '@/entities/entity';
+import { StreamIndex } from '../organisms/StreamIndex';
+import { QueryContext, Query } from './WatchPage';
 
 const ChannelPage = ({ pageContext }) => {
   const { site } = pageContext;
   const location = useLocation();
   const params = parse(location.search) as {id: string};
-  const [channelId, setChannelId] = useState<string>(params.id);
+  const [query, setQuery] = useState<Query>({cid: params.id});
+  const [videoIndex, setIndex] = useState<StreamMeta[]>([]);
   const notices = [
     "今月のスパチャ金額を集計しています。毎月１日は前月の合計スパチャ額が表示されます。",
     "更新タイミングは毎日朝9時過ぎです ※リアルタイムではありません",
@@ -32,12 +25,13 @@ const ChannelPage = ({ pageContext }) => {
 
   return (
     <SeoContext.Provider value={{seo, setSeo}}>
-    <ChannelIdContext.Provider value={{channelId, setChannelId}}>
+    <QueryContext.Provider value={{query, setQuery}}>
     <Box>
       <SEO site={site} />
       <ChannelSuperChats notices={notices} />
+      <StreamIndex />
     </Box>
-    </ChannelIdContext.Provider>
+    </QueryContext.Provider>
     </SeoContext.Provider>
   )
 }

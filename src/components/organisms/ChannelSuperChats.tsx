@@ -7,9 +7,9 @@ import { ErrorSnackBar } from '../atoms/ErrorSnackBar';
 import { TabPanel } from './TabPane';
 import { InfeedAds } from '../atoms/ads/InfeedAds';
 import { SuperChatCard } from '../molecules/SuperChatCard';
-import { useChannelIdContext } from '../templates/ChannelPage';
 import { useSeoContext } from '../SEO';
 import { Skeleton } from '@material-ui/lab';
+import { useQueryContext } from '../templates/WatchPage';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -73,7 +73,7 @@ const initialSuperChatData = () => {
 
 export const ChannelSuperChats = ({notices}) => {
   const { showProgress, setShowProgress } = useProgressContext();
-  const { channelId, setChannelId } = useChannelIdContext();
+  const { query, setQuery } = useQueryContext();
   const classes = useStyles();
   const [data, setData] = useState<SuperChatsType>(initialSuperChatData());
   const youtube = new YouTube();
@@ -86,7 +86,7 @@ export const ChannelSuperChats = ({notices}) => {
 
     const fetchData = async () => {
       try {
-        const superChats = await youtube.fetchChannelSuperChats(channelId);
+        const superChats = await youtube.fetchChannelSuperChats(query.cid);
         setShowProgress(false);
         setData(superChats);
         setSeo({subtitle: superChats.title});
@@ -101,11 +101,11 @@ export const ChannelSuperChats = ({notices}) => {
       }
     }
     fetchData();
-  }, [channelId]);
+  }, [query]);
 
   return (
     <TabPanel>
-      <ButtonBase href={`https://www.youtube.com/channel/${channelId}`} target="_blank" rel="noopener" className={classes.channelLinkRoot}>
+      <ButtonBase href={`https://www.youtube.com/channel/${query.cid}`} target="_blank" rel="noopener" className={classes.channelLinkRoot}>
       <Typography component="h2" variant="h2" className={data.title ? "" : classes.titleRoot}>{data.title ? data.title : (
         <Skeleton animation="wave" width="30%" className={classes.title} />
       )}</Typography>

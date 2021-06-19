@@ -7,17 +7,21 @@ const STATUS = {
 } as const;
 export type STATUS = typeof STATUS[keyof typeof STATUS];
 
-export type Stream = {
+export type StreamMeta = {
+  id: string,
+  channelId: string
   title: string,
+}
+
+export type Stream = {
+  meta: StreamMeta,
   chatCount: string,
   superChatAmount: string,
   memberCount: string,
   channelTitle: string,
-  id: string,
   thumbnail: string,
   status: STATUS,
   publishedAt: CustomDate,
-  channelId: string
 }
 
 export type Channel = {
