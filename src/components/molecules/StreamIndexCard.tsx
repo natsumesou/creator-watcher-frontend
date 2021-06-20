@@ -11,42 +11,36 @@ import { useQueryContext } from '../templates/WatchPage';
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
-      display: 'flex',
+      height: '100px',
       width: '100%',
+      display: 'flex',
+      alignItems: 'center',
       [theme.breakpoints.up('xs')]: {
         minHeight: 100,
       },
       [theme.breakpoints.down('xs')]: {
         flexDirection: 'column',
+        height: 'auto',
       },
     },
     skeletonMedia: {
-      height: 151,
+      height: 200,
       [theme.breakpoints.up('sm')]: {
-        width: 151,
-        flex: 1,
+        minWidth: 200,
       },
     },
     cover: {
-      [theme.breakpoints.up('sm')]: {
-        flex: 1,
+      minWidth: 200,
+      height: 200,
+      minHeight: 200,
+      [theme.breakpoints.down('xs')]: {
+        height: 100,
+        minHeight: 100,  
+        width: '100%',
       },
-      [theme.breakpoints.down('sm')]: {
-        height: 200,
-      },
-    },
-    detail: {
-      display: 'flex',
-      flexDirection: 'column',
-      flex: 2,
     },
     content: {
-      flex: '1 0 auto',
-      display: 'flex',
-      flexDirection: 'column',
-      [theme.breakpoints.down('xs')]: {
-        paddingBottom: '0 !important',
-      },
+      padding: '8px 16px !important',
     },
   }),
 );
@@ -71,6 +65,10 @@ export const StreamIndexCard: React.FC<Props> = (props) => {
     event.preventDefault();
   };
 
+  const trimTitle = (title: string) => {
+    return title.length < 70 ? title : title.slice(0, 69) + "...";
+  }
+
   return (
     <ButtonBase className={classes.root} href={loading ? "" : `/watch?cid=${stream.channelId}&vid=${stream.id}`} onClick={(e) => {handleClick(e, stream)}}>
       <Card className={classes.root}>
@@ -79,9 +77,12 @@ export const StreamIndexCard: React.FC<Props> = (props) => {
         ) : (
           <CardMediaWithLazyLoad className={classes.cover} image={thumbnail} title={stream.title} />
         )}
-        <div className={classes.detail}>
+        <div>
         <CardContent className={classes.content}>
-          <Typography component="h3" >{stream.title}</Typography>
+        
+          <Typography component="h3">{stream.title ? trimTitle(stream.title) : (
+            <Skeleton animation="wave" height={40} width="180px" />
+          )}</Typography>
         </CardContent>
         </div>
       </Card>
