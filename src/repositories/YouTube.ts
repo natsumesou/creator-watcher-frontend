@@ -306,7 +306,7 @@ export class YouTube {
       return channel;
     }, {});
 
-    return index[channelId];
+    return index[channelId] || [];
   }
 
   private freshURL(url: string) {
