@@ -46,7 +46,6 @@ export const Header = () => {
         <Toolbar variant="regular">
           <TitleButton title={"VTuberスパチャ🥇ランキング"} />
         </Toolbar>
-      <HeaderTabs routers={routers} />
     </AppBar>
   )
 }

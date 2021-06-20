@@ -41,7 +41,31 @@ exports.createPages = async ({ graphql, actions: { createPage }}) => {
 
   createPage({
     path: `/`,
-    component: require.resolve("./src/components/templates/HomePage.tsx"),
+    component: require.resolve("./src/components/templates/Article.tsx"),
+    context: {
+      site: site.data.site
+    }
+  })
+
+  createPage({
+    path: `/2021/05/31`,
+    component: require.resolve("./src/components/templates/Article20210531.tsx"),
+    context: {
+      site: site.data.site
+    }
+  })
+
+  createPage({
+    path: `/2021/06/07`,
+    component: require.resolve("./src/components/templates/Article20210607.tsx"),
+    context: {
+      site: site.data.site
+    }
+  })
+
+  createPage({
+    path: `/2021/06/14`,
+    component: require.resolve("./src/components/templates/Article20210614.tsx"),
     context: {
       site: site.data.site
     }
@@ -63,29 +87,29 @@ exports.createPages = async ({ graphql, actions: { createPage }}) => {
   //   }
   // })
 
-  createPage({
-    path: `/user`,
-    component: require.resolve("./src/components/templates/UserPage.tsx"),
-    context: {
-      site: site.data.site
-    }
-  })
+  // createPage({
+  //   path: `/user`,
+  //   component: require.resolve("./src/components/templates/UserPage.tsx"),
+  //   context: {
+  //     site: site.data.site
+  //   }
+  // })
 
-  createPage({
-    path: `/watch`,
-    component: require.resolve("./src/components/templates/WatchPage.tsx"),
-    context: {
-      site: site.data.site
-    }
-  })
+  // createPage({
+  //   path: `/watch`,
+  //   component: require.resolve("./src/components/templates/WatchPage.tsx"),
+  //   context: {
+  //     site: site.data.site
+  //   }
+  // })
 
-  createPage({
-    path: `/channel`,
-    component: require.resolve("./src/components/templates/ChannelPage.tsx"),
-    context: {
-      site: site.data.site
-    }
-  })
+  // createPage({
+  //   path: `/channel`,
+  //   component: require.resolve("./src/components/templates/ChannelPage.tsx"),
+  //   context: {
+  //     site: site.data.site
+  //   }
+  // })
 
   // createPage({
   //   path: `/ranking`,
