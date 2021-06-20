@@ -75,7 +75,7 @@ export const StreamIndex = () => {
 
     const fetchData = async () => {
       try {
-        const index = await youtube.fetchChannelIndex(query.cid);
+        const index = await youtube.fetchVideoIndex(query.cid);
         setShowProgress(false);
         setData(index);
       } catch(err) {

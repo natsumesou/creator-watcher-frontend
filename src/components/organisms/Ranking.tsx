@@ -47,8 +47,7 @@ const initialChannelData = () => {
   const channels = Array(10).fill(null);
   return channels.map((_,i) => {
     return {
-      title: null,
-      id: i.toString(),
+      meta: null,
       superChatAmount: null,
       memberCount: null,
     } as Channel

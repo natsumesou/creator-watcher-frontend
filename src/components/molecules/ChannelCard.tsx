@@ -64,7 +64,7 @@ export const ChannelCard: React.FC<Props> = ({channel}) => {
   const breakpoints = useBreakpoint();
   const classes = useStyles();
   const loading =
-    channel.title === null;
+    channel.meta === null;
 
   const thumbnail = getThumbnail(channel.videoId, breakpoints.sm);
 
@@ -77,12 +77,12 @@ export const ChannelCard: React.FC<Props> = ({channel}) => {
   };
 
   return (
-    <ButtonBase className={classes.link} href={loading ? "" : `/channel?id=${channel.id}`} onClick={handleClick}>
+    <ButtonBase className={classes.link} href={loading ? "" : `/channel?id=${channel.meta.id}`} onClick={handleClick}>
     <Card className={classes.root}>
       {loading ? (
         <Skeleton animation="wave" variant="rect" className={classes.skeletonMedia} />
       ) : (
-        <CardMediaWithLazyLoad className={classes.cover} image={thumbnail} title={channel.title} />
+        <CardMediaWithLazyLoad className={classes.cover} image={thumbnail} title={channel.meta.title} />
       )}
       <div className={classes.details}>
       <CardContent className={classes.content}>
@@ -94,7 +94,7 @@ export const ChannelCard: React.FC<Props> = ({channel}) => {
         ) : (
           <React.Fragment>
             <Typography component="h3" variant="h3">
-              {channel.title}
+              {channel.meta.title}
             </Typography>
             <Typography variant="body1">
               スパチャ金額：{channel.superChatAmount}

@@ -86,8 +86,7 @@ const useStyles = makeStyles((theme: Theme) =>
 const initialSuperChatData = () => {
   const superChats = Array(3).fill(null).map((_,i) => {
     return {
-      id: null,
-      title: null,
+      meta: null,
       superChatAmount: null,
     } as Channel;
   });

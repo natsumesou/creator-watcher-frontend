@@ -1,5 +1,5 @@
 import { CustomDate } from "@/entities/Date";
-import { Archive, Channel, Stream, StreamMeta, SuperChat, SuperChatByChannels, SuperChats, User } from "../entities/entity";
+import { Archive, Channel, ChannelMeta, Stream, StreamMeta, SuperChat, SuperChatByChannels, SuperChats, User } from "../entities/entity";
 
 const CATEGORY = {
   hololive: 'hololive',
@@ -48,7 +48,8 @@ const URL = {
   },
   channel: {
     monthlySuperChats: 'https://storage.googleapis.com/vtuber.ytubelab.com/channels/channel_id/superChats-monthly.tsv',
-    index: 'https://storage.googleapis.com/vtuber.ytubelab.com/channels/group_id/channelsIndex.tsv',
+    videoIndex: 'https://storage.googleapis.com/vtuber.ytubelab.com/channels/group_id/channelsIndex.tsv',
+    channelIndex: 'https://storage.googleapis.com/vtuber.ytubelab.com/channelIndex.tsv',
   },
   video: {
     superChats: 'https://storage.googleapis.com/vtuber.ytubelab.com/channels/channel_id/video_id/superChats.tsv',
@@ -109,9 +110,9 @@ export class YouTube {
     return this.parseSuperChatsForChannel(text);
   }
 
-  async fetchChannelIndex(channelId: string) {
+  async fetchVideoIndex(channelId: string) {
     const groupId = this.getGroupId(channelId);
-    const url = this.freshURL(URL.channel.index.replace('group_id', groupId));
+    const url = this.freshURL(URL.channel.videoIndex.replace('group_id', groupId));
     const response = await fetch(url);
     if (response.status >= 400) {
       if (response.status == 404) {
@@ -120,7 +121,20 @@ export class YouTube {
       throw new Error(`HTTPリクエストエラー / ${channelId} index / [${response.status}]: ${url}`);
     }
     const text = await response.text();
-    return this.parseChannelIndex(text, channelId);
+    return this.parseVideoIndex(text, channelId);
+  }
+
+  async fetchChannelIndex(category: string) {
+    const url = URL.channel.channelIndex;
+    const response = await fetch(url);
+    if (response.status >= 400) {
+      if (response.status == 404) {
+        throw new NotFoundError(`404 / channel index: ${url}`);
+      }
+      throw new Error(`HTTPリクエストエラー / channel index / [${response.status}]: ${url}`);
+    }
+    const text = await response.text();
+    return this.parseChannelIndex(text, category);
   }
 
   async fetchRanking(category: CATEGORY, range: RANGE, time?: string) {
@@ -239,8 +253,10 @@ export class YouTube {
         result.totalAmount = totalSuperChatAmount;
       }
       result.superChatByChannels.push({
-        id: targetChannelId,
-        title: targetChannelTitle,
+        meta: {
+          id: targetChannelId,
+          title: targetChannelTitle,  
+        },
         superChatAmount: targetSuperChatAmount,
         videoId: targetChannelVideoId,
       });
@@ -258,8 +274,10 @@ export class YouTube {
     const streams = lines.map((line) => {
       const columns = line.split("\t");
       return {
-        title: columns[1],
-        id: columns[2],
+        meta: {
+          id: columns[2],
+          title: columns[1],  
+        },
         superChatAmount: columns[3],
         memberCount: columns[4],
         videoId: columns[5],
@@ -288,7 +306,7 @@ export class YouTube {
     return index;
   }
 
-  private parseChannelIndex(text: string, channelId: string) {
+  private parseVideoIndex(text: string, channelId: string) {
     const lines = text.split("\r\n");
     const index = lines.reduce((channel, line) => {
       const video = line.split("\t");
@@ -307,6 +325,27 @@ export class YouTube {
     }, {});
 
     return index[channelId] || [];
+  }
+
+  private parseChannelIndex(text: string, category: string) {
+    const lines = text.split("\r\n");
+    const index = lines.reduce((channels, line) => {
+      const channel = line.split("\t");
+      const channelId = channel[0];
+      const channelTitle = channel[1];
+      const channelCaategory = channel[2];
+      if (!channels[channelCaategory]) {
+        channels[channelCaategory] = [];
+      }
+      channels[channelCaategory].push({
+        id: channelId,
+        title: channelTitle,
+        category: category,
+      } as ChannelMeta)
+      return channels;
+    }, {});
+
+    return index[category];
   }
 
   private freshURL(url: string) {

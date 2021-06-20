@@ -24,9 +24,14 @@ export type Stream = {
   publishedAt: CustomDate,
 }
 
-export type Channel = {
-  title: string,
+export type ChannelMeta = {
   id: string,
+  title: string,
+  category?: string,
+}
+
+export type Channel = {
+  meta: ChannelMeta,
   superChatAmount: string,
   memberCount?: string,
   videoId: string,
