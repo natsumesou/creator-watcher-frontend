@@ -7,9 +7,9 @@ module.exports = {
     title: 'VTuberスパチャ🥇ランキング',
     description: '配信が終了したスーパーチャットのランキングを集計します',
     author: 'YouTube研究所',
-    siteUrl: 'https://vtuber.ytubelab.com',
-    siteLogo: 'https://vtuber.ytubelab.com/images/logo.png',
-    defaultImage: 'https://vtuber.ytubelab.com/images/share.png', // google driveに画像を上げてる・GASで毎日中身更新運用
+    siteUrl: 'https://ytubelab.com',
+    siteLogo: 'https://ytubelab.com/images/logo.png',
+    defaultImage: 'https://ytubelab.com/images/share.png', // google driveに画像を上げてる・GASで毎日中身更新運用
   },
   plugins: [
     'gatsby-plugin-typescript',
@@ -22,7 +22,7 @@ module.exports = {
     {
       resolve: 'gatsby-plugin-robots-txt',
       options: {
-        sitemap: 'https://vtuber.ytubelab.com/sitemap.xml',
+        sitemap: 'https://ytubelab.com/sitemap.xml',
         policy: [{ userAgent: '*', allow: '/' }]
       }
     },
