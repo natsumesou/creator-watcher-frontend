@@ -13,16 +13,16 @@ jobs:
       uses: actions/checkout@master
     - name: Get New sitemap.xml
       run: |
-        curl https://storage.googleapis.com/vtuber.ytubelab.com/sitemap/ranking.xml -o ./static/sitemap/ranking.xml
+        curl "https://storage.googleapis.com/vtuber.ytubelab.com/sitemap/ranking.xml?_=`date +%s`" -o ./static/sitemap/ranking.xml
     - name: Get New sitemap.xml
       run: |
-        curl https://storage.googleapis.com/vtuber.ytubelab.com/sitemap/watch.xml -o ./static/sitemap/watch.xml
+        curl "https://storage.googleapis.com/vtuber.ytubelab.com/sitemap/watch.xml?_=`date +%s`" -o ./static/sitemap/watch.xml
     - name: Get New sitemap.xml
       run: |
-        curl https://storage.googleapis.com/vtuber.ytubelab.com/sitemap/channel.xml -o ./static/sitemap/channel.xml
+        curl "https://storage.googleapis.com/vtuber.ytubelab.com/sitemap/channel.xml?_=`date +%s`" -o ./static/sitemap/channel.xml
     - name: Get New sitemap.xml
       run: |
-        curl https://storage.googleapis.com/vtuber.ytubelab.com/sitemap/user.xml -o ./static/sitemap/user.xml
+        curl "https://storage.googleapis.com/vtuber.ytubelab.com/sitemap/user.xml?_=`date +%s`" -o ./static/sitemap/user.xml
     - name: git setting
       run: |
         git config --local user.email "yoshiaki@natsu.me"
