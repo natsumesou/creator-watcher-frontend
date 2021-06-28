@@ -13,14 +13,23 @@ jobs:
       uses: actions/checkout@master
     - name: Get New sitemap.xml
       run: |
-        curl https://storage.googleapis.com/vtuber.ytubelab.com/sitemap.xml -o ./static/sitemap.xml
+        curl https://storage.googleapis.com/vtuber.ytubelab.com/sitemap/ranking.xml -o ./static/ranking.xml
+    - name: Get New sitemap.xml
+      run: |
+        curl https://storage.googleapis.com/vtuber.ytubelab.com/sitemap/watch.xml -o ./static/watch.xml
+    - name: Get New sitemap.xml
+      run: |
+        curl https://storage.googleapis.com/vtuber.ytubelab.com/sitemap/channel.xml -o ./static/channel.xml
+    - name: Get New sitemap.xml
+      run: |
+        curl https://storage.googleapis.com/vtuber.ytubelab.com/sitemap/user.xml -o ./static/user.xml
     - name: git setting
       run: |
         git config --local user.email "yoshiaki@natsu.me"
         git config --local user.name "GitHub Actions"
     - name: Commit files
       run: |
-        git add ./static/sitemap.xml
-        git commit -m "update sitemap.xml by GitHub Actions" ./static/sitemap.xml
+        git add ./static/sitemap/
+        git commit -m "update sitemap.xml by GitHub Actions" ./static/sitemap/
         git pull
         git push origin master
