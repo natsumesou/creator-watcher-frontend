@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
-Sitemap: https://storage.googleapis.com/vtuber.ytubelab.com/sitemap.xml
+Sitemap: https://vtuber.ytubelab.com/sitemap.xml
 Host: https://vtuber.ytubelab.com

@@ -1,0 +1,25 @@
+name: sitemap
+
+on:
+  schedule:
+    - cron:  '*/5 * * * *'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@master
+    - name: Get New sitemap.xml
+      run: |
+        curl https://storage.googleapis.com/vtuber.ytubelab.com/sitemap.xml -o ./static/sitemap.xml
+    - name: git setting
+      run: |
+        git config --local user.email "yoshiaki@natsu.me"
+        git config --local user.name "GitHub Actions"
+    - name: Commit files
+      run: |
+        git add ./static/sitemap.xml
+        git commit -m "update sitemap.xml by GitHub Actions" ./static/sitemap.xml
+        git pull
+        git push origin master
