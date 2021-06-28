@@ -41,113 +41,89 @@ exports.createPages = async ({ graphql, actions: { createPage }}) => {
 
   createPage({
     path: `/`,
-    component: require.resolve("./src/components/templates/Article.tsx"),
+    component: require.resolve("./src/components/templates/HomePage.tsx"),
     context: {
       site: site.data.site
     }
   })
 
   createPage({
-    path: `/2021/05/31`,
-    component: require.resolve("./src/components/templates/Article20210531.tsx"),
+    path: `/hololive`,
+    component: require.resolve("./src/components/templates/HololivePage.tsx"),
     context: {
       site: site.data.site
     }
   })
 
   createPage({
-    path: `/2021/06/07`,
-    component: require.resolve("./src/components/templates/Article20210607.tsx"),
+    path: `/nijisanji`,
+    component: require.resolve("./src/components/templates/NijisanjiPage.tsx"),
     context: {
       site: site.data.site
     }
   })
 
   createPage({
-    path: `/2021/06/14`,
-    component: require.resolve("./src/components/templates/Article20210614.tsx"),
+    path: `/user`,
+    component: require.resolve("./src/components/templates/UserPage.tsx"),
     context: {
       site: site.data.site
     }
   })
 
-  // createPage({
-  //   path: `/hololive`,
-  //   component: require.resolve("./src/components/templates/HololivePage.tsx"),
-  //   context: {
-  //     site: site.data.site
-  //   }
-  // })
+  createPage({
+    path: `/watch`,
+    component: require.resolve("./src/components/templates/WatchPage.tsx"),
+    context: {
+      site: site.data.site
+    }
+  })
 
-  // createPage({
-  //   path: `/nijisanji`,
-  //   component: require.resolve("./src/components/templates/NijisanjiPage.tsx"),
-  //   context: {
-  //     site: site.data.site
-  //   }
-  // })
+  createPage({
+    path: `/channel`,
+    component: require.resolve("./src/components/templates/ChannelPage.tsx"),
+    context: {
+      site: site.data.site
+    }
+  })
 
-  // createPage({
-  //   path: `/user`,
-  //   component: require.resolve("./src/components/templates/UserPage.tsx"),
-  //   context: {
-  //     site: site.data.site
-  //   }
-  // })
+  createPage({
+    path: `/ranking`,
+    component: require.resolve("./src/components/templates/RankingPage.tsx"),
+    context: {
+      site: site.data.site
+    }
+  })
 
-  // createPage({
-  //   path: `/watch`,
-  //   component: require.resolve("./src/components/templates/WatchPage.tsx"),
-  //   context: {
-  //     site: site.data.site
-  //   }
-  // })
+  createPage({
+    path: `/ranking/daily`,
+    component: require.resolve("./src/components/templates/RankingPage.tsx"),
+    context: {
+      site: site.data.site
+    }
+  })
 
-  // createPage({
-  //   path: `/channel`,
-  //   component: require.resolve("./src/components/templates/ChannelPage.tsx"),
-  //   context: {
-  //     site: site.data.site
-  //   }
-  // })
+  createPage({
+    path: `/ranking/weekly`,
+    component: require.resolve("./src/components/templates/RankingPage.tsx"),
+    context: {
+      site: site.data.site
+    }
+  })
 
-  // createPage({
-  //   path: `/ranking`,
-  //   component: require.resolve("./src/components/templates/RankingPage.tsx"),
-  //   context: {
-  //     site: site.data.site
-  //   }
-  // })
+  createPage({
+    path: `/ranking/monthly`,
+    component: require.resolve("./src/components/templates/RankingPage.tsx"),
+    context: {
+      site: site.data.site
+    }
+  })
 
-  // createPage({
-  //   path: `/ranking/daily`,
-  //   component: require.resolve("./src/components/templates/RankingPage.tsx"),
-  //   context: {
-  //     site: site.data.site
-  //   }
-  // })
-
-  // createPage({
-  //   path: `/ranking/weekly`,
-  //   component: require.resolve("./src/components/templates/RankingPage.tsx"),
-  //   context: {
-  //     site: site.data.site
-  //   }
-  // })
-
-  // createPage({
-  //   path: `/ranking/monthly`,
-  //   component: require.resolve("./src/components/templates/RankingPage.tsx"),
-  //   context: {
-  //     site: site.data.site
-  //   }
-  // })
-
-  // createPage({
-  //   path: `/ranking/archive`,
-  //   component: require.resolve("./src/components/templates/ArchivePage.tsx"),
-  //   context: {
-  //     site: site.data.site
-  //   }
-  // })
+  createPage({
+    path: `/ranking/archive`,
+    component: require.resolve("./src/components/templates/ArchivePage.tsx"),
+    context: {
+      site: site.data.site
+    }
+  })
 }
