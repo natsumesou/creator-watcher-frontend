@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<sitemapindex>
+<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <sitemap><loc>https://vtuber.ytubelab.com/sitemap/static.xml</loc></sitemap>
   <sitemap><loc>https://vtuber.ytubelab.com/sitemap/ranking.xml</loc></sitemap>
-  <sitemap><loc>https://vtuber.ytubelab.com/sitemap/channel.xml</loc></sitemap>
   <sitemap><loc>https://vtuber.ytubelab.com/sitemap/watch.xml</loc></sitemap>
+  <sitemap><loc>https://vtuber.ytubelab.com/sitemap/channel.xml</loc></sitemap>
   <sitemap><loc>https://vtuber.ytubelab.com/sitemap/user.xml</loc></sitemap>
 </sitemapindex>
