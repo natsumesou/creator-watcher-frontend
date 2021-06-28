@@ -93,7 +93,7 @@ export const ChannelCard: React.FC<Props> = ({channel}) => {
         </React.Fragment>
         ) : (
           <React.Fragment>
-            <Typography component="h3" variant="h3">
+            <Typography component="p" variant="h3">
               {channel.meta.title}
             </Typography>
             <Typography variant="body1">

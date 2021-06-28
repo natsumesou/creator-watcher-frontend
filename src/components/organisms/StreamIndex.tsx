@@ -93,7 +93,7 @@ export const StreamIndex = () => {
 
   return (
     <Box p={1}>
-      <Typography variant="body1" className={classes.amountRoot}>チャンネルの最近の配信</Typography>
+      <Typography variant="h3" component="h4" className={classes.amountRoot}>チャンネルの最近の配信</Typography>
       <List className="ranking-main">
       {data.map((stream, i) => (
         <React.Fragment key={i}>

@@ -141,7 +141,7 @@ export const WatchSuperChats = ({notices}) => {
       </ButtonBase>
       <TempCard id={query.vid} />
       <Button href={data.channelName ? `/channel?id=${query.cid}` : ""} onClick={handleClick}>
-        <Typography component="h3" variant="h3" className={classes.nameRoot}>{data.channelName ? data.channelName : (
+        <Typography component="h4" variant="h3" className={classes.nameRoot}>{data.channelName ? data.channelName : (
           <Skeleton animation="wave" className={classes.nameSkeleton} />
         )} の月間スパチャ上位を見る</Typography>
       </Button>
@@ -150,7 +150,7 @@ export const WatchSuperChats = ({notices}) => {
         <ListItem key={i} className={classes.listitem}><ListItemText primary={notice} /></ListItem>
       ))}
       </List>
-      <Typography variant="body1">配信のスパチャ金額🥇{data.superChatAmount}</Typography>
+      <Typography variant="h3" component="h3">配信のスパチャ金額🥇{data.superChatAmount}</Typography>
       <List className="ranking-main">
       {data.superChats.map((superChat, i) => (
         <React.Fragment key={i}>

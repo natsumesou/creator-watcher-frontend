@@ -104,10 +104,10 @@ export const StreamCard: React.FC<Props> = (props) => {
           </React.Fragment>
         ) : (
           <React.Fragment>
-            <Typography component="h4" variant="h4">
+            <Typography component="p" variant="h4">
               {stream.channelTitle}
             </Typography>
-            <Typography component="h3" variant="h3">
+            <Typography component="p" variant="h3">
               {stream.meta.title}
             </Typography>
             {stream.status === "done" ? (

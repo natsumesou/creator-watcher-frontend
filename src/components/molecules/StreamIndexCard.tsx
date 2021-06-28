@@ -79,8 +79,8 @@ export const StreamIndexCard: React.FC<Props> = (props) => {
         )}
         <div>
         <CardContent className={classes.content}>
-        
-          <Typography component="h3">{stream.title ? trimTitle(stream.title) : (
+
+          <Typography component="p" variant="h3">{stream.title ? trimTitle(stream.title) : (
             <Skeleton animation="wave" height={40} width="180px" />
           )}</Typography>
         </CardContent>

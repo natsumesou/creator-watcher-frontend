@@ -125,7 +125,7 @@ export const SuperChatCard: React.FC<Props> = (props) => {
           </Box>
         ) : (
           <Box className={classes.main}>
-            <Typography component="h3" variant="h3">
+            <Typography component="p" variant="h3">
               {superChat.user.supporterDisplayName}
             </Typography>
             <Typography variant="body1">
