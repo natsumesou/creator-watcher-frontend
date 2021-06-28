@@ -67,12 +67,11 @@ export const ChannelIndex = ({ category }) => {
     textColor="primary"
     variant="scrollable"
     scrollButtons="auto"
-    aria-label="scro
-    llable auto tabs example"
+    aria-label="チャンネル一覧"
   >
   {data.map((channel, i) => (
-     <Tab key={i} label={channel.title} href={`/channel?id=${channel.id}`} onClick={handleClick} className={classes.title} />
-    ))}
+    <Tab key={i} label={channel.title} href={`/channel?id=${channel.id}`} onClick={handleClick} className={classes.title} />
+  ))}
   </Tabs>
   )
 }
