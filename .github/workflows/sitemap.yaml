@@ -20,12 +20,18 @@ jobs:
     - name: Get New channel.xml
       run: |
         curl "https://storage.googleapis.com/vtuber.ytubelab.com/sitemap/channel.xml?_=`date +%s`" -o ./static/sitemap/channel.xml
-    - name: Get New user1.xml
+    - name: Get New user[1-10].xml
       run: |
-        curl "https://storage.googleapis.com/vtuber.ytubelab.com/sitemap/user1.xml?_=`date +%s`" -o ./static/sitemap/user1.xml
-    - name: Get New user2.xml
+        curl -f "https://storage.googleapis.com/vtuber.ytubelab.com/sitemap/user[1-10].xml?_=`date +%s`" -o ./static/sitemap/user#1.xml
+    - name: update sitemap.xml
       run: |
-        curl "https://storage.googleapis.com/vtuber.ytubelab.com/sitemap/user2.xml?_=`date +%s`" -o ./static/sitemap/user2.xml
+        xml="<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<sitemapindex xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">\m"
+        for entry in "static/sitemap"/*
+        do
+          xml="$xml<sitemap><loc>https://vtuber.ytubelab.com/sitemap/`basename $entry`</loc></sitemap>\n"
+        done
+        xml="$xml</sitemapindex>"
+        echo "$xml" > static/sitemap.xml
     - name: git setting
       run: |
         git config --local user.email "yoshiaki@natsu.me"
@@ -33,6 +39,7 @@ jobs:
     - name: Commit files
       run: |
         git add ./static/sitemap/
-        git commit -m "update sitemap.xml by GitHub Actions" ./static/sitemap/
+        git add ./static/sitemap.xml
+        git commit -m "update sitemap.xml by GitHub Actions" ./static/sitemap/ ./static/sitemap.xml
         git pull
         git push origin master
