@@ -26,10 +26,10 @@ jobs:
       continue-on-error: true
     - name: update sitemap.xml
       run: |
-        xml="<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<sitemapindex xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">\m"
+        xml="<?xml version=\"1.0\" encoding=\"UTF-8\"?><sitemapindex xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">"
         for entry in "static/sitemap"/*
         do
-          xml="$xml<sitemap><loc>https://vtuber.ytubelab.com/sitemap/`basename $entry`</loc></sitemap>\n"
+          xml="$xml<sitemap><loc>https://vtuber.ytubelab.com/sitemap/`basename $entry`</loc></sitemap>"
         done
         xml="$xml</sitemapindex>"
         echo "$xml" > static/sitemap.xml
