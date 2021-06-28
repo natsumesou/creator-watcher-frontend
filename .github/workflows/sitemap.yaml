@@ -23,7 +23,7 @@ jobs:
     - name: Get New user[1-10].xml
       run: |
         curl -f "https://storage.googleapis.com/vtuber.ytubelab.com/sitemap/user[1-10].xml?_=`date +%s`" -o ./static/sitemap/user#1.xml
-        echo ""
+      continue-on-error: true
     - name: update sitemap.xml
       run: |
         xml="<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<sitemapindex xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">\m"
