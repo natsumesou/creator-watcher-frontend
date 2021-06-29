@@ -16,7 +16,6 @@ module.exports = {
     'gatsby-plugin-styled-components',
     `gatsby-plugin-sharp`,
     'gatsby-transformer-remark',
-    `gatsby-plugin-react-helmet`,
     {
       resolve: `gatsby-plugin-breakpoints`,
       options: {

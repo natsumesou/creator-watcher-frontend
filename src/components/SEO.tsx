@@ -1,5 +1,5 @@
 import React, { createContext, useContext } from "react"
-import { Helmet } from "react-helmet"
+import { Helmet } from "react-helmet-async"
 import { useLocation } from "@reach/router"
 import { CustomDate } from "@/entities/Date"
 import { SiteMetadata } from "@/app"
@@ -47,38 +47,7 @@ const SEO: React.FC<Props> = ({site}) => {
 
   return (
     <React.Fragment>
-    <script data-ad-client="ca-pub-3219662000601843" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-    <Helmet script={seo.article ? [
-      {
-        type: 'application/ld+json',
-        innerHTML: JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "NewsArticle",
-          "mainEntityOfPage": {
-            "@type": "WebPage",
-            "@id": href
-          },
-          "headline": seo.article.headline,
-          "image": [
-            seo.article.image,
-          ],
-          "datePublished": seo.article.publishedAt.toISOString(),
-          "dateModified": seo.article.publishedAt.toISOString(),
-          "author": {
-            "@type": "Person",
-            "name": site.siteMetadata.author
-          },
-          "publisher": {
-            "@type": "Organization",
-            "name": site.siteMetadata.author,
-            "logo": {
-              "@type": "ImageObject",
-              "url": site.siteMetadata.siteLogo
-            }
-          }
-        }),
-      }
-    ] : []}
+    <Helmet
     title={meta.title} htmlAttributes={{lang: 'ja'}}>
       <title>{title}</title>
       <meta name="description" content={meta.description} />
@@ -92,6 +61,38 @@ const SEO: React.FC<Props> = ({site}) => {
       <meta name="twitter:description" content={meta.description} />
       <meta name="twitter:image" content={meta.image} />
       <script data-ad-client="ca-pub-3219662000601843" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+      {seo.article ?
+        <script type="application/ld+json">
+          {
+            JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "NewsArticle",
+              "mainEntityOfPage": {
+                "@type": "WebPage",
+                "@id": href
+              },
+              "headline": seo.article.headline,
+              "image": [
+                seo.article.image,
+              ],
+              "datePublished": seo.article.publishedAt.toISOString(),
+              "dateModified": seo.article.publishedAt.toISOString(),
+              "author": {
+                "@type": "Person",
+                "name": site.siteMetadata.author
+              },
+              "publisher": {
+                "@type": "Organization",
+                "name": site.siteMetadata.author,
+                "logo": {
+                  "@type": "ImageObject",
+                  "url": site.siteMetadata.siteLogo
+                }
+              }
+            })
+          }
+        </script>
+        : ""}
     </Helmet>
     </React.Fragment>
   )
