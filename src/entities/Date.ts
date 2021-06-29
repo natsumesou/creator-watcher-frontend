@@ -1,3 +1,5 @@
+import { RANGE } from "@/repositories/YouTube";
+
 class DateBase extends Date {
   protected static twoDigit(num: number): string {
     return ("0" + num).slice(-2);
@@ -18,7 +20,7 @@ export class CustomDate extends DateBase {
     return `${date.getFullYear()}年${this.twoDigit(date.getMonth() + 1)}月`;
   }
 
-  static fromDatestring(time: string): CustomDate {
+  static fromDatestring(time: string, range?: RANGE): CustomDate {
     if (time.length === 6) {
       const year = parseInt(time.substr(0,4));
       const month = parseInt(time.substr(4,2)) - 1;
@@ -27,7 +29,11 @@ export class CustomDate extends DateBase {
       const year = parseInt(time.substr(0,4));
       const month = parseInt(time.substr(4,2)) - 1;
       const day = parseInt(time.substr(6,2));
-      return new CustomDate(year, month ,day);
+      const date = new CustomDate(year, month ,day);
+      if (range === "weekly") {
+        date.setDate(date.getDate() + 6);
+      }
+      return date;
     } else {
       throw new Error("unknown date format: " + time);
     }

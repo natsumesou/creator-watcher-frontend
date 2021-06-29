@@ -32,7 +32,7 @@ export const ArchiveList: React.FC<Props> = ({archive}) => {
   const classes = useStyles();
   const loading =
     archive.daily.length === 0;
-
+  
   const ListItemLink = (props: ListItemProps<'a', { button?: true }>) => {
     return <ListItem button component="a"
     onClick={(event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
@@ -83,7 +83,7 @@ export const ArchiveList: React.FC<Props> = ({archive}) => {
         <List component="nav" aria-label="secondary" className={classes.list}>
           {archive.weekly.map(index => (
           <ListItemLink key={index} href={`/ranking/weekly?t=${index}`}>
-            <ListItemText primary={CustomDate.getDisplayDate(CustomDate.fromDatestring(index))} />
+            <ListItemText primary={CustomDate.getDisplayDate(CustomDate.fromDatestring(index, "weekly"))} />
           </ListItemLink>
           ))}
         </List>
