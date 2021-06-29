@@ -1,5 +1,5 @@
 import React, { createContext, useContext } from "react"
-import { Helmet } from "react-helmet-async"
+import { Helmet } from "react-helmet"
 import { useLocation } from "@reach/router"
 import { CustomDate } from "@/entities/Date"
 import { SiteMetadata } from "@/app"

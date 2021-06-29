@@ -3,7 +3,6 @@ import { createStyles, CssBaseline, makeStyles, MuiThemeProvider, Theme } from '
 import { theme } from '@/theme'
 import { Header } from '@/components/organisms/Header'
 import { Footer } from '@/components/organisms/Footer';
-import { HelmetProvider } from 'react-helmet-async';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -50,10 +49,8 @@ export const useProgressContext = () => useContext(ProgressContext);
 const App = ({ children }) => {
   const [showProgress, setShowProgress] = useState<boolean>(false);
   const classes = useStyles();
-  const helmetContext = {};
 
   return (
-    <HelmetProvider context={helmetContext}>
     <ProgressContext.Provider value={{showProgress, setShowProgress}}>
     <MuiThemeProvider theme={theme}>
       <CssBaseline />
@@ -62,7 +59,6 @@ const App = ({ children }) => {
       <Footer />
     </MuiThemeProvider>
     </ProgressContext.Provider>
-    </HelmetProvider>
   )
 }
 
