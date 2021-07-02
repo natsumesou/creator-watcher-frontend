@@ -5,7 +5,7 @@ const myCustomQueries = {
 module.exports = {
   siteMetadata: {
     title: 'VTuberスパチャ🥇ランキング',
-    description: '配信が終了したスーパーチャットのランキングを集計します',
+    description: 'にじさんじ・ホロライブ等VTuberのスーパーチャットを動画別・チャンネル別・ユーザー別で一覧できます',
     author: 'YouTube研究所',
     siteUrl: 'https://vtuber.ytubelab.com',
     siteLogo: 'https://vtuber.ytubelab.com/images/logo.png',
