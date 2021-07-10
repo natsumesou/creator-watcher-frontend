@@ -17,6 +17,7 @@ const UserPage = ({ pageContext }) => {
   ]
   const [seo, setSeo] = useState<SeoType>({
     subtitle: "月間スパチャ金額",
+    description: "その月のスパチャ額をスパチャしたユーザー単位で集計しています(1日1回更新)"
   });
 
   return (

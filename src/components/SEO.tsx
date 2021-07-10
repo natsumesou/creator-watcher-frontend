@@ -12,6 +12,7 @@ export type Article = {
 
 export type SeoType = {
   subtitle?: string,
+  description?: string,
   article?: Article,
 }
 
@@ -36,11 +37,13 @@ const SEO: React.FC<Props> = ({site}) => {
   const { href } = useLocation()
   const { seo, setSeo } = useSeoContext();
   const title = seo.subtitle ?
-  seo.subtitle + " - " + site.siteMetadata.title : site.siteMetadata.title;
+    seo.subtitle + " - " + site.siteMetadata.title : site.siteMetadata.title;
+  const description = seo.description ?
+    seo.description + " - " + site.siteMetadata.description : site.siteMetadata.description;
   const nocache = new Date().getTime();
   const meta = {
     title: title,
-    description: site.siteMetadata.description,
+    description: description,
     image: site.siteMetadata.defaultImage + (site.siteMetadata.defaultImage.includes("?") ? "&_=" : "?_=" ) + nocache,
     url: href,
   }

@@ -11,6 +11,7 @@ const NijisanjiPage = ({ pageContext }) => {
   ];
   const [seo, setSeo] = useState<SeoType>({
     subtitle: "にじさんじ",
+    description: "にじさんじで配信が終了したものからスパチャを集計してタイムライン形式で表示",
   });
 
   return (

@@ -5,7 +5,7 @@ const myCustomQueries = {
 module.exports = {
   siteMetadata: {
     title: 'VTuberスパチャ🥇ランキング',
-    description: 'にじさんじ・ホロライブ等VTuberのスーパーチャットを動画別・チャンネル別・ユーザー別で一覧できます',
+    description: 'にじさんじ・ホロライブ等VTuberのYouTubeにおけるスーパーチャット(スパチャ・投げ銭)の利益を動画別・チャンネル別・ユーザー別で集計して表示するスパチャのオンライン集計ツールです',
     author: 'YouTube研究所',
     siteUrl: 'https://vtuber.ytubelab.com',
     siteLogo: 'https://vtuber.ytubelab.com/images/logo.png',

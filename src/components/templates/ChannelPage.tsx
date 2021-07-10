@@ -21,6 +21,7 @@ const ChannelPage = ({ pageContext }) => {
   ]
   const [seo, setSeo] = useState<SeoType>({
     subtitle: "チャンネル",
+    description: "その月のスパチャ額をチャンネル単位で集計しています(1日1回更新)",
   });
 
   return (

@@ -7,10 +7,11 @@ import { ChannelIndex } from '../organisms/ChannelIndex';
 const HololivePage = ({ pageContext }) => {
   const { site } = pageContext;
   const notices = [
-    "ホロライブ(JP)のチャンネルのみ取得しています"
+    "ホロライブ/ホロライブ ID(インドネシア)/ホロライブ EN(English)のチャンネルを取得しています"
   ]
   const [seo, setSeo] = useState<SeoType>({
     subtitle: "ホロライブ",
+    description: "ホロライブ/hololive-ID(Indonesia)/hololive-EN(English) で配信が終了したものからスパチャを集計してタイムライン形式で表示",
   });
 
   return (
