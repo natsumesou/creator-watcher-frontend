@@ -109,7 +109,7 @@ export const WatchSuperChats = ({notices}) => {
         const superChats = await youtube.fetchStreamSuperChats(query.cid, query.vid);
         setShowProgress(false);
         setData(superChats);
-        setSeo({subtitle: superChats.title});
+        setSeo({subtitle: superChats.title, image: getThumbnail(query.vid)});
       } catch(err) {
         if (err instanceof NotFoundError) {
           setError(err);

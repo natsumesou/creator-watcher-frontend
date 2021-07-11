@@ -73,9 +73,16 @@ const RankingPage: React.FC<PageContext> = ({pageContext}) => {
 
   const [query, setQuery] = useState<Query>(initialQuery);
   const [article, setArticle] = useState<Article>(initialArticle);
+  const ogpImage = {
+    daily: "https://drive.google.com/uc?id=1gtcIIVuktGOKjmqSwgU5hu0PkX6eTXK9",
+    weekly: "https://drive.google.com/uc?id=1ormi4L--eUs90Zop0cjAe4gW0KnDJw9M",
+    monthly: "https://drive.google.com/uc?id=1dwtjcAoB41u5qLX6Xz4xaVABaArIYCbV",
+  }
+
   const title = `${RankingRouters[query.range].name}ランキング`;
   const initialSeo = {
     subtitle: article?.headline || title,
+    Image: ogpImage[initialQuery.range],
     article: article,
   }
   const [seo, setSeo] = useState<SeoType>(initialSeo);
@@ -95,12 +102,6 @@ const RankingPage: React.FC<PageContext> = ({pageContext}) => {
     weekly: ["ウィークリーランキングは毎週月曜の朝9時過ぎに前週分のスパチャ金額・メンバー加入数を更新しています"],
     monthly: ["マンスリーランキングは毎月１日の朝9時過ぎに前月分のスパチャ金額・メンバー加入数を更新しています"],
   }
-  const ogpImage = {
-    daily: "https://drive.google.com/uc?id=1gtcIIVuktGOKjmqSwgU5hu0PkX6eTXK9",
-    weekly: "https://drive.google.com/uc?id=1ormi4L--eUs90Zop0cjAe4gW0KnDJw9M",
-    monthly: "https://drive.google.com/uc?id=1dwtjcAoB41u5qLX6Xz4xaVABaArIYCbV",
-  }
-  site.siteMetadata.defaultImage = ogpImage[initialQuery.range]; // OGP画像は初回アクセス時の初期化値しか見られないので固定値を設定
 
   return (
     <SeoContext.Provider value={{seo, setSeo}}>

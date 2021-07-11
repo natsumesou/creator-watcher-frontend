@@ -13,6 +13,7 @@ export type Article = {
 export type SeoType = {
   subtitle?: string,
   description?: string,
+  image?: string,
   article?: Article,
 }
 
@@ -36,15 +37,17 @@ export const useSeoContext = () => useContext(SeoContext);
 const SEO: React.FC<Props> = ({site}) => {
   const { href } = useLocation()
   const { seo, setSeo } = useSeoContext();
+  const nocache = new Date().getTime();
   const title = seo.subtitle ?
     seo.subtitle + " - " + site.siteMetadata.title : site.siteMetadata.title;
   const description = seo.description ?
     seo.description + " - " + site.siteMetadata.description : site.siteMetadata.description;
-  const nocache = new Date().getTime();
+  const image = seo.image ?
+    seo.image : site.siteMetadata.defaultImage + (site.siteMetadata.defaultImage.includes("?") ? "&_=" : "?_=" ) + nocache;
   const meta = {
     title: title,
     description: description,
-    image: site.siteMetadata.defaultImage + (site.siteMetadata.defaultImage.includes("?") ? "&_=" : "?_=" ) + nocache,
+    image: image,
     url: href,
   }
 
@@ -63,6 +66,7 @@ const SEO: React.FC<Props> = ({site}) => {
       <meta name="twitter:title" content={meta.title} />
       <meta name="twitter:description" content={meta.description} />
       <meta name="twitter:image" content={meta.image} />
+      <meta name="thumbnail" content={meta.image} />
       <script data-ad-client="ca-pub-3219662000601843" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
       {seo.article ?
         <script type="application/ld+json">

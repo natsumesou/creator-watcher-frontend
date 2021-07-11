@@ -116,7 +116,7 @@ export const UserSuperChats = ({ notices }) => {
         setShowProgress(false);
         setData(superChats);
         if (superChats.user) {
-          setSeo({subtitle: superChats.user.supporterDisplayName});
+          setSeo({subtitle: superChats.user.supporterDisplayName, image: superChats.user.thumbnail});
         }
       } catch(err) {
         if (err instanceof NotFoundError) {
