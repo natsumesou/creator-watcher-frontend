@@ -127,7 +127,7 @@ export const WatchSuperChats = ({notices}) => {
       <Button href={data.channelName ? `/channel?id=${query.cid}` : ""} onClick={handleClick}>
         <Typography component="h4" variant="h3" className={classes.nameRoot}>{data.channelName ? data.channelName : (
           <Skeleton animation="wave" className={classes.nameSkeleton} />
-        )} の月間スパチャ上位を見る</Typography>
+        )} の月間スパチャ上位を見る🔍</Typography>
       </Button>
       <List dense={true}>
       {notices.map((notice, i) => (
