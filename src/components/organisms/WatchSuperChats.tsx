@@ -40,29 +40,6 @@ const useStyles = makeStyles((theme: Theme) =>
       minHeight: '250px',
       display: 'block',
     },
-    videoLinkRoot: {
-      width: '100%',
-      position: 'relative',
-      height: 150,
-      overflow: 'hidden',
-    },
-    videoLinkBox: {
-      position: 'absolute',
-      width: '100%',
-      height: '100%',
-      backgroundImage: (query: Query) =>  `url(${getThumbnail(query.vid)})`,
-      backgroundRepeat: 'no-repeat',
-      backgroundSize: 'cover',
-      backgroundPosition: 'center',
-      filter: 'blur(4px) grayscale(30%) opacity(30%)',
-    },
-    videoLink: {
-      position: 'absolute',
-      padding: 20,
-      [theme.breakpoints.down('xs')]: {
-        padding: 10,
-      },
-    },
     nameRoot: {
       display: 'flex',
       alignItems: 'center',
@@ -73,6 +50,14 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     titleRoot: {
       width: '100%',
+      textAlign: 'center',
+    },
+    iframe: {
+      width: '100%',
+      height: 360,
+      [theme.breakpoints.down('xs')]: {
+        height: 270,
+      },
     }
   }),
 );
@@ -133,12 +118,11 @@ export const WatchSuperChats = ({notices}) => {
 
   return (
     <TabPanel>
-      <ButtonBase href={data.title ? `https://www.youtube.com/watch?v=${query.vid}` : ""} className={classes.videoLinkRoot} target="_blank" rel="noopener">
-        <span className={classes.videoLinkBox}></span>
-        <Typography className={`${classes.videoLink} ${data.title ? "" : classes.titleRoot}`} component="h2" variant="h2">{data.title ? data.title : (
+        <Typography className={classes.titleRoot} component="h2" variant="h2">{data.title ? data.title : (
           <Skeleton animation="wave" height="60px" width="100%" />
         )}</Typography>
-      </ButtonBase>
+      <iframe id="ytplayer" className={classes.iframe} src={`https://www.youtube.com/embed/${query.vid}`} frameBorder="0" />
+
       <TempCard id={query.vid} />
       <Button href={data.channelName ? `/channel?id=${query.cid}` : ""} onClick={handleClick}>
         <Typography component="h4" variant="h3" className={classes.nameRoot}>{data.channelName ? data.channelName : (
