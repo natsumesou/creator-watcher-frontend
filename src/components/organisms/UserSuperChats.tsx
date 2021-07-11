@@ -148,7 +148,7 @@ export const UserSuperChats = ({ notices }) => {
         <ListItem key={i} className={classes.listitem}><ListItemText primary={notice} /></ListItem>
       ))}
       </List>
-        <Typography variant="body1" className={classes.amountRoot}>個人の月間スパチャ金額🥇{data.user ? data.totalAmount : (
+        <Typography variant="h3" component="h3" className={classes.amountRoot}>個人の月間スパチャ金額🥇{data.user ? data.totalAmount : (
           <Skeleton animation="wave" width="100px" className={classes.amountSkeleton} />
         )}</Typography>
       <List className="ranking-main">

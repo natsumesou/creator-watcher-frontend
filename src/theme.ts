@@ -1,5 +1,8 @@
 import { createMuiTheme } from '@material-ui/core/styles'
+import createBreakpoints from '@material-ui/core/styles/createBreakpoints'
 import { Shadows } from '@material-ui/core/styles/shadows'
+
+const breakpoints = createBreakpoints({})
 
 const { palette } = createMuiTheme({
   palette: {
@@ -35,40 +38,65 @@ export const theme = createMuiTheme({
       fontSize: '2rem',
       fontWeight: 'bold',
       color: palette.text.primary,
+      [breakpoints.down('xs')]: {
+        fontSize: '1.6rem',
+      },
     },
     h3: {
       fontSize: '1.6rem',
       fontWeight: 'bold',
       color: palette.text.primary,
+      [breakpoints.down('xs')]: {
+        fontSize: '1.4rem',
+      },
     },
     h4: {
       fontSize: '1.4rem',
       fontWeight: 'bold',
       color: palette.text.primary,
+      [breakpoints.down('xs')]: {
+        fontSize: '1.2rem',
+      },
     },
     h5: {
       fontSize: '1.2rem',
       fontWeight: 'bold',
       color: palette.text.primary,
+      [breakpoints.down('xs')]: {
+        fontSize: '1.0rem',
+      },
     },
     h6: {
       fontSize: '1rem',
       fontWeight: 'bold',
       color: palette.text.primary,
+      [breakpoints.down('xs')]: {
+        fontSize: '0.8rem',
+      },
     },
     body1: {
       letterSpacing: 0,
       fontSize: '1.6rem',
       color: palette.text.primary,
+      [breakpoints.down('xs')]: {
+        fontSize: '1.4rem',
+      },
     },
     body2: {
       fontSize: '1.2rem',
       lineHeight: '1.4rem',
       color: palette.text.secondary,
+      [breakpoints.down('xs')]: {
+        fontSize: '1.0rem',
+        lineHeight: '1.2rem',
+      },
     },
     button: {
       textTransform: 'none',
       fontSize: '1.2rem',
+      [breakpoints.down('xs')]: {
+        fontSize: '1.0rem',
+      },
     },
   },
   overrides: {
@@ -87,14 +115,20 @@ export const theme = createMuiTheme({
       sizeLarge: {
         "& $label": {
           fontSize: '1.6rem',
-        }
-      }
+        },
+        [breakpoints.down('xs')]: {
+          fontSize: '1.4rem',
+        },
+      },
     },
     MuiFab: {
       sizeMedium: {
         "& $label": {
           fontSize: '1.6rem',
-        }
+        },
+        [breakpoints.down('xs')]: {
+          fontSize: '1.4rem',
+        },
       }
     }
   },

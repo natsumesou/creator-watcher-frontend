@@ -115,7 +115,7 @@ export const ChannelSuperChats = ({notices}) => {
         <ListItem key={i} className={classes.listitem}><ListItemText primary={notice} /></ListItem>
       ))}
       </List>
-      <Typography variant="body1" className={classes.amountRoot}>チャンネルの月間スパチャ金額🥇{data.superChatAmount ? data.superChatAmount : (
+      <Typography variant="h3" component="h3" className={classes.amountRoot}>チャンネルの月間スパチャ金額🥇{data.superChatAmount ? data.superChatAmount : (
         <Skeleton animation="wave" width="100px" className={classes.amountSkeleton} />
       )}</Typography>
       <List className="ranking-main">
