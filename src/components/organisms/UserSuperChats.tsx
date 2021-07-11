@@ -25,6 +25,9 @@ const useStyles = makeStyles((theme: Theme) =>
       overflow: 'hidden',
       alignItems: 'center',
       display: 'flex',
+      [theme.breakpoints.down('xs')]: {
+        height: 100,
+      },
     },
     profileBox: {
       position: 'absolute',
