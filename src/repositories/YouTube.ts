@@ -252,14 +252,17 @@ export class YouTube {
         };
         result.totalAmount = totalSuperChatAmount;
       }
-      result.superChatByChannels.push({
-        meta: {
-          id: targetChannelId,
-          title: targetChannelTitle,  
-        },
-        superChatAmount: targetSuperChatAmount,
-        videoId: targetChannelVideoId,
-      });
+      // 今月は何もスパチャしていない場合、targetChannelIdがnullで総スパチャ0円のデータが返ってくるのでresult配列には何も入れない。
+      if (targetChannelId !== null) {
+        result.superChatByChannels.push({
+          meta: {
+            id: targetChannelId,
+            title: targetChannelTitle,
+          },
+          superChatAmount: targetSuperChatAmount,
+          videoId: targetChannelVideoId,
+        });
+      }
       return result;
     }, {user: null, totalAmount: null, superChatByChannels: []} as SuperChatByChannels);
 
