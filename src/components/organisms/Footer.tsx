@@ -1,4 +1,4 @@
-import { createStyles, makeStyles } from '@material-ui/core'
+import { createStyles, makeStyles, Typography } from '@material-ui/core'
 import React from 'react'
 import { MainBox } from '../molecules/MainBox'
 
@@ -17,7 +17,8 @@ export const Footer = () => {
   return (
     <footer>
       <MainBox className={classes.footer}>
-      © 2021 YouTube研究所
+      <Typography variant="body2">お問い合わせ先：<a href="mailto:admin@ytubelab.com">admin@ytubelab.com</a></Typography>
+      <Typography variant="body2">© 2021 YouTube研究所</Typography>
       </MainBox>
     </footer>
   )
