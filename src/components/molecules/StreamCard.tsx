@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme: Theme) =>
     root: {
       width: '100%',
       display: 'flex',
-      opacity: (props: Props) => props.stream.status !== 'done' ? '60%' : '100%',
+      opacity: (props: Props) => props.stream.status === 'process' ? '60%' : '100%',
       [theme.breakpoints.up('xs')]: {
         minHeight: 180,
       },
@@ -144,7 +144,7 @@ export const StreamCard: React.FC<Props> = (props) => {
       </div>
     </Card>
   )
-  if (stream.status === "done") {
+  if (stream.status !== "process") {
     return (
       <ButtonBase id={stream.meta.id} className={classes.link} href={loading ? "" : `/watch?cid=${stream.meta.channelId}&vid=${stream.meta.id}`} onClick={handleClick}>
         {card}
