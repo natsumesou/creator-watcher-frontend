@@ -158,7 +158,7 @@ export const UserSuperChats = ({ notices }) => {
             <ChannelCard channel={superChat} />
           </ListItem>
           {/* 広告枠用 item-area のクラス名必須 display: block 必須 */}
-          {((i === 6)) ? (
+          {((i === 100)) ? (
           <ListItem className={`${classes.listitem} ${classes.ads} item-area`}>
             <InfeedAds />
           </ListItem>
@@ -166,9 +166,6 @@ export const UserSuperChats = ({ notices }) => {
         </React.Fragment>
       ))}
       </List>
-      {data.superChatByChannels.length === 0 ? (
-        <React.Fragment><DirectionsRunIcon className={classes.icon} />集計中</React.Fragment>
-      ) : ""}
       {error ? (error instanceof NotFoundError) ? (
         <ErrorSnackBar text="集計中です🙇‍♀️" />
       ) : (

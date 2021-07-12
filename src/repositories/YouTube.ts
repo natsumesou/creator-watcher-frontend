@@ -252,8 +252,8 @@ export class YouTube {
         };
         result.totalAmount = totalSuperChatAmount;
       }
-      // 今月は何もスパチャしていない場合、targetChannelIdがnullで総スパチャ0円のデータが返ってくるのでresult配列には何も入れない。
-      if (targetChannelId !== null) {
+      // 今月は何もスパチャしていない場合、targetChannelIdが"null"で総スパチャ0円のデータが返ってくるのでresult配列には何も入れない。
+      if (targetChannelId !== "null") {
         result.superChatByChannels.push({
           meta: {
             id: targetChannelId,
@@ -266,9 +266,6 @@ export class YouTube {
       return result;
     }, {user: null, totalAmount: null, superChatByChannels: []} as SuperChatByChannels);
 
-    if (userSuperChats.superChatByChannels.length === 0) {
-      throw new NotFoundError(`404 / ${channelId} not found`);
-    }
     return userSuperChats;
   }
 
