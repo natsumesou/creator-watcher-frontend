@@ -43,7 +43,6 @@ export const RankingNavigation = (props) => {
     <Box className={classes.root}>
     <Breadcrumbs aria-label="breadcrumb" className={classes.navigation} {...props}>
       {Object.keys(RankingRouters).map((iteratorRange) => (
-        iteratorRange === "monthly" ? "" : // マンスリーはまだ表出ししない
         <Link key={iteratorRange} color={query.range === iteratorRange ? "secondary" : "inherit"} href={RankingRouters[iteratorRange].link} onClick={(e) => handleClick(e, iteratorRange)} className={classes.link}>
           <TodayIcon className={classes.icon} />
           {RankingRouters[iteratorRange].name}

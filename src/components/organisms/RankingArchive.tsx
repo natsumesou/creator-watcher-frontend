@@ -61,15 +61,9 @@ export const RankingArchive: React.FC<Props> = ({notices}) => {
   }, []);
 
   return (
-    <TabPanel>
-      <List dense={true}>
-        {notices ?
-          notices.map((notice, i) => (
-            <ListItem key={i} className={classes.listitem}><ListItemText primary={notice} /></ListItem>
-          )) : ""}
-      </List>
+    <React.Fragment>
       <ArchiveList archive={archive} />
       {error ? (<ErrorSnackBar text="データ読み込みエラー" />) : ""}
-    </TabPanel>
+    </React.Fragment>
   )
 }

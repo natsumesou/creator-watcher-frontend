@@ -15,6 +15,9 @@ const useStyles = makeStyles((theme: Theme) =>
         flexDirection: 'column',
       },
     },
+    flexRoot: {
+      flex: 1,
+    },
     list: {
       minWidth: '250px',
       [theme.breakpoints.down('sm')]: {
@@ -45,7 +48,7 @@ export const ArchiveList: React.FC<Props> = ({archive}) => {
 
   return (
     <div className={classes.root}>
-      <Box>
+      <Box className={classes.flexRoot}>
       <List component="nav" aria-label="main" className={classes.list}>
         <ListItem>
           <ListItemText primary="デイリー" />
@@ -67,7 +70,7 @@ export const ArchiveList: React.FC<Props> = ({archive}) => {
         </List>
       )}
       </Box>
-      <Box>
+      <Box className={classes.flexRoot}>
       <List component="nav" aria-label="main" className={classes.list}>
         <ListItem>
           <ListItemText primary="ウィークリー" />
@@ -89,7 +92,7 @@ export const ArchiveList: React.FC<Props> = ({archive}) => {
         </List>
       )}
       </Box>
-      <Box>
+      <Box className={classes.flexRoot}>
       <List component="nav" aria-label="main" className={classes.list}>
         <ListItem>
           <ListItemText primary="マンスリー" />

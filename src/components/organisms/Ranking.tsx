@@ -1,5 +1,5 @@
 import { useProgressContext } from '@/app';
-import { createStyles, List, ListItem, ListItemText, makeStyles, Theme, Box } from '@material-ui/core';
+import { createStyles, List, ListItem, ListItemText, makeStyles, Theme, Box, Typography } from '@material-ui/core';
 import React, { useEffect, useState } from 'react'
 import { Channel } from '../../entities/entity';
 import { CATEGORY, RANGE, YouTube } from '../../repositories/YouTube';
@@ -10,9 +10,8 @@ import { RankingNavigation } from '../molecules/RankingNavigation';
 import { Article, useSeoContext } from '../SEO';
 import { TabPanel } from './TabPane';
 import { InfeedAds } from '../atoms/ads/InfeedAds';
-import { Link } from '@material-ui/core';
 import AccountBalanceIcon from '@material-ui/icons/AccountBalance';
-import { navigate } from 'gatsby';
+import { RankingArchive } from './RankingArchive';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -78,11 +77,6 @@ export const Ranking: React.FC<Props> = (props) => {
     } as Article;
   }
 
-  const handleClick = (event) => {
-    navigate(event.currentTarget.getAttribute('href'));
-    event.preventDefault();
-  };
-
   useEffect(() => {
     setData(initialChannelData());
     setShowProgress(true);
@@ -134,10 +128,8 @@ export const Ranking: React.FC<Props> = (props) => {
         </React.Fragment>
       ))}
       </List>
-      <Link color="inherit" href="/ranking/archive" onClick={(e) => handleClick(e)} className={classes.link}>
-        <AccountBalanceIcon className={classes.icon} />
-        アーカイブ
-      </Link>
+      <Typography component="h3" variant="h3"><AccountBalanceIcon className={classes.icon} />ランキングアーカイブ</Typography>
+      <RankingArchive />
       {error ? (<ErrorSnackBar text="データ読み込みエラー" />) : ""}
     </TabPanel>
   )
