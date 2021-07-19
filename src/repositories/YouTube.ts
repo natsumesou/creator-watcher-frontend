@@ -201,6 +201,7 @@ export class YouTube {
     const title = meta[0];
     const channelName = meta[1];
     const superChatAmount = meta[2];
+    const publishedAt = meta[3] ? new CustomDate(parseInt(meta[3])) : null;
 
     const superChats = this.parseSuperChats(lines);
     return {
@@ -208,6 +209,7 @@ export class YouTube {
       channelName: channelName,
       superChats: superChats,
       superChatAmount: superChatAmount,
+      publishedAt: publishedAt,
     } as SuperChats;
   }
 

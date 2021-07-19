@@ -13,6 +13,7 @@ import { getThumbnail } from '../molecules/ChannelCard';
 import { useSeoContext } from '../SEO';
 import { TempCard } from '../molecules/TempCard';
 import { Skeleton } from '@material-ui/lab';
+import { CustomDate } from '@/entities/Date';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -71,7 +72,7 @@ const initialSuperChatData = () => {
   });
 
   return {
-    startAt: null,
+    publishedAt: null,
     superChats: superChats,
   } as SuperChatsType;
 }
@@ -122,7 +123,6 @@ export const WatchSuperChats = ({notices}) => {
           <Skeleton animation="wave" height="60px" width="100%" />
         )}</Typography>
       <iframe id="ytplayer" className={classes.iframe} src={`https://www.youtube.com/embed/${query.vid}`} frameBorder="0" />
-
       <TempCard id={query.vid} />
       <Button href={data.channelName ? `/channel?id=${query.cid}` : ""} onClick={handleClick}>
         <Typography component="h4" variant="h3" className={classes.nameRoot}>{data.channelName ? data.channelName : (
@@ -150,6 +150,12 @@ export const WatchSuperChats = ({notices}) => {
         </React.Fragment>
       ))}
       </List>
+      {data.publishedAt ? (
+        <Typography variant="body2">
+        更新日時：
+        <time dateTime={data.publishedAt.toISOString()}>{CustomDate.getDisplayDateTime(data.publishedAt)}</time>
+        </Typography>
+      ) : ""}
       {data.superChats.length === 0 ? (
         <React.Fragment>スパチャは確認できませんでした</React.Fragment>
       ) : ""}

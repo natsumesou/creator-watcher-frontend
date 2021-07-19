@@ -66,7 +66,6 @@ const initialSuperChatData = () => {
   });
 
   return {
-    startAt: null,
     superChats: superChats,
   } as SuperChatsType;
 }

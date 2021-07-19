@@ -59,7 +59,7 @@ export type SuperChats = {
   superChats: SuperChat[],
   channelName?: string,
   superChatAmount?: string,
-  startAt?: string,
+  publishedAt?: CustomDate,
 }
 
 export type SuperChatByChannels = {
