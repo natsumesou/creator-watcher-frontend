@@ -12,6 +12,7 @@ import { TabPanel } from './TabPane';
 import { InfeedAds } from '../atoms/ads/InfeedAds';
 import AccountBalanceIcon from '@material-ui/icons/AccountBalance';
 import { RankingArchive } from './RankingArchive';
+import { UpdateTime } from '../atoms/UpdateTime';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -34,6 +35,9 @@ const useStyles = makeStyles((theme: Theme) =>
     time: {
       display: 'flex',
       justifyContent: 'flex-end',
+    },
+    updateAt: {
+      margin: '0 0 1em',
     },
     ads: {
       minHeight: '250px',
@@ -128,6 +132,11 @@ export const Ranking: React.FC<Props> = (props) => {
         </React.Fragment>
       ))}
       </List>
+      { time ? (
+        <Box className={classes.updateAt}>
+          <UpdateTime range={range} time={time} prefix="更新日時" />
+        </Box>
+      ) : ""}
       <Typography component="h3" variant="h3"><AccountBalanceIcon className={classes.icon} />ランキングアーカイブ</Typography>
       <RankingArchive />
       {error ? (<ErrorSnackBar text="データ読み込みエラー" />) : ""}

@@ -3,19 +3,24 @@ import { RANGE } from '@/repositories/YouTube';
 import { Box } from '@material-ui/core'
 import React from 'react'
 
-const getDisplayTime = (range: RANGE, time: string) => {
+const getDate = (range: RANGE, time: string) => {
   switch(range) {
     case RANGE.daily:
       const dailyDate = CustomDate.fromDatestring(time);
-      return CustomDate.getDisplayDate(dailyDate);
+      dailyDate.setDate(dailyDate.getDate() + 1);
+      dailyDate.setHours(9);
+      return dailyDate;
     case RANGE.weekly:
       const startdate = CustomDate.fromDatestring(time);
       const enddate = new CustomDate(startdate.getTime());
-      enddate.setDate(enddate.getDate() + 6);
-      return CustomDate.getDisplayDate(startdate) + "〜" + CustomDate.getDisplayDate(enddate);
+      enddate.setDate(enddate.getDate() + 7);
+      enddate.setHours(9);
+      return enddate;
     case RANGE.monthly:
       const monthlyDate = CustomDate.fromDatestring(time);
-      return CustomDate.getDisplayMonth(monthlyDate);
+      monthlyDate.setMonth(monthlyDate.getMonth() + 1);
+      monthlyDate.setHours(9);
+      return monthlyDate;
   }
 }
 
@@ -25,12 +30,13 @@ type Props = {
   prefix?: string,
 }
 
-export const CalcTime: React.FC<Props> = ({range, time, prefix}) => {
-  const displayTime = getDisplayTime(range, time);
+export const UpdateTime: React.FC<Props> = ({range, time, prefix}) => {
+  const date = getDate(range, time);
 
   return (
     <Box>
-      {prefix}：{displayTime}
+      {prefix}：
+      <time dateTime={date.toISOString()}>{CustomDate.getDisplayDateTime(date)}</time>
     </Box>
   )
 }
