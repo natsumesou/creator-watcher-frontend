@@ -55,6 +55,9 @@ const useStyles = makeStyles((theme: Theme) =>
       display: 'inline-block',
       width: 100,
     },
+    noSC: {
+      margin: '0 0 1em',
+    }
   }),
 );
 
@@ -134,14 +137,14 @@ export const ChannelSuperChats = ({notices}) => {
         </React.Fragment>
       ))}
       </List>
+      {data.superChats.length === 0 ? (
+        <Typography variant="body2" className={classes.noSC}>スパチャは確認できませんでした</Typography>
+      ) : ""}
       {data.publishedAt ? (
         <Typography variant="body2">
         更新日時：
         <time dateTime={data.publishedAt.toISOString()}>{CustomDate.getDisplayDateTime(data.publishedAt)}</time>
         </Typography>
-      ) : ""}
-      {data.superChats.length === 0 ? (
-        <React.Fragment>スパチャは確認できませんでした</React.Fragment>
       ) : ""}
       {error ? (error instanceof NotFoundError) ? (
         <ErrorSnackBar text="このチャンネルは集計中です🙇‍♀️" />
