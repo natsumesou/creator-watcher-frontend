@@ -247,6 +247,7 @@ export class YouTube {
       const targetChannelId = columns[5];
       const targetChannelTitle = columns[6];
       const targetChannelVideoId = columns[7];
+      const publishedAt = new CustomDate(parseInt(columns[8]));
       // 複数チャンネル分のデータが返されるので必要なものだけにフィルタする
       if (!result.user) {
         result.user = {
@@ -255,6 +256,7 @@ export class YouTube {
           thumbnail,
         };
         result.totalAmount = totalSuperChatAmount;
+        result.publishedAt = publishedAt;
       }
       // 今月は何もスパチャしていない場合、targetChannelIdが"null"で総スパチャ0円のデータが返ってくるのでresult配列には何も入れない。
       if (targetChannelId !== "null") {
@@ -268,7 +270,7 @@ export class YouTube {
         });
       }
       return result;
-    }, {user: null, totalAmount: null, superChatByChannels: []} as SuperChatByChannels);
+    }, {user: null, totalAmount: null, publishedAt: null, superChatByChannels: []} as SuperChatByChannels);
 
     return userSuperChats;
   }
@@ -280,7 +282,7 @@ export class YouTube {
       return {
         meta: {
           id: columns[2],
-          title: columns[1],  
+          title: columns[1],
         },
         superChatAmount: columns[3],
         memberCount: columns[4],

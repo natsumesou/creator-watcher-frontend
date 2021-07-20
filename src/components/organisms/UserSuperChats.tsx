@@ -11,6 +11,7 @@ import { useSeoContext } from '../SEO';
 import DirectionsRunIcon from '@material-ui/icons/DirectionsRun';
 import { Skeleton } from '@material-ui/lab';
 import { useQueryContext } from '../templates/WatchPage';
+import { CustomDate } from '@/entities/Date';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -96,6 +97,7 @@ const initialSuperChatData = () => {
 
   return {
     user: null,
+    publishedAt: null,
     superChatByChannels: superChats,
   } as SuperChatByChannels;
 }
@@ -166,6 +168,12 @@ export const UserSuperChats = ({ notices }) => {
         </React.Fragment>
       ))}
       </List>
+      {data.publishedAt ? (
+        <Typography variant="body2">
+        更新日時：
+        <time dateTime={data.publishedAt.toISOString()}>{CustomDate.getDisplayDateTime(data.publishedAt)}</time>
+        </Typography>
+      ) : ""}
       {error ? (error instanceof NotFoundError) ? (
         <ErrorSnackBar text="集計中です🙇‍♀️" />
       ) : (

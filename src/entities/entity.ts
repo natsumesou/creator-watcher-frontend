@@ -65,5 +65,6 @@ export type SuperChats = {
 export type SuperChatByChannels = {
   user: User,
   totalAmount: string,
+  publishedAt: CustomDate,
   superChatByChannels: Channel[],
 }
