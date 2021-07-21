@@ -13,7 +13,7 @@ import { TempCard } from '../molecules/TempCard';
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
-      margin: '1em 0 1em',
+      margin: '1em 0 1.5em',
       display: 'block',
     },
     listitem: {

@@ -1,7 +1,7 @@
 import { Card, CardContent, createStyles, makeStyles, Theme, Typography, Box, ButtonBase } from '@material-ui/core'
 import { Skeleton } from '@material-ui/lab';
 import {Stream} from '../../entities/entity';
-import React from 'react'
+import React, { Fragment } from 'react'
 import { CardMediaWithLazyLoad } from '../atoms/CardMediaWithLazyLoad';
 import { useBreakpoint } from 'gatsby-plugin-breakpoints';
 import DirectionsRunIcon from '@material-ui/icons/DirectionsRun';
@@ -34,8 +34,10 @@ const useStyles = makeStyles((theme: Theme) =>
       flex: '1 0 auto',
       display: 'flex',
       flexDirection: 'column',
+      padding: '0 16px',
       [theme.breakpoints.down('xs')]: {
         paddingBottom: '0 !important',
+        padding: '16px 0',
       },
     },
     mainText: {
@@ -46,6 +48,14 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     noDetail: {
       minHeight: '60px',
+    },
+    noDetailText: {
+      flex: 2,
+      display: 'flex',
+      alignItems: 'center',
+    },
+    noDetailPublishedAt: {
+      flex: 1,
     },
     cover: {
       [theme.breakpoints.up('sm')]: {
@@ -96,7 +106,7 @@ export const StreamCard: React.FC<Props> = (props) => {
         <CardMediaWithLazyLoad className={classes.cover} image={thumbnail} title={stream.meta.title} />
       )}
       <div className={classes.details}>
-      <CardContent className={classes.content}>
+      <Box className={classes.content}>
         {loading ? (
           <React.Fragment>
             <Skeleton animation="wave" height={40} style={{ marginBottom: 3}} />
@@ -128,9 +138,14 @@ export const StreamCard: React.FC<Props> = (props) => {
               ) : (
               <Box className={`${classes.mainText} ${classes.noDetail}`}>
                 {stream.status === "process" ?
-                  <Typography variant="body1">
+                  <React.Fragment>
+                  <Typography variant="body1" className={classes.noDetailText}>
                     <DirectionsRunIcon className={classes.icon} />集計中
                   </Typography>
+                  <Typography variant="body1" className={classes.noDetailPublishedAt}>
+                    配信終了日時：<time dateTime={stream.publishedAt.toISOString()}>{CustomDate.getDisplayDateTime(stream.publishedAt)}</time>
+                  </Typography>
+                  </React.Fragment>
                 :
                   <Typography variant="body1">
                     集計出来ませんでした💦
@@ -140,7 +155,7 @@ export const StreamCard: React.FC<Props> = (props) => {
             )}
           </React.Fragment>
         )}
-      </CardContent>
+      </Box>
       </div>
     </Card>
   )
