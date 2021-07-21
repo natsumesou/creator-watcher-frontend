@@ -50,7 +50,7 @@ const useStyles = makeStyles((theme: Theme) =>
       minHeight: '60px',
     },
     noDetailText: {
-      flex: 2,
+      flex: 3,
       display: 'flex',
       alignItems: 'center',
     },
@@ -139,17 +139,22 @@ export const StreamCard: React.FC<Props> = (props) => {
               <Box className={`${classes.mainText} ${classes.noDetail}`}>
                 {stream.status === "process" ?
                   <React.Fragment>
-                  <Typography variant="body1" className={classes.noDetailText}>
-                    <DirectionsRunIcon className={classes.icon} />集計中
-                  </Typography>
-                  <Typography variant="body1" className={classes.noDetailPublishedAt}>
-                    配信終了日時：<time dateTime={stream.publishedAt.toISOString()}>{CustomDate.getDisplayDateTime(stream.publishedAt)}</time>
-                  </Typography>
+                    <Typography variant="body1" className={classes.noDetailText}>
+                      <DirectionsRunIcon className={classes.icon} />集計中
+                    </Typography>
+                    <Typography variant="body1" className={classes.noDetailPublishedAt}>
+                      配信終了日時：<time dateTime={stream.publishedAt.toISOString()}>{CustomDate.getDisplayDateTime(stream.publishedAt)}</time>
+                    </Typography>
                   </React.Fragment>
                 :
-                  <Typography variant="body1">
+                  <React.Fragment>
+                    <Typography variant="body1" className={classes.noDetailText}>
                     集計出来ませんでした💦
-                  </Typography>
+                    </Typography>
+                    <Typography variant="body1" className={classes.noDetailPublishedAt}>
+                      配信終了日時：<time dateTime={stream.publishedAt.toISOString()}>{CustomDate.getDisplayDateTime(stream.publishedAt)}</time>
+                    </Typography>
+                  </React.Fragment>
                 }
               </Box>
             )}
