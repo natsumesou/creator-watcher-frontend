@@ -49,7 +49,7 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 const initialChannelData = () => {
-  const channels = Array(10).fill(null);
+  const channels = Array(50).fill(null);
   return channels.map((_,i) => {
     return {
       meta: null,
