@@ -67,7 +67,6 @@ const SEO: React.FC<Props> = ({site}) => {
       <meta name="twitter:description" content={meta.description} />
       <meta name="twitter:image" content={meta.image} />
       <meta name="thumbnail" content={meta.image} />
-      <script data-ad-client="ca-pub-3219662000601843" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
       {seo.article ?
         <script type="application/ld+json">
           {

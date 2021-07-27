@@ -9,6 +9,8 @@ import { InfeedAds } from '../atoms/ads/InfeedAds';
 import { StreamCard } from '../molecules/StreamCard';
 import { TabPanel } from './TabPane';
 import { TempCard } from '../molecules/TempCard';
+import { A8RakutenAds } from '../atoms/ads/a8rakutenranking';
+import useScript from '@/hooks/useScript';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -21,7 +23,6 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     ads: {
       minHeight: '100px',
-      display: 'block',
     }
   }),
 );
@@ -84,6 +85,7 @@ export const Timeline: React.FC<Props> = (props) => {
   ];
 
   const mergedNotices = notices ? defaultNotices.concat(notices) : defaultNotices;
+  useScript("/scripts/a8rakutenwidget.js");
 
   return (
     <TabPanel>
@@ -102,6 +104,7 @@ export const Timeline: React.FC<Props> = (props) => {
           {/* 広告枠用 item-area のクラス名必須 display: block 必須 */}
           {((i % 10 === 0)) ? (
           <ListItem className={`${classes.listitem} ${classes.ads} item-area`}>
+            <A8RakutenAds />
           </ListItem>
           ) : ("")}
         </React.Fragment>

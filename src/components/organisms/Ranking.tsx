@@ -13,6 +13,8 @@ import { InfeedAds } from '../atoms/ads/InfeedAds';
 import AccountBalanceIcon from '@material-ui/icons/AccountBalance';
 import { RankingArchive } from './RankingArchive';
 import { UpdateTime } from '../atoms/UpdateTime';
+import { A8RakutenAds } from '../atoms/ads/a8rakutenranking';
+import useScript from '@/hooks/useScript';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -40,7 +42,7 @@ const useStyles = makeStyles((theme: Theme) =>
       margin: '0 0 1em',
     },
     ads: {
-      minHeight: '250px',
+      minHeight: '100px',
       display: 'block',
     },
   }),
@@ -105,6 +107,7 @@ export const Ranking: React.FC<Props> = (props) => {
     }
     fetchData();
   }, [range, time]);
+  useScript("/scripts/a8rakutenwidget.js");
 
   return (
     <TabPanel>
@@ -124,9 +127,9 @@ export const Ranking: React.FC<Props> = (props) => {
             <ChannelCard channel={channel} />
           </ListItem>
           {/* 広告枠用 item-area のクラス名必須 display: block 必須 */}
-          {((i === 200)) ? (
+          {((i % 10 === 0)) ? (
           <ListItem className={`${classes.listitem} ${classes.ads} item-area`}>
-            <InfeedAds />
+            <A8RakutenAds />
           </ListItem>
           ) : ("")}
         </React.Fragment>

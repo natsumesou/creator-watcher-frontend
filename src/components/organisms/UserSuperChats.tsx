@@ -12,6 +12,8 @@ import DirectionsRunIcon from '@material-ui/icons/DirectionsRun';
 import { Skeleton } from '@material-ui/lab';
 import { useQueryContext } from '../templates/WatchPage';
 import { CustomDate } from '@/entities/Date';
+import { A8RakutenAds } from '../atoms/ads/a8rakutenranking';
+import useScript from '@/hooks/useScript';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -73,8 +75,7 @@ const useStyles = makeStyles((theme: Theme) =>
       justifyContent: 'flex-end',
     },
     ads: {
-      minHeight: '250px',
-      display: 'block',
+      minHeight: '100px',
     },
     amountRoot: {
       display: 'flex',
@@ -135,6 +136,7 @@ export const UserSuperChats = ({ notices }) => {
     }
     fetchData();
   }, [query]);
+  useScript("/scripts/a8rakutenwidget.js");
 
   return (
     <TabPanel>
@@ -160,9 +162,9 @@ export const UserSuperChats = ({ notices }) => {
             <ChannelCard channel={superChat} />
           </ListItem>
           {/* 広告枠用 item-area のクラス名必須 display: block 必須 */}
-          {((i === 100)) ? (
+          {((i % 5 === 0)) ? (
           <ListItem className={`${classes.listitem} ${classes.ads} item-area`}>
-            <InfeedAds />
+            <A8RakutenAds />
           </ListItem>
           ) : ("")}
         </React.Fragment>

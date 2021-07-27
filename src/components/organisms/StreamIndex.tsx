@@ -1,8 +1,10 @@
 import { useProgressContext } from '@/app';
+import useScript from '@/hooks/useScript';
 import { createStyles, List, ListItem, makeStyles, Theme, Box, Typography } from '@material-ui/core';
 import React, { useEffect, useState } from 'react'
 import { StreamMeta } from '../../entities/entity';
 import { NotFoundError, YouTube } from '../../repositories/YouTube';
+import { A8RakutenAds } from '../atoms/ads/a8rakutenranking';
 import { StreamIndexCard } from '../molecules/StreamIndexCard';
 import { useQueryContext } from '../templates/WatchPage';
 
@@ -30,7 +32,6 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     ads: {
       minHeight: '250px',
-      display: 'block',
     },
     channelLinkRoot: {
       width: '100%',
@@ -100,6 +101,12 @@ export const StreamIndex = () => {
           <ListItem key={i} className={`${classes.listroot} ${classes.listitem}`} >
             <StreamIndexCard stream={stream} />
           </ListItem>
+          {/* 広告枠用 item-area のクラス名必須 display: block 必須 */}
+          {((i % 5 === 0)) ? (
+          <ListItem className={`${classes.listitem} ${classes.ads} item-area`}>
+            <A8RakutenAds />
+          </ListItem>
+          ) : ("")}
         </React.Fragment>
       ))}
       </List>
