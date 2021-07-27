@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme: Theme) =>
       padding: 0,
     },
     ads: {
-      minHeight: '250px',
+      minHeight: '100px',
       display: 'block',
     }
   }),
@@ -100,9 +100,8 @@ export const Timeline: React.FC<Props> = (props) => {
             <TempCard id={stream.meta.id} />
           </ListItem>
           {/* 広告枠用 item-area のクラス名必須 display: block 必須 */}
-          {((i === 200)) ? (
+          {((i % 10 === 0)) ? (
           <ListItem className={`${classes.listitem} ${classes.ads} item-area`}>
-            <InfeedAds />
           </ListItem>
           ) : ("")}
         </React.Fragment>
