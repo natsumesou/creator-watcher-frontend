@@ -89,7 +89,7 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 const initialSuperChatData = () => {
-  const superChats = Array(3).fill(null).map((_,i) => {
+  const superChats = Array(50).fill(null).map((_,i) => {
     return {
       meta: null,
       superChatAmount: null,
