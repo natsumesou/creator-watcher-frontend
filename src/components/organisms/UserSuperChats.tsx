@@ -20,6 +20,9 @@ const useStyles = makeStyles((theme: Theme) =>
     listroot: {
       margin: '0 0 1em',
       display: 'block',
+      "&:last-child": {
+        margin: 0,
+      }
     },
     profileRoot: {
       width: '100%',
@@ -76,6 +79,9 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     ads: {
       minHeight: '100px',
+      [theme.breakpoints.down('xs')]: {
+        justifyContent: 'center',
+      },
     },
     amountRoot: {
       display: 'flex',

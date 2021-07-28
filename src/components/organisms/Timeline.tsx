@@ -23,6 +23,9 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     ads: {
       minHeight: '100px',
+      [theme.breakpoints.down('xs')]: {
+        justifyContent: 'center',
+      },
     }
   }),
 );

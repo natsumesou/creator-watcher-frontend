@@ -22,6 +22,9 @@ const useStyles = makeStyles((theme: Theme) =>
     listroot: {
       margin: '0 0 1em',
       display: 'block',
+      "&:last-child": {
+        margin: 0,
+      }
     },
     listitem: {
       padding: 0,
@@ -41,6 +44,9 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     ads: {
       minHeight: '100px',
+      [theme.breakpoints.down('xs')]: {
+        justifyContent: 'center',
+      },
     },
     nameRoot: {
       display: 'flex',

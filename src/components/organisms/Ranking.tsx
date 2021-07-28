@@ -21,6 +21,9 @@ const useStyles = makeStyles((theme: Theme) =>
     listroot: {
       margin: '0 0 1em',
       display: 'block',
+      "&:last-child": {
+        margin: 0,
+      }
     },
     listitem: {
       padding: 0,
@@ -43,7 +46,12 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     ads: {
       minHeight: '100px',
-      display: 'block',
+      [theme.breakpoints.down('xs')]: {
+        justifyContent: 'center',
+      },
+    },
+    archive: {
+      margin: '0.5em 0 0',
     },
   }),
 );
@@ -140,7 +148,7 @@ export const Ranking: React.FC<Props> = (props) => {
           <UpdateTime range={range} time={time} prefix="更新日時" />
         </Box>
       ) : ""}
-      <Typography component="h3" variant="h3"><AccountBalanceIcon className={classes.icon} />ランキングアーカイブ</Typography>
+      <Typography component="h3" variant="h3" className={classes.archive}><AccountBalanceIcon className={classes.icon} />ランキングアーカイブ</Typography>
       <RankingArchive />
       {error ? (<ErrorSnackBar text="データ読み込みエラー" />) : ""}
     </TabPanel>

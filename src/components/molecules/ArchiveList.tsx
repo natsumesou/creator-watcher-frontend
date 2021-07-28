@@ -20,6 +20,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     list: {
       minWidth: '250px',
+      padding: 0,
       [theme.breakpoints.down('sm')]: {
         minWidth: '200px',
       },

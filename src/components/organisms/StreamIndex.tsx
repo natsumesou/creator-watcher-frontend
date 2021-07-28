@@ -31,7 +31,10 @@ const useStyles = makeStyles((theme: Theme) =>
       justifyContent: 'flex-end',
     },
     ads: {
-      minHeight: '250px',
+      minHeight: '100px',
+      [theme.breakpoints.down('xs')]: {
+        justifyContent: 'center',
+      },
     },
     channelLinkRoot: {
       width: '100%',

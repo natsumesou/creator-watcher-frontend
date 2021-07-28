@@ -8,22 +8,6 @@ import { ErrorSnackBar } from '../atoms/ErrorSnackBar';
 import { ArchiveList } from '../molecules/ArchiveList';
 import { TabPanel } from './TabPane';
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    root: {
-      margin: '0 0 1em',
-    },
-    listitem: {
-      paddingTop: 0,
-      paddingBottom: 0,
-    },
-    navigation: {
-      display: 'flex',
-      justifyContent: 'flex-end',
-    },
-  }),
-);
-
 const initialArchiveData = () => {
   return {
     daily: [],
@@ -38,7 +22,6 @@ type Props = {
 
 export const RankingArchive: React.FC<Props> = ({notices}) => {
   const { showProgress, setShowProgress } = useProgressContext();
-  const classes = useStyles();
   const [archive, setArchive] = useState<Archive>(initialArchiveData());
   const youtube = new YouTube();
   const [error, setError] = useState<Error>(null);
