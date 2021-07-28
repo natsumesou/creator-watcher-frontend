@@ -102,7 +102,12 @@ export const Ranking: React.FC<Props> = (props) => {
           const article = createArticle(ranking);
           setSeo({
             subtitle: article.headline,
+            image: article.image,
             article: article,
+          });
+        } else {
+          setSeo({
+            image: getThumbnail(ranking[0].videoId),
           });
         }
         setShowProgress(false);
