@@ -7,7 +7,7 @@ import { ChannelIndex } from '../organisms/ChannelIndex';
 const NijisanjiPage = ({ pageContext }) => {
   const { site } = pageContext;
   const notices = [
-    "にじさんじの一部チャンネルのみ取得しています",
+    "にじさんじのチャンネルを取得しています",
   ];
   const [seo, setSeo] = useState<SeoType>({
     subtitle: "にじさんじ",
