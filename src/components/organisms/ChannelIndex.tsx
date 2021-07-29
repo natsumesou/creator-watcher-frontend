@@ -9,6 +9,7 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     title: {
       whiteSpace: 'nowrap',
+      maxWidth: '100%',
     }
   }),
 );
