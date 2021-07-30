@@ -40,24 +40,38 @@ type ContextType = {
   setShowProgress:(value: boolean) => void
 };
 
+type BuildTimestampContextType = {
+  timestamp: number,
+  setTimestamp:(value: number) => void
+};
+
 export const ProgressContext = createContext<ContextType>({
   showProgress: false,
   setShowProgress: () => {},
 });
 export const useProgressContext = () => useContext(ProgressContext);
 
+export const buildTimestampContext = createContext<BuildTimestampContextType>({
+  timestamp: null,
+  setTimestamp: () => {},
+});
+export const useBuildTimestampContext = () => useContext(buildTimestampContext);
+
 const App = ({ children }) => {
   const [showProgress, setShowProgress] = useState<boolean>(false);
+  const [timestamp, setTimestamp] = useState<number>(children.props.pageContext.buildTimestamp);
   const classes = useStyles();
 
   return (
     <ProgressContext.Provider value={{showProgress, setShowProgress}}>
+    <buildTimestampContext.Provider value={{timestamp, setTimestamp}}>
     <MuiThemeProvider theme={theme}>
       <CssBaseline />
       <Header />
       <main className={classes.main}>{children}</main>
       <Footer />
     </MuiThemeProvider>
+    </buildTimestampContext.Provider>
     </ProgressContext.Provider>
   )
 }

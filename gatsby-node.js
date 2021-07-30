@@ -39,91 +39,74 @@ exports.createPages = async ({ graphql, actions: { createPage }}) => {
     }
   `)
 
+  const context = {
+    site: site.data.site,
+    buildTimestamp: new Date().getTime(),
+  };
+
   createPage({
     path: `/`,
     component: require.resolve("./src/components/templates/HomePage.tsx"),
-    context: {
-      site: site.data.site
-    }
+    context: context,
   })
 
   createPage({
     path: `/hololive`,
     component: require.resolve("./src/components/templates/HololivePage.tsx"),
-    context: {
-      site: site.data.site
-    }
+    context: context,
   })
 
   createPage({
     path: `/nijisanji`,
     component: require.resolve("./src/components/templates/NijisanjiPage.tsx"),
-    context: {
-      site: site.data.site
-    }
+    context: context,
   })
 
   createPage({
     path: `/user`,
     component: require.resolve("./src/components/templates/UserPage.tsx"),
-    context: {
-      site: site.data.site
-    }
+    context: context,
   })
 
   createPage({
     path: `/watch`,
     component: require.resolve("./src/components/templates/WatchPage.tsx"),
-    context: {
-      site: site.data.site
-    }
+    context: context,
   })
 
   createPage({
     path: `/channel`,
     component: require.resolve("./src/components/templates/ChannelPage.tsx"),
-    context: {
-      site: site.data.site
-    }
+    context: context,
   })
 
   createPage({
     path: `/ranking`,
     component: require.resolve("./src/components/templates/RankingPage.tsx"),
-    context: {
-      site: site.data.site
-    }
+    context: context,
   })
 
   createPage({
     path: `/ranking/daily`,
     component: require.resolve("./src/components/templates/RankingPage.tsx"),
-    context: {
-      site: site.data.site
-    }
+    context: context,
   })
 
   createPage({
     path: `/ranking/weekly`,
     component: require.resolve("./src/components/templates/RankingPage.tsx"),
-    context: {
-      site: site.data.site
-    }
+    context: context,
   })
 
   createPage({
     path: `/ranking/monthly`,
     component: require.resolve("./src/components/templates/RankingPage.tsx"),
-    context: {
-      site: site.data.site
-    }
+    context: context,
   })
 
   createPage({
     path: `/ranking/archive`,
     component: require.resolve("./src/components/templates/ArchivePage.tsx"),
-    context: {
-      site: site.data.site
-    }
+    context: context,
   })
 }
