@@ -2,7 +2,7 @@ name: sitemap
 
 on:
   schedule:
-    - cron:  '5 2 * * *'
+    - cron:  '10 1 * * *'
   workflow_dispatch:
 
 jobs:
