@@ -142,7 +142,7 @@ export const UserSuperChats = ({ notices }) => {
     }
     fetchData();
   }, [query]);
-  useScript("/scripts/a8rakutenwidget.js");
+  useScript("/scripts/a8rotatewidget.js");
 
   return (
     <TabPanel>

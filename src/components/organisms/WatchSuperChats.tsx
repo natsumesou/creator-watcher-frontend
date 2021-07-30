@@ -126,7 +126,7 @@ export const WatchSuperChats = ({notices}) => {
     }
     event.preventDefault();
   };
-  useScript("/scripts/a8rakutenwidget.js");
+  useScript("/scripts/a8rotatewidget.js");
 
   return (
     <TabPanel>
