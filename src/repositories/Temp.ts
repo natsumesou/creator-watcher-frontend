@@ -1,4 +1,5 @@
 import { CustomDate } from "@/entities/Date";
+import { NotFoundError } from "./YouTube";
 
 export class Temp {
   async fetch(videoId: string) {
@@ -6,7 +7,7 @@ export class Temp {
     const response = await fetch(url);
     if (response.status >= 400) {
       if (response.status === 404) {
-        return "";
+        throw new NotFoundError(`404 / ${videoId} description`);
       }
       throw new Error(`HTTPリクエストエラー / [${response.status}]: ${url}`);
     }

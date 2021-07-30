@@ -3,6 +3,7 @@ import { Card, createStyles, makeStyles, Theme, Typography } from '@material-ui/
 import React, { useEffect, useState } from 'react'
 import ShowMoreText from 'react-show-more-text';
 import { Skeleton } from '@material-ui/lab';
+import { NotFoundError } from '@/repositories/YouTube';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -18,7 +19,7 @@ type Props = {
 
 export const TempCard: React.FC<Props> = ({id}) => {
   const classes = useStyles();
-  const [data, setData] = useState<string>("");
+  const [data, setData] = useState<string>();
   const tmp = new Temp();
 
   useEffect(() => {
@@ -28,7 +29,11 @@ export const TempCard: React.FC<Props> = ({id}) => {
           setData(await tmp.fetch(id));
         }
       } catch (err) {
-        console.error(err);
+        if (err instanceof NotFoundError) {
+          setData("");
+        } else {
+          console.error(err);
+        }
       }
     }
     fetchData();
@@ -36,7 +41,7 @@ export const TempCard: React.FC<Props> = ({id}) => {
 
   return (
     <React.Fragment>
-      {data ?
+      {(typeof data === "string") ?
         (<Card className={classes.root}><ShowMoreText variant="body2" lines={3} more="more" less="less" expanded={false}>{data}</ShowMoreText></Card>)
         :
         (
