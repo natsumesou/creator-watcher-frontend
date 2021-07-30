@@ -120,7 +120,7 @@ export const Ranking: React.FC<Props> = (props) => {
     }
     fetchData();
   }, [range, time]);
-  useScript("/scripts/a8rakutenwidget.js");
+  useScript("/scripts/a8rotatewidget.js");
 
   return (
     <TabPanel>

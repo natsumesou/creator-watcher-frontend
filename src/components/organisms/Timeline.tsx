@@ -88,7 +88,7 @@ export const Timeline: React.FC<Props> = (props) => {
   ];
 
   const mergedNotices = notices ? defaultNotices.concat(notices) : defaultNotices;
-  useScript("/scripts/a8rakutenwidget.js");
+  useScript("/scripts/a8rotatewidget.js");
 
   return (
     <TabPanel>
