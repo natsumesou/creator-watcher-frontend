@@ -20,9 +20,9 @@ jobs:
     - name: Get New channel.xml
       run: |
         curl "https://storage.googleapis.com/vtuber.ytubelab.com/sitemap/channel.xml?_=`date +%s`" -o ./static/sitemap/channel.xml
-    - name: Get New user[1-10].xml
+    - name: Get New user[1-100].xml
       run: |
-        curl -f "https://storage.googleapis.com/vtuber.ytubelab.com/sitemap/user[1-10].xml?_=`date +%s`" -o ./static/sitemap/user#1.xml
+        curl -f "https://storage.googleapis.com/vtuber.ytubelab.com/sitemap/user[1-100].xml?_=`date +%s`" -o ./static/sitemap/user#1.xml
       continue-on-error: true
     - name: update sitemap.xml
       run: |
