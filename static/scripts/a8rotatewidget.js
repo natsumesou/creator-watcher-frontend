@@ -20,8 +20,8 @@
             ad(areas[i], tag);
             continue;
         } else if (rand <= 0.6) {
-            // ゲーマーズ 名取さな
-            tag = '<a href="https://px.a8.net/svt/ejp?a8mat=3HGOQT+FTRUPE+4AHY+61JSH" rel="nofollow"><img border="0" width="330" height="111" alt="" src="https://www20.a8.net/svt/bgt?aid=210730565957&wid=001&eno=01&mid=s00000020023001015000&mc=1"></a><img border="0" width="1" height="1" src="https://www11.a8.net/0.gif?a8mat=3HGOQT+FTRUPE+4AHY+61JSH" alt="">'
+            // ゲーマーズ
+            tag = '<a href="https://px.a8.net/svt/ejp?a8mat=3HGOQT+FTRUPE+4AHY+BW0YB&a8ejpredirect=https%3A%2F%2Fwww.gamers.co.jp%2Fcorner%2Fcc%2Fgemakuji_mellow_p_heart%2Fcd%2F651%2F" rel="nofollow"><img border="0" width="330" alt="" src="./images/ads/gamers-melow.jpeg"></a>'
             ad(areas[i], tag);
             continue;
         } else if (rand <= 0.8) {
