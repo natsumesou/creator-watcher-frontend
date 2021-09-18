@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 const initialStreamData = () => {
-  const streams = Array(100).fill(null);
+  const streams = Array(125).fill(null);
   return streams.map((_, i) => {
     return {
       meta: {
