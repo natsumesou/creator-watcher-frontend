@@ -21,7 +21,7 @@
             continue;
         } else if (rand <= 0.6) {
             // ゲーマーズ
-            tag = '<a href="https://px.a8.net/svt/ejp?a8mat=3HGOQT+FTRUPE+4AHY+BW0YB&a8ejpredirect=https%3A%2F%2Fwww.gamers.co.jp%2Fcorner%2Fcc%2Fgemakuji_kinmosa%2Fcd%2F652%2F" rel="nofollow"><img border="0" width="330" alt="" src="/images/ads/gamers-kiniro.jpeg"></a>'
+            tag = '<a href="https://px.a8.net/svt/ejp?a8mat=3HGOQT+FTRUPE+4AHY+BW0YB&a8ejpredirect=https%3A%2F%2Fwww.gamers.co.jp%2Fcorner%2Fcc%2Fgemakuji_kanokano%2Fcd%2F653%2F" rel="nofollow"><img border="0" width="330" alt="" src="/images/ads/gamers-kanojo.jpg"></a>'
             ad(areas[i], tag);
             continue;
         } else if (rand <= 0.8) {
