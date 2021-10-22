@@ -38,6 +38,8 @@ jobs:
       run: |
         git config --local user.email "yoshiaki@natsu.me"
         git config --local user.name "GitHub Actions"
+        git --version
+        git status
     - name: Commit files
       run: |
         git add ./static/sitemap/
