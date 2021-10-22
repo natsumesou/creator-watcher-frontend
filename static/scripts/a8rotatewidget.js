@@ -21,7 +21,7 @@
             continue;
         } else if (rand <= 0.6) {
             // ゲーマーズ
-            tag = '<a href="https://px.a8.net/svt/ejp?a8mat=3HGOQT+FTRUPE+4AHY+BW0YB&a8ejpredirect=https%3A%2F%2Fwww.gamers.co.jp%2Fcorner%2Fcc%2Flovelive_nijigasaki%2Fcd%2F336%2F" rel="nofollow"><img border="0" width="330" alt="" src="/images/ads/gamers-niji.jpeg"></a>'
+            tag = '<a href="https://px.a8.net/svt/ejp?a8mat=3HGOQT+FTRUPE+4AHY+BW0YB&a8ejpredirect=https%3A%2F%2Fwww.gamers.co.jp%2Fcorner%2Fcc%2Fgemakuji_maitetsu%2Fcd%2F639%2F" rel="nofollow"><img border="0" width="330" alt="" src="/images/ads/gamers-maitetsu.png"></a>'
             ad(areas[i], tag);
             continue;
         } else if (rand <= 0.8) {
