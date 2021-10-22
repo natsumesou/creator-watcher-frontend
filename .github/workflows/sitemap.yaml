@@ -11,6 +11,9 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@master
+    - name: check status
+      run: |
+        git status
     - name: Get New ranking.xml
       run: |
         curl "https://storage.googleapis.com/vtuber.ytubelab.com/sitemap/ranking.xml?_=`date +%s`" -o ./static/sitemap/ranking.xml
@@ -36,9 +39,9 @@ jobs:
         echo "$xml" > static/sitemap.xml
     - name: git setting
       run: |
+        git --version
         git config --local user.email "yoshiaki@natsu.me"
         git config --local user.name "GitHub Actions"
-        git --version
         git status
     - name: Commit files
       run: |
