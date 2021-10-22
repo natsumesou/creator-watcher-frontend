@@ -42,6 +42,7 @@ jobs:
         git --version
         git config --local user.email "yoshiaki@natsu.me"
         git config --local user.name "GitHub Actions"
+        git config pull.rebase false
         git status
     - name: Commit files
       run: |
