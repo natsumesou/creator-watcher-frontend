@@ -29,7 +29,9 @@
             continue;
         } else if (rand <= 0.8) {
             // U-NEXT
-            tag = '<a href="https://px.a8.net/svt/ejp?a8mat=3HGOQT+FOEY9E+3250+6PC9T" rel="nofollow"><img border="0" width="100%" max-height="90" alt="" src="https://www26.a8.net/svt/bgt?aid=210730565948&wid=001&eno=01&mid=s00000014274001126000&mc=1"></a><img border="0" width="1" height="1" src="https://www17.a8.net/0.gif?a8mat=3HGOQT+FOEY9E+3250+6PC9T" alt="">'
+            // tag = '<a href="https://px.a8.net/svt/ejp?a8mat=3HGOQT+FOEY9E+3250+6PC9T" rel="nofollow"><img border="0" width="100%" max-height="90" alt="" src="https://www26.a8.net/svt/bgt?aid=210730565948&wid=001&eno=01&mid=s00000014274001126000&mc=1"></a><img border="0" width="1" height="1" src="https://www17.a8.net/0.gif?a8mat=3HGOQT+FOEY9E+3250+6PC9T" alt="">'
+            // カードラボ nijisanji
+            tag = '<a href="https://px.a8.net/svt/ejp?a8mat=3HGOQT+FTRUPE+4AHY+BW0YB&a8ejpredirect=https%3A%2F%2Fwww.gamers.co.jp%2Fpn%2Fpd%2F10584634%2F" rel="nofollow"><img border="0" width="100%" alt="" src="/images/ads/cardlab-nijisanji.jpeg"></a>'
             ad(areas[i], tag);
             continue;
         } else {
