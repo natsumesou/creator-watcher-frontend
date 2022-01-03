@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<url><loc>https://vtuber.ytubelab.com/ranking/daily?t=20220102</loc><lastmod>2022-01-03T15:00:00.000Z</lastmod><priority>1.0</priority></url>
 <url><loc>https://vtuber.ytubelab.com/ranking/daily?t=20220101</loc><lastmod>2022-01-02T15:00:00.000Z</lastmod><priority>1.0</priority></url>
 <url><loc>https://vtuber.ytubelab.com/ranking/daily?t=20211231</loc><lastmod>2022-01-01T15:00:00.000Z</lastmod><priority>1.0</priority></url>
 <url><loc>https://vtuber.ytubelab.com/ranking/daily?t=20211230</loc><lastmod>2021-12-31T15:00:00.000Z</lastmod><priority>1.0</priority></url>
@@ -59,7 +60,7 @@
 <url><loc>https://vtuber.ytubelab.com/ranking/daily?t=20211106</loc><lastmod>2021-11-07T15:00:00.000Z</lastmod><priority>1.0</priority></url>
 <url><loc>https://vtuber.ytubelab.com/ranking/daily?t=20211105</loc><lastmod>2021-11-06T15:00:00.000Z</lastmod><priority>1.0</priority></url>
 <url><loc>https://vtuber.ytubelab.com/ranking/daily?t=20211104</loc><lastmod>2021-11-05T15:00:00.000Z</lastmod><priority>1.0</priority></url>
-<url><loc>https://vtuber.ytubelab.com/ranking/daily?t=20211103</loc><lastmod>2021-11-04T15:00:00.000Z</lastmod><priority>1.0</priority></url>
+<url><loc>https://vtuber.ytubelab.com/ranking/weekly?t=20211227</loc><lastmod>2021-12-28T15:00:00.000Z</lastmod><priority>1.0</priority></url>
 <url><loc>https://vtuber.ytubelab.com/ranking/weekly?t=20211220</loc><lastmod>2021-12-21T15:00:00.000Z</lastmod><priority>1.0</priority></url>
 <url><loc>https://vtuber.ytubelab.com/ranking/weekly?t=20211213</loc><lastmod>2021-12-14T15:00:00.000Z</lastmod><priority>1.0</priority></url>
 <url><loc>https://vtuber.ytubelab.com/ranking/weekly?t=20211206</loc><lastmod>2021-12-07T15:00:00.000Z</lastmod><priority>1.0</priority></url>
@@ -83,7 +84,6 @@
 <url><loc>https://vtuber.ytubelab.com/ranking/weekly?t=20210802</loc><lastmod>2021-08-03T15:00:00.000Z</lastmod><priority>1.0</priority></url>
 <url><loc>https://vtuber.ytubelab.com/ranking/weekly?t=20210726</loc><lastmod>2021-07-27T15:00:00.000Z</lastmod><priority>1.0</priority></url>
 <url><loc>https://vtuber.ytubelab.com/ranking/weekly?t=20210719</loc><lastmod>2021-07-20T15:00:00.000Z</lastmod><priority>1.0</priority></url>
-<url><loc>https://vtuber.ytubelab.com/ranking/weekly?t=20210712</loc><lastmod>2021-07-13T15:00:00.000Z</lastmod><priority>1.0</priority></url>
 <url><loc>https://vtuber.ytubelab.com/ranking/monthly?t=202112</loc><lastmod>2022-01-01T15:00:00.000Z</lastmod><priority>1.0</priority></url>
 <url><loc>https://vtuber.ytubelab.com/ranking/monthly?t=202111</loc><lastmod>2021-12-01T15:00:00.000Z</lastmod><priority>1.0</priority></url>
 <url><loc>https://vtuber.ytubelab.com/ranking/monthly?t=202110</loc><lastmod>2021-11-01T15:00:00.000Z</lastmod><priority>1.0</priority></url>
